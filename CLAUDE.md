@@ -20,9 +20,9 @@ DIAGO ist eine News-PWA für Berliner Amateurfußball-Fans. Inspiriert von der "
 
 ## Deployment
 - **GitHub:** `kdepuhl-cpu/diago`
-- **Live:** https://diagonista.netlify.app/
-- **Branch `main`:** Auto-Deploy bei Push
-- **Branch `feature/liga-navigation`:** Neue Features (nicht live)
+- **Netlify:** https://diagonista.netlify.app/ (aktuell disabled)
+- **Branch `main`:** Produktions-Code
+- **Branch `feature/liga-navigation`:** Neue Features (Liga-System, LiveTicker, VideoReels)
 
 ---
 
@@ -121,13 +121,21 @@ src/
 
 ## Ligen-System (`lib/leagues.ts`)
 
+**25+ Ligen, 80+ Slugs** (inkl. Staffeln)
+
 ### Kategorien
-- **Herren:** Bundesliga → 2. BL → 3. Liga → RL Nordost → OL Nord/Süd → Berlin-Liga → Landesliga → Bezirksliga → Kreisliga A/B/C
-- **Frauen:** Frauen-BL → 2. F-BL → F-RL Nordost → F-Berlin-Liga → F-Landesliga → F-Bezirksliga
+- **Herren (Tier 1-11):** Bundesliga → 2. BL → 3. Liga → RL Nordost → OL Nord/Süd → Berlin-Liga → Landesliga → Bezirksliga → Kreisliga A/B/C
+- **Frauen (Tier 1-6):** Frauen-BL → 2. F-BL → F-RL Nordost → F-Berlin-Liga → F-Landesliga → F-Bezirksliga
 - **Pokal:** DFB-Pokal, DFB-Pokal Frauen, Berliner Pilsner-Pokal, Polytan-Pokal
 
 ### Staffeln
 Ligen mit mehreren Staffeln (Landesliga, Bezirksliga, Kreisliga) haben Tabs zur Auswahl.
+
+### Liga-Seiten (`/liga/[slug]`)
+- Breadcrumbs Navigation
+- Tier-Badge (1.-11. Liga), Region-Badge, Kategorie-Badge
+- Staffel-Tabs bei Ligen mit Staffeln
+- Tabelle + LeagueResults Widget
 
 ### Helper-Funktionen
 - `getLeaguesByCategory(category)` – Ligen nach Kategorie
@@ -178,19 +186,25 @@ Ligen mit mehreren Staffeln (Landesliga, Bezirksliga, Kreisliga) haben Tabs zur 
 - [x] Skeleton Loading States
 - [x] Mobile Menu (Accordion)
 
-### Geplant 📋
+### Nächste Schritte 🚀
 
-**Phase 3: User & Personalisierung**
+**Als Nächstes: Job-Plattform**
+- [ ] Job-Listings für Berliner Fußball (Trainer, Spieler, Ehrenamt)
+- [ ] Job-Detail-Seiten
+- [ ] Verein-Profile
+
+**Danach: API-Anbindung + Developer Dashboard**
+- [ ] Echte Tabellen-API
+- [ ] Echte Ergebnis-API
+- [ ] Live-Ticker mit WebSocket
+- [ ] Admin/Developer Dashboard
+
+**Später: User & Personalisierung**
 - [ ] User-Login / Profile
 - [ ] "Mein Verein" Personalisierung
 - [ ] Leaderboard (Top-Leser)
 - [ ] Streaks (Tägliches Lesen)
 - [ ] Push-Notifications
-
-**Phase 4: Live-Daten**
-- [ ] Echte Tabellen-API
-- [ ] Echte Ergebnis-API
-- [ ] Live-Ticker mit WebSocket
 - [ ] Kommentar-System
 
 ---
