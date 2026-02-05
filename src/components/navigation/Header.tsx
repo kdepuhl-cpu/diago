@@ -1,32 +1,42 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "@/hooks/useTheme";
 import SearchOverlay from "@/components/ui/SearchOverlay";
+import {
+  getLeaguesByCategory,
+  hasStaffeln,
+  LeagueCategory,
+  League,
+} from "@/lib/leagues";
 
-const ligen = [
-  { name: "Bundesliga", slug: "bundesliga", short: "Bundesliga" },
-  { name: "Frauen-BL", slug: "frauen-bundesliga", short: "Frauen-BL" },
-  { name: "2. BL", slug: "2-bundesliga", short: "2. BL" },
-  { name: "3. Liga", slug: "3-liga", short: "3. Liga" },
-  { name: "Regionalliga", slug: "regionalliga", short: "Regionalliga" },
-  { name: "Oberliga", slug: "oberliga", short: "Oberliga" },
-  { name: "Berlin", slug: "berlin-liga", short: "Berlin" },
+const categories: { id: LeagueCategory; label: string }[] = [
+  { id: "herren", label: "Herren" },
+  { id: "frauen", label: "Frauen" },
+  { id: "pokal", label: "Pokal" },
 ];
 
-const moreLigen = [
-  { name: "DFB-Pokal", slug: "dfb-pokal" },
-  { name: "DFB-Pokal Frauen", slug: "dfb-pokal-frauen" },
-];
+// Chevron icon component
+function ChevronIcon({ className = "w-3 h-3" }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+    </svg>
+  );
+}
 
 export default function Header() {
-  const [moreOpen, setMoreOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [hoveredLiga, setHoveredLiga] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<LeagueCategory | null>(null);
+  const [expandedLeague, setExpandedLeague] = useState<string | null>(null);
+  const [mobileExpandedCategory, setMobileExpandedCategory] = useState<LeagueCategory | null>(null);
+  const [mobileExpandedLeague, setMobileExpandedLeague] = useState<string | null>(null);
   const { theme, toggleTheme, mounted } = useTheme();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Keyboard shortcut for search (Cmd+K)
   useEffect(() => {
@@ -40,6 +50,18 @@ export default function Header() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setActiveCategory(null);
+        setExpandedLeague(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   // Prevent body scroll when menu is open
   useEffect(() => {
     if (menuOpen) {
@@ -51,6 +73,89 @@ export default function Header() {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  const handleCategoryEnter = (category: LeagueCategory) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setActiveCategory(category);
+    setExpandedLeague(null);
+  };
+
+  const handleCategoryLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setActiveCategory(null);
+      setExpandedLeague(null);
+    }, 150);
+  };
+
+  const handleDropdownEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
+
+  const handleDropdownLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setActiveCategory(null);
+      setExpandedLeague(null);
+    }, 150);
+  };
+
+  const renderLeagueItem = (league: League, onClose: () => void) => {
+    const hasSubItems = hasStaffeln(league);
+
+    if (hasSubItems) {
+      return (
+        <div
+          key={league.id}
+          className="relative"
+          onMouseEnter={() => setExpandedLeague(league.id)}
+          onMouseLeave={() => setExpandedLeague(null)}
+        >
+          <div className="flex items-center justify-between px-4 py-2.5 text-sm text-gray-300 hover:bg-white/10 hover:text-white cursor-pointer">
+            <span>{league.name}</span>
+            <ChevronIcon className="w-3 h-3 text-gray-500" />
+          </div>
+
+          {/* Staffel Submenu */}
+          {expandedLeague === league.id && league.staffeln && (
+            <div className="absolute left-full top-0 ml-1 bg-off-black border border-gray-700 rounded-md shadow-lg py-2 min-w-[180px] z-50">
+              {/* Link to main league page */}
+              <Link
+                href={`/liga/${league.slug}`}
+                className="block px-4 py-2.5 text-sm text-gray-300 hover:bg-white/10 hover:text-white border-b border-gray-700 mb-1"
+                onClick={onClose}
+              >
+                Übersicht
+              </Link>
+              {league.staffeln.map((staffel) => (
+                <Link
+                  key={staffel.id}
+                  href={`/liga/${staffel.slug}`}
+                  className="block px-4 py-2.5 text-sm text-gray-300 hover:bg-white/10 hover:text-white"
+                  onClick={onClose}
+                >
+                  {staffel.name}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    return (
+      <Link
+        key={league.id}
+        href={`/liga/${league.slug}`}
+        className="block px-4 py-2.5 text-sm text-gray-300 hover:bg-white/10 hover:text-white"
+        onClick={onClose}
+      >
+        {league.name}
+      </Link>
+    );
+  };
 
   return (
     <>
@@ -82,52 +187,53 @@ export default function Header() {
             {/* Divider */}
             <div className="h-6 w-px bg-gray-600 mx-5 hidden md:block" />
 
-            {/* Liga Navigation */}
-            <nav className="hidden md:flex items-stretch gap-1 flex-1">
-              {ligen.map((liga) => (
-                <Link
-                  key={liga.slug}
-                  href={`/liga/${liga.slug}`}
-                  className={`px-3 flex items-center text-sm font-medium transition-colors relative
-                    ${hoveredLiga === liga.slug
-                      ? "bg-white/10 text-white"
-                      : "text-gray-300 hover:bg-white/10 hover:text-white"
-                    }`}
-                  onMouseEnter={() => setHoveredLiga(liga.slug)}
-                  onMouseLeave={() => setHoveredLiga(null)}
+            {/* Category Tabs with Dropdowns */}
+            <nav className="hidden md:flex items-stretch gap-1 flex-1" ref={dropdownRef}>
+              {categories.map((cat) => (
+                <div
+                  key={cat.id}
+                  className="relative"
+                  onMouseEnter={() => handleCategoryEnter(cat.id)}
+                  onMouseLeave={handleCategoryLeave}
                 >
-                  {liga.short}
-                  {hoveredLiga === liga.slug && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-white" />
+                  <button
+                    className={`px-4 py-3 flex items-center gap-1.5 text-sm font-medium transition-colors relative h-full
+                      ${activeCategory === cat.id
+                        ? "bg-white/10 text-white"
+                        : "text-gray-300 hover:bg-white/10 hover:text-white"
+                      }`}
+                  >
+                    {cat.label}
+                    <svg
+                      className={`w-3 h-3 transition-transform ${activeCategory === cat.id ? "rotate-180" : ""}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                    {activeCategory === cat.id && (
+                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-electric-orange" />
+                    )}
+                  </button>
+
+                  {/* Dropdown */}
+                  {activeCategory === cat.id && (
+                    <div
+                      className="absolute top-full left-0 mt-0 bg-off-black border border-gray-700 rounded-b-md shadow-lg py-2 min-w-[220px] z-50"
+                      onMouseEnter={handleDropdownEnter}
+                      onMouseLeave={handleDropdownLeave}
+                    >
+                      {getLeaguesByCategory(cat.id).map((league) =>
+                        renderLeagueItem(league, () => {
+                          setActiveCategory(null);
+                          setExpandedLeague(null);
+                        })
+                      )}
+                    </div>
                   )}
-                </Link>
+                </div>
               ))}
-
-              {/* More Button */}
-              <div className="relative">
-                <button
-                  onClick={() => setMoreOpen(!moreOpen)}
-                  className={`px-3 flex items-center text-sm transition-colors h-full
-                    ${moreOpen ? "bg-white/10 text-white" : "text-gray-300 hover:bg-white/10 hover:text-white"}`}
-                >
-                  •••
-                </button>
-
-                {moreOpen && (
-                  <div className="absolute top-full right-0 mt-1 bg-off-black border border-gray-700 rounded-md shadow-lg py-2 min-w-[160px] z-50">
-                    {moreLigen.map((liga) => (
-                      <Link
-                        key={liga.slug}
-                        href={`/liga/${liga.slug}`}
-                        className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/10 hover:text-white"
-                        onClick={() => setMoreOpen(false)}
-                      >
-                        {liga.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
             </nav>
 
             {/* Right side actions */}
@@ -202,22 +308,94 @@ export default function Header() {
             </div>
 
             <div className="p-4 overflow-y-auto h-[calc(100%-65px)]">
-              <p className="text-xs text-gray-500 uppercase tracking-wider mb-4 font-semibold">
-                Ligen
-              </p>
-              <nav className="space-y-1">
-                {[...ligen, ...moreLigen].map((liga) => (
-                  <Link
-                    key={liga.slug}
-                    href={`/liga/${liga.slug}`}
-                    className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/10 hover:text-white rounded-lg transition-colors"
-                    onClick={() => setMenuOpen(false)}
+              {/* Category Accordions */}
+              {categories.map((cat) => (
+                <div key={cat.id} className="mb-4">
+                  <button
+                    onClick={() => setMobileExpandedCategory(
+                      mobileExpandedCategory === cat.id ? null : cat.id
+                    )}
+                    className="flex items-center justify-between w-full px-4 py-3 text-sm font-semibold text-white uppercase tracking-wider bg-gray-800/50 rounded-lg"
                   >
-                    <span className="w-2 h-2 bg-electric-orange rounded-full" />
-                    {liga.name}
-                  </Link>
-                ))}
-              </nav>
+                    {cat.label}
+                    <svg
+                      className={`w-4 h-4 transition-transform ${
+                        mobileExpandedCategory === cat.id ? "rotate-180" : ""
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  {mobileExpandedCategory === cat.id && (
+                    <nav className="mt-2 space-y-1">
+                      {getLeaguesByCategory(cat.id).map((league) => {
+                        const hasSubItems = hasStaffeln(league);
+
+                        if (hasSubItems) {
+                          return (
+                            <div key={league.id}>
+                              <button
+                                onClick={() => setMobileExpandedLeague(
+                                  mobileExpandedLeague === league.id ? null : league.id
+                                )}
+                                className="flex items-center justify-between w-full px-4 py-2.5 text-gray-300 hover:bg-white/10 hover:text-white rounded-lg transition-colors"
+                              >
+                                <span className="flex items-center gap-3">
+                                  <span className="w-1.5 h-1.5 bg-electric-orange rounded-full" />
+                                  {league.name}
+                                </span>
+                                <ChevronIcon
+                                  className={`w-3 h-3 transition-transform ${
+                                    mobileExpandedLeague === league.id ? "rotate-90" : ""
+                                  }`}
+                                />
+                              </button>
+
+                              {mobileExpandedLeague === league.id && league.staffeln && (
+                                <div className="ml-6 mt-1 space-y-1 border-l border-gray-700 pl-4">
+                                  <Link
+                                    href={`/liga/${league.slug}`}
+                                    className="block py-2 text-sm text-gray-400 hover:text-white transition-colors"
+                                    onClick={() => setMenuOpen(false)}
+                                  >
+                                    Übersicht
+                                  </Link>
+                                  {league.staffeln.map((staffel) => (
+                                    <Link
+                                      key={staffel.id}
+                                      href={`/liga/${staffel.slug}`}
+                                      className="block py-2 text-sm text-gray-400 hover:text-white transition-colors"
+                                      onClick={() => setMenuOpen(false)}
+                                    >
+                                      {staffel.name}
+                                    </Link>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <Link
+                            key={league.id}
+                            href={`/liga/${league.slug}`}
+                            className="flex items-center gap-3 px-4 py-2.5 text-gray-300 hover:bg-white/10 hover:text-white rounded-lg transition-colors"
+                            onClick={() => setMenuOpen(false)}
+                          >
+                            <span className="w-1.5 h-1.5 bg-electric-orange rounded-full" />
+                            {league.name}
+                          </Link>
+                        );
+                      })}
+                    </nav>
+                  )}
+                </div>
+              ))}
 
               <div className="my-6 border-t border-gray-800" />
 
@@ -234,6 +412,16 @@ export default function Header() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
                   Startseite
+                </Link>
+                <Link
+                  href="/gespeichert"
+                  className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/10 hover:text-white rounded-lg transition-colors"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                  </svg>
+                  Gespeichert
                 </Link>
                 <button
                   onClick={() => {
