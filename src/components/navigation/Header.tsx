@@ -39,19 +39,19 @@ export default function Header() {
             </svg>
           </button>
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center mr-6">
+          {/* Logo - Word Mark like The Athletic */}
+          <Link href="/" className="flex items-center">
             <Image
-              src="/icons/diago_logo_rgb_white_icon.svg"
+              src="/icons/diago_logo_rgb_white.svg"
               alt="DIAGO"
-              width={80}
-              height={24}
-              className="h-6 w-auto"
+              width={100}
+              height={28}
+              className="h-7 w-auto"
             />
           </Link>
 
           {/* Divider */}
-          <div className="h-6 w-px bg-gray-600 mr-6 hidden md:block" />
+          <div className="h-6 w-px bg-gray-600 mx-5 hidden md:block" />
 
           {/* Liga Navigation */}
           <nav className="hidden md:flex items-stretch gap-1 flex-1">
