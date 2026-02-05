@@ -77,7 +77,7 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
               <NewBadge date={hero.datum} />
             </div>
             <h3 className={`font-headline text-2xl lg:text-3xl group-hover:text-forest-green transition-colors flex items-center gap-2 ${
-              heroIsRead ? "text-gray-400 dark:text-gray-500" : "text-off-black dark:text-white"
+              heroIsRead ? "text-gray-500 dark:text-gray-400" : "text-off-black dark:text-white"
             }`}>
               <span>{hero.titel}</span>
               {heroIsRead && <ReadBadge className="w-6 h-6 flex-shrink-0" />}
@@ -125,7 +125,7 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
                     <NewBadge date={artikel.datum} className="mb-1" />
                     {/* Headline */}
                     <h4 className={`text-base font-semibold leading-snug group-hover:text-forest-green transition-colors flex items-center gap-1.5 ${
-                      artikelIsRead ? "text-gray-400 dark:text-gray-500" : "text-off-black dark:text-white"
+                      artikelIsRead ? "text-gray-500 dark:text-gray-400" : "text-off-black dark:text-white"
                     }`}>
                       <span className="line-clamp-3">{artikel.titel}</span>
                       {artikelIsRead && <ReadBadge className="w-4 h-4 flex-shrink-0" />}

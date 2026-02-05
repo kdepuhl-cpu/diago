@@ -54,7 +54,7 @@ export default function MostPopular({ articles }: MostPopularProps) {
                 <div className="flex-1 min-w-0">
                   {/* Liga Dachzeile */}
                   {liga && (
-                    <span className="text-xs font-semibold uppercase tracking-wider text-electric-orange">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-electric-orange dark:text-orange-400">
                       {liga.name}
                     </span>
                   )}
@@ -63,7 +63,7 @@ export default function MostPopular({ articles }: MostPopularProps) {
                   <h3
                     className={`font-semibold leading-snug mt-1 transition-colors flex items-center gap-1.5 ${
                       articleIsRead
-                        ? "text-gray-400 dark:text-gray-500 group-hover:text-forest-green"
+                        ? "text-gray-500 dark:text-gray-400 group-hover:text-forest-green"
                         : "text-off-black dark:text-white group-hover:text-forest-green"
                     }`}
                   >
