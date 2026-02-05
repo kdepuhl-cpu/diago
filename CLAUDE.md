@@ -5,7 +5,7 @@ DIAGO ist eine News-PWA für Berliner Amateurfußball-Fans. Inspiriert von der "
 
 **Ziel:** Lokale Fußball-News aus verschiedenen Ligen an einem Ort – von Bundesliga bis Kreisliga.
 
-**Design-Vorbild:** The Athletic (ab jetzt der Maßstab!)
+**Design-Vorbild:** The Athletic
 
 ---
 
@@ -13,8 +13,16 @@ DIAGO ist eine News-PWA für Berliner Amateurfußball-Fans. Inspiriert von der "
 - **Framework:** Next.js 14+ (App Router)
 - **Styling:** Tailwind CSS
 - **Sprache:** TypeScript
-- **PWA:** next-pwa (später)
-- **Deployment:** Vercel (geplant)
+- **PWA:** Manifest + Install Prompt
+- **Deployment:** Netlify (Static Export)
+
+---
+
+## Deployment
+- **GitHub:** `kdepuhl-cpu/diago`
+- **Live:** https://diagonista.netlify.app/
+- **Branch `main`:** Auto-Deploy bei Push
+- **Branch `feature/liga-navigation`:** Neue Features (nicht live)
 
 ---
 
@@ -23,15 +31,20 @@ DIAGO ist eine News-PWA für Berliner Amateurfußball-Fans. Inspiriert von der "
 ### Farben
 | Name | Hex | Verwendung |
 |------|-----|------------|
-| Forest Green | `#044110` | Primary, Header (alt), aktive Tabs |
-| Electric Orange | `#FC401D` | Akzente, Dachzeilen, CTAs, Reading Progress Bar |
+| Forest Green | `#044110` | Primary, aktive Tabs, Buttons |
+| Electric Orange | `#FC401D` | Akzente, Dachzeilen, CTAs, Progress Bar |
 | Mint Green | `#D0FDDA` | Subtle Backgrounds, Hover |
-| Off White | `#FAFAFA` | Page Background |
+| Off White | `#FAFAFA` | Page Background (Light Mode) |
 | Off Black | `#1F1F1F` | Header, Text, Footer |
 
+### Dark Mode
+- Aktiviert via `darkMode: "class"` in Tailwind
+- Toggle im Header (Sonne/Mond Icon)
+- Speicherung in localStorage + System-Präferenz
+
 ### Typografie
-| Verwendung | Font | Datei |
-|------------|------|-------|
+| Verwendung | Font | Quelle |
+|------------|------|--------|
 | Headlines | Manuka Bold | `public/fonts/manuka-bold.woff2` |
 | Subheadings | Manrope Bold | Google Fonts |
 | Body | Manrope Regular | Google Fonts |
@@ -42,46 +55,13 @@ public/
 ├── fonts/
 │   ├── Manuka-Bold.otf
 │   └── manuka-bold.woff2
-└── icons/
-    ├── diago_logo_rgb_forest-green.svg (Wortmarke)
-    ├── diago_logo_rgb_forest-green_icon.svg (Icon)
-    ├── diago_logo_rgb_black.svg
-    ├── diago_logo_rgb_black_icon.svg
-    └── diago_logo_rgb_white_icon.svg
+├── icons/
+│   ├── diago_logo_rgb_white.svg (Header)
+│   ├── diago_logo_rgb_forest-green.svg
+│   ├── diago_logo_rgb_forest-green_icon.svg
+│   └── ...
+└── manifest.json (PWA)
 ```
-
----
-
-## Design-Referenz: The Athletic
-
-### Header (Dark, Athletic-Style)
-- Schwarzer Header (`bg-off-black`)
-- Burger-Menu links
-- Logo daneben
-- Ligen horizontal mit Hover-States (`border-b-2` bei Hover)
-- "•••" für mehr Ligen (Dropdown)
-- Ligen-Abkürzungen: Bundesliga, Frauen-BL, 2. BL, 3. Liga, Regionalliga, Oberliga, Berlin
-
-### Startseite Layout (Hero + Sidebar)
-- Section pro Liga (Bundesliga, 2. Bundesliga, etc.)
-- Hero-Artikel links (2 Spalten): großes Bild (16:9), Headline, Teaser, Autor
-- Sidebar rechts (1 Spalte): 4 Artikel mit Thumbnails (150x100), Headlines, Autor
-- Vertikale Border zwischen Hero und Sidebar
-- Horizontale Border zwischen Sections
-- Thumbnails und Sidebar-Content bündig mit Hero-Content abschließend
-
-### Artikel-Detailseite (Athletic-Style)
-- Hero-Bild fullwidth (70vh)
-- Bildunterschrift zentriert + Fotograf-Credit
-- Dachzeile (uppercase, zentriert)
-- Headline (Manuka, sehr groß, zentriert)
-- Autor-Bereich (Profilbild + Name + Datum)
-- Action-Buttons (Share, Kommentare, Save)
-- Artikel-Body (max-w-2xl, ~680px)
-- Zwischenbilder (fullwidth)
-- Autor-Box am Ende
-- Tags
-- "Your Next Read" Section
 
 ---
 
@@ -89,77 +69,128 @@ public/
 ```
 src/
 ├── app/
-│   ├── layout.tsx
-│   ├── page.tsx (Startseite)
-│   ├── liga/[slug]/page.tsx
-│   └── artikel/[slug]/page.tsx
+│   ├── layout.tsx (ToastProvider, PWAInstallPrompt)
+│   ├── page.tsx (Startseite mit LiveTicker, VideoReels)
+│   ├── liga/[slug]/page.tsx (Liga-Seiten mit Tabelle)
+│   ├── artikel/[slug]/page.tsx (Artikel-Detail)
+│   ├── gespeichert/page.tsx (Bookmarks)
+│   ├── offline/page.tsx (PWA Offline)
+│   └── tag/[slug]/page.tsx (Tag-Seiten)
 ├── components/
-│   ├── layout/
-│   │   ├── Header.tsx (Dark, Athletic-Style)
-│   │   ├── Footer.tsx
-│   │   └── MobileMenu.tsx
+│   ├── navigation/
+│   │   ├── Header.tsx (Herren|Frauen|Pokal Dropdowns)
+│   │   └── Footer.tsx (Kurzpass Newsletter)
 │   ├── artikel/
 │   │   ├── HeroSection.tsx (Hero + Sidebar Grid)
+│   │   ├── MostPopular.tsx (Meistgelesen)
 │   │   ├── ReadingProgressBar.tsx
-│   │   └── GelesenButton.tsx
+│   │   └── MarkAsReadButton.tsx
+│   ├── LiveTicker.tsx (Ergebnis-Widget)
+│   ├── LeagueResults.tsx (Spieltag-Ansicht)
+│   ├── VideoReels.tsx (Video-Karussell)
+│   ├── VideoModal.tsx (Video-Player Modal)
 │   └── ui/
-│       ├── Badge.tsx
-│       └── Button.tsx
+│       ├── Toast.tsx (ToastProvider)
+│       ├── SearchOverlay.tsx (Cmd+K)
+│       ├── BookmarkButton.tsx
+│       ├── ShareButton.tsx
+│       ├── NewBadge.tsx ("Neu" für <24h)
+│       ├── PWAInstallPrompt.tsx
+│       ├── ScrollToTop.tsx
+│       ├── ReadingStats.tsx
+│       ├── CategoryFilter.tsx
+│       └── Skeleton.tsx
+├── hooks/
+│   ├── useReadArticles.ts (localStorage)
+│   ├── useBookmarks.ts (localStorage)
+│   ├── useTheme.ts (Dark Mode)
+│   └── useKeyboardNavigation.ts (j/k)
 ├── lib/
-│   ├── types.ts
-│   ├── data.ts (Artikel-Daten mit Unsplash-Bildern)
+│   ├── types.ts (Artikel, Liga, etc.)
+│   ├── data.ts (Artikel-Daten)
+│   ├── leagues.ts (25+ Ligen mit Staffeln)
 │   ├── gamification.ts (Punkte-System)
-│   └── utils.ts
+│   └── mock/
+│       ├── matches.ts (Ergebnis-Daten)
+│       └── videos.ts (Video-Daten)
 └── styles/
     └── globals.css
 ```
 
 ---
 
-## Ligen (MVP Scope)
-1. **Bundesliga** (`bundesliga`)
-2. **Frauen-Bundesliga** (`frauen-bundesliga`)
-3. **2. Bundesliga** (`2-bundesliga`)
-4. **3. Liga** (`3-liga`)
-5. **Regionalliga Nordost** (`regionalliga`)
-6. **Oberliga NOFV Nord** (`oberliga`)
-7. **Berlin-Liga** (`berlin-liga`)
-8. **DFB-Pokal** (`dfb-pokal`) – im "•••" Dropdown
+## Ligen-System (`lib/leagues.ts`)
+
+### Kategorien
+- **Herren:** Bundesliga → 2. BL → 3. Liga → RL Nordost → OL Nord/Süd → Berlin-Liga → Landesliga → Bezirksliga → Kreisliga A/B/C
+- **Frauen:** Frauen-BL → 2. F-BL → F-RL Nordost → F-Berlin-Liga → F-Landesliga → F-Bezirksliga
+- **Pokal:** DFB-Pokal, DFB-Pokal Frauen, Berliner Pilsner-Pokal, Polytan-Pokal
+
+### Staffeln
+Ligen mit mehreren Staffeln (Landesliga, Bezirksliga, Kreisliga) haben Tabs zur Auswahl.
+
+### Helper-Funktionen
+- `getLeaguesByCategory(category)` – Ligen nach Kategorie
+- `getLeagueBySlug(slug)` – Liga per Slug finden
+- `getStaffelBySlug(slug)` – Staffel per Slug finden
+- `getAllLeagueSlugs()` – Alle Slugs für Static Params
 
 ---
 
-## Feature-Roadmap
+## Features
 
-### Phase 1: MVP ✅
-- [x] Projekt-Setup (Next.js + Tailwind)
-- [x] Design-System konfiguriert
-- [x] Artikel-Datenmodell
-- [x] Header (Dark, Athletic-Style)
-- [x] Startseite: Hero + Sidebar Layout
-- [x] Footer
-- [x] Artikel-Detailseite
+### Implementiert ✅
+
+**Core:**
+- [x] Startseite mit Hero + Sidebar Layout
+- [x] Artikel-Detailseite (Athletic-Style)
 - [x] Reading Progress Bar
-- [x] Gamification: Punkte-System + "Gelesen"-Button
+- [x] Liga-Seiten mit Tabelle & Spielplan
+- [x] Liga-Navigation (Herren|Frauen|Pokal Dropdowns)
 
-### Phase 2: Content & Navigation
-- [ ] Liga-Unterseiten (`/liga/bundesliga`)
-- [ ] Liga-Subnavigation (Home, Ergebnisse, Tabelle, Spieltag)
-- [ ] Vereins-Logos im Liga-Dropdown
-- [ ] "Most Popular" Section
-- [ ] Mobile Ansicht optimieren
+**Engagement:**
+- [x] Gelesen-Tracking (localStorage)
+- [x] Gelesen-Badge (Haken nach Titel)
+- [x] Gamification (Punkte & Level)
+- [x] Meistgelesen-Sektion
+- [x] Neu-Badge (<24h Artikel)
 
-### Phase 3: Engagement & User
+**User Features:**
+- [x] Dark Mode (Toggle + System-Präferenz)
+- [x] Bookmarks (Speichern + /gespeichert Seite)
+- [x] Suche (Cmd+K Overlay)
+- [x] Share Button (Native + Clipboard Fallback)
+- [x] Keyboard Navigation (j/k für Artikel)
+
+**Media:**
+- [x] Live-Ticker (horizontal scrollbar)
+- [x] Video-Reels Karussell (9:16)
+- [x] Video-Modal mit Keyboard-Nav
+
+**PWA:**
+- [x] Manifest.json
+- [x] Install Prompt
+- [x] Offline-Seite
+
+**UI:**
+- [x] Toast-Benachrichtigungen
+- [x] Scroll-to-Top Button
+- [x] Skeleton Loading States
+- [x] Mobile Menu (Accordion)
+
+### Geplant 📋
+
+**Phase 3: User & Personalisierung**
 - [ ] User-Login / Profile
 - [ ] "Mein Verein" Personalisierung
 - [ ] Leaderboard (Top-Leser)
 - [ ] Streaks (Tägliches Lesen)
 - [ ] Push-Notifications
-- [ ] PWA (installierbar)
 
-### Phase 4: Erweiterungen
-- [ ] Short-Video Section
-- [ ] Live-Ticker
-- [ ] Tabellen & Ergebnisse
+**Phase 4: Live-Daten**
+- [ ] Echte Tabellen-API
+- [ ] Echte Ergebnis-API
+- [ ] Live-Ticker mit WebSocket
 - [ ] Kommentar-System
 
 ---
@@ -179,9 +210,7 @@ src/
 | 5 | 501+ | Bundesliga-Legende |
 
 ### Speicherung
-- Aktuell: localStorage
-- Später: User-Account/Database
-- Schema: `{ points: number, readArticles: string[], level: string }`
+- localStorage: `diago-user-progress`, `diago-read-articles`, `diago-bookmarks`
 
 ---
 
@@ -199,33 +228,31 @@ src/
 
 ### Styling
 - Tailwind CSS Utility Classes
+- Dark Mode: immer `dark:` Varianten hinzufügen
 - Keine separaten CSS-Dateien außer globals.css
-- Design-Tokens aus Tailwind Config nutzen
 
 ### Git
 - Kleine, fokussierte Commits
 - Commit-Messages auf Deutsch
-- Format: `feat: Artikel-Liste hinzugefügt`
+- Format: `feat:`, `fix:`, `chore:`
+- Feature-Branches für größere Changes
 
 ---
 
-## Wichtige Design-Entscheidungen
-1. **The Athletic als Maßstab** – Layout, Proportionen, Abstände
-2. **Dark Header** – Schwarzer Header mit weißem Logo
-3. **Hero + Sidebar Grid** – 2:1 Aufteilung, bündig abschließend
-4. **Große Sidebar-Thumbnails** – 150x100px, prominent
-5. **Reading Progress Bar** – Electric Orange, oben fixiert
-6. **Gamification** – Punkte-System für Engagement
+## Mock-Daten
+
+### Berliner Vereine (`lib/mock/matches.ts`)
+BAK, Tennis Borussia, Türkiyemspor, VSG Altglienicke, BFC Dynamo, Hertha Zehlendorf, Viktoria Berlin, Croatia Berlin, SC Staaken, Füchse Berlin Reinickendorf, Sparta Lichtenberg, Stern 1900
+
+### Video-Plattformen (`lib/mock/videos.ts`)
+Instagram Reels, TikTok, YouTube Shorts
 
 ---
 
-## Placeholder-Bilder (Unsplash)
-```
-https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800 (Stadion)
-https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800 (Action)
-https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=800 (Spieler)
-https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=800 (Fans)
-```
+## Bekannte Issues
+- [ ] PWA braucht noch PNG Icons (192x192, 512x512)
+- [ ] Dark Mode Kontrast teilweise noch nicht optimal
+- [ ] Nur SVG Icons vorhanden
 
 ---
 
