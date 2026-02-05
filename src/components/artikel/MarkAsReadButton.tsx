@@ -4,11 +4,9 @@ import { useState, useEffect } from "react";
 import {
   markArticleAsRead,
   isArticleRead,
-  getUserProgress,
   getLevelForPoints,
   getProgressToNextLevel,
   getNextLevel,
-  LEVELS,
 } from "@/lib/gamification";
 
 interface MarkAsReadButtonProps {

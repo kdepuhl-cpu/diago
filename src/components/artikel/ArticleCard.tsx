@@ -1,4 +1,4 @@
-import { Artikel } from "@/lib/types";
+import { Artikel, LIGEN } from "@/lib/types";
 import { formatDate } from "@/lib/data";
 import LeagueBadge from "@/components/liga/LeagueBadge";
 
@@ -11,14 +11,16 @@ export default function ArticleCard({ article }: ArticleCardProps) {
     <article className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer border border-gray-100">
       {article.bild && (
         <img
-          src={article.bild}
-          alt={article.titel}
+          src={article.bild.url}
+          alt={article.bild.alt}
           className="w-full h-48 object-cover"
         />
       )}
       <div className="p-4">
         <div className="flex items-center gap-2 mb-3">
-          <LeagueBadge liga={article.liga} />
+          {LIGEN.find(l => l.id === article.ligaId) && (
+            <LeagueBadge liga={LIGEN.find(l => l.id === article.ligaId)!} />
+          )}
           <span className="text-off-black/50 text-xs">
             {formatDate(article.datum)}
           </span>

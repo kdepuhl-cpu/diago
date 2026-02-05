@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Artikel, KATEGORIE_LABELS } from "@/lib/types";
+import { Artikel } from "@/lib/types";
 
 interface HeroSectionProps {
   hero: Artikel;

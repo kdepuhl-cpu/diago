@@ -5,7 +5,7 @@ import Header from "@/components/navigation/Header";
 import Footer from "@/components/navigation/Footer";
 import ReadingProgressBar from "@/components/artikel/ReadingProgressBar";
 import MarkAsReadButton from "@/components/artikel/MarkAsReadButton";
-import { artikel, getArtikelBySlug, formatDate, getLigaById } from "@/lib/data";
+import { artikel, getArtikelBySlug, formatDate } from "@/lib/data";
 import { KATEGORIE_LABELS } from "@/lib/types";
 
 // Icons
@@ -54,8 +54,6 @@ export default async function ArtikelPage({ params }: PageProps) {
   if (!article) {
     notFound();
   }
-
-  const liga = getLigaById(article.ligaId);
 
   // Get related articles (same liga, excluding current)
   const relatedArticles = artikel
@@ -164,10 +162,10 @@ export default async function ArtikelPage({ params }: PageProps) {
 
           <p>
             Die Defensive stand sicher, das Mittelfeld kontrollierte das Spiel mit
-            beeindruckender Souveränität. „Wir haben genau das umgesetzt, was wir uns
-            vorgenommen hatten", erklärte der Trainer nach dem Spiel. „Die Jungs haben
+            beeindruckender Souveränität. &ldquo;Wir haben genau das umgesetzt, was wir uns
+            vorgenommen hatten&rdquo;, erklärte der Trainer nach dem Spiel. &ldquo;Die Jungs haben
             von der ersten bis zur letzten Minute gezeigt, dass sie bereit sind für die
-            großen Aufgaben." Seine Worte hallten durch die Mixed Zone, während draußen
+            großen Aufgaben.&rdquo; Seine Worte hallten durch die Mixed Zone, während draußen
             die Fans noch immer feierten.
           </p>
 
@@ -181,7 +179,7 @@ export default async function ArtikelPage({ params }: PageProps) {
 
           <p>
             Zur Halbzeit führte das Heimteam verdient. In der Kabine schwor der Kapitän
-            seine Mitspieler ein: „45 Minuten noch, dann haben wir es geschafft." Die
+            seine Mitspieler ein: &ldquo;45 Minuten noch, dann haben wir es geschafft.&rdquo; Die
             Ansprache zeigte Wirkung. Nach dem Seitenwechsel drückten die Gäste zwar auf
             den Ausgleich, doch die Abwehrreihe hielt stand. Jeder Zweikampf wurde
             angenommen, jeder Ball mit letztem Einsatz verteidigt.
@@ -191,8 +189,8 @@ export default async function ArtikelPage({ params }: PageProps) {
             Die taktische Umstellung des Trainers erwies sich als Geniestreich. Mit einer
             Fünferkette und zwei schnellen Außenbahnspieler wurden die Räume eng gemacht.
             Der gegnerische Spielaufbau lief ins Leere, immer wieder prallten die Angriffe
-            an der kompakten Formation ab. „Wir haben heute gezeigt, dass wir auch defensiv
-            auf höchstem Niveau agieren können", lobte der Co-Trainer später.
+            an der kompakten Formation ab. &ldquo;Wir haben heute gezeigt, dass wir auch defensiv
+            auf höchstem Niveau agieren können&rdquo;, lobte der Co-Trainer später.
           </p>
         </article>
 
@@ -220,7 +218,7 @@ export default async function ArtikelPage({ params }: PageProps) {
             In der 78. Minute dann die Entscheidung: Ein Konter wie aus dem Lehrbuch,
             abgeschlossen vom eingewechselten Youngster, der damit sein erstes Profitor
             erzielte. Die Fans feierten ihn frenetisch. Mit gerade einmal 18 Jahren steht
-            er nun in den Geschichtsbüchern des Vereins. „Das ist ein Traum", sagte er
+            er nun in den Geschichtsbüchern des Vereins. &ldquo;Das ist ein Traum&rdquo;, sagte er
             mit Tränen in den Augen nach dem Abpfiff.
           </p>
 
@@ -234,7 +232,7 @@ export default async function ArtikelPage({ params }: PageProps) {
 
           <p>
             Mit diesem Sieg schiebt sich das Team auf Platz drei der Tabelle vor. Nur noch
-            zwei Punkte trennen sie vom Tabellenführer. „Wir schauen von Spiel zu Spiel",
+            zwei Punkte trennen sie vom Tabellenführer. &ldquo;Wir schauen von Spiel zu Spiel&rdquo;,
             betont der Kapitän bescheiden, doch die Ambitionen sind unverkennbar. Die
             Mannschaft hat Blut geleckt und will jetzt den ganz großen Wurf.
           </p>

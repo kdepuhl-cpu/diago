@@ -1,4 +1,4 @@
-import { Artikel, KATEGORIE_LABELS, LIGEN } from "@/lib/types";
+import { Artikel, KATEGORIE_LABELS } from "@/lib/types";
 import { formatDate, getLigaById } from "@/lib/data";
 
 interface HeroArticleProps {
