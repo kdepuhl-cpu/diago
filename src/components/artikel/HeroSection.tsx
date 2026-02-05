@@ -48,7 +48,7 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
   const heroIsRead = isRead(hero.slug);
 
   return (
-    <section className={`${!isLast ? "border-b border-gray-200 pb-8 mb-8" : "pb-8"}`}>
+    <section className={`${!isLast ? "border-b border-gray-200 dark:border-gray-700 pb-8 mb-8" : "pb-8"}`}>
       {/* Section Title - Sticky */}
       {sectionTitle && (
         <h2 className="font-headline text-2xl text-off-black dark:text-white mb-6 sticky top-12 bg-off-white dark:bg-gray-900 py-3 -mx-4 px-4 z-10 border-b border-transparent">
@@ -77,19 +77,19 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
               <NewBadge date={hero.datum} />
             </div>
             <h3 className={`font-headline text-2xl lg:text-3xl group-hover:text-forest-green transition-colors flex items-center gap-2 ${
-              heroIsRead ? "text-gray-400" : "text-off-black"
+              heroIsRead ? "text-gray-400 dark:text-gray-500" : "text-off-black dark:text-white"
             }`}>
               <span>{hero.titel}</span>
               {heroIsRead && <ReadBadge className="w-6 h-6 flex-shrink-0" />}
             </h3>
 
             {/* Teaser */}
-            <p className="text-gray-600 mt-2 line-clamp-2 text-sm">
+            <p className="text-gray-600 dark:text-gray-400 mt-2 line-clamp-2 text-sm">
               {hero.teaser}
             </p>
 
             {/* Meta */}
-            <div className="flex items-center gap-3 mt-3 text-sm text-gray-500">
+            <div className="flex items-center gap-3 mt-3 text-sm text-gray-500 dark:text-gray-400">
               {hero.autor && <span>{hero.autor.name}</span>}
               <CommentIcon />
             </div>
@@ -97,14 +97,14 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
         </article>
 
         {/* Sidebar Articles - With Thumbnails, equal height */}
-        <div className="lg:border-l lg:border-gray-200 lg:pl-6 flex flex-col justify-between h-full">
+        <div className="lg:border-l lg:border-gray-200 dark:lg:border-gray-700 lg:pl-6 flex flex-col justify-between h-full">
           {sidebar.map((artikel, index) => {
             const artikelIsRead = isRead(artikel.slug);
 
             return (
               <article
                 key={artikel.slug}
-                className={index !== sidebar.length - 1 ? "border-b border-gray-200 pb-4" : ""}
+                className={index !== sidebar.length - 1 ? "border-b border-gray-200 dark:border-gray-700 pb-4" : ""}
               >
                 <Link href={`/artikel/${artikel.slug}`} className="group flex gap-4">
                   {/* Thumbnail - 3:2 aspect ratio with hover effects */}
@@ -125,14 +125,14 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
                     <NewBadge date={artikel.datum} className="mb-1" />
                     {/* Headline */}
                     <h4 className={`text-base font-semibold leading-snug group-hover:text-forest-green transition-colors flex items-center gap-1.5 ${
-                      artikelIsRead ? "text-gray-400" : "text-off-black"
+                      artikelIsRead ? "text-gray-400 dark:text-gray-500" : "text-off-black dark:text-white"
                     }`}>
                       <span className="line-clamp-3">{artikel.titel}</span>
                       {artikelIsRead && <ReadBadge className="w-4 h-4 flex-shrink-0" />}
                     </h4>
 
                     {/* Meta */}
-                    <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">
+                    <div className="flex items-center gap-2 mt-2 text-xs text-gray-500 dark:text-gray-400">
                       {artikel.autor && <span>{artikel.autor.name}</span>}
                       <CommentIcon />
                     </div>

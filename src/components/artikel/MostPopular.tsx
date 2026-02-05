@@ -26,7 +26,7 @@ export default function MostPopular({ articles }: MostPopularProps) {
   return (
     <section className="py-8">
       {/* Section Title */}
-      <h2 className="font-headline text-2xl text-off-black mb-6">Meistgelesen</h2>
+      <h2 className="font-headline text-2xl text-off-black dark:text-white mb-6">Meistgelesen</h2>
 
       {/* Article List */}
       <div className="space-y-0">
@@ -37,7 +37,7 @@ export default function MostPopular({ articles }: MostPopularProps) {
           return (
             <article
               key={article.slug}
-              className={`border-b border-gray-200 last:border-b-0 ${
+              className={`border-b border-gray-200 dark:border-gray-700 last:border-b-0 ${
                 index === 0 ? "" : ""
               }`}
             >
@@ -46,7 +46,7 @@ export default function MostPopular({ articles }: MostPopularProps) {
                 className="group flex items-start gap-4 py-4"
               >
                 {/* Large Number */}
-                <span className="text-3xl font-bold text-gray-300 w-8 flex-shrink-0 leading-none pt-1">
+                <span className="text-3xl font-bold text-gray-300 dark:text-gray-600 w-8 flex-shrink-0 leading-none pt-1">
                   {index + 1}
                 </span>
 
@@ -63,8 +63,8 @@ export default function MostPopular({ articles }: MostPopularProps) {
                   <h3
                     className={`font-semibold leading-snug mt-1 transition-colors flex items-center gap-1.5 ${
                       articleIsRead
-                        ? "text-gray-400 group-hover:text-forest-green"
-                        : "text-off-black group-hover:text-forest-green"
+                        ? "text-gray-400 dark:text-gray-500 group-hover:text-forest-green"
+                        : "text-off-black dark:text-white group-hover:text-forest-green"
                     }`}
                   >
                     <span>{article.titel}</span>
