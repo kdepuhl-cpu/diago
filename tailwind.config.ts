@@ -9,8 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        "forest-green": "#044110",
+        "orange": "#FC401D",
+        "mint": "#D0FDDA",
+        "off-white": "#FAFAFA",
+        "off-black": "#1F1F1F",
+      },
+      fontFamily: {
+        headline: ["Manuka", "system-ui", "sans-serif"],
+        sans: ["Manrope", "system-ui", "sans-serif"],
       },
     },
   },
