@@ -2,6 +2,8 @@ import Header from "@/components/navigation/Header";
 import Footer from "@/components/navigation/Footer";
 import HeroSection from "@/components/artikel/HeroSection";
 import MostPopular from "@/components/artikel/MostPopular";
+import LiveTicker from "@/components/LiveTicker";
+import VideoReels from "@/components/VideoReels";
 import { artikel } from "@/lib/data";
 
 export default function Home() {
@@ -23,10 +25,13 @@ export default function Home() {
   ].filter(Boolean);
 
   return (
-    <div className="min-h-screen bg-off-white">
+    <div className="min-h-screen bg-off-white dark:bg-gray-900">
       <div className="sticky top-0 z-50">
         <Header />
       </div>
+
+      {/* Live Ticker */}
+      <LiveTicker />
 
       <main className="max-w-7xl mx-auto px-4 pt-8 pb-12">
         {/* Bundesliga Section */}
@@ -39,7 +44,7 @@ export default function Home() {
         )}
 
         {/* 2. Liga + Meistgelesen Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 border-b border-gray-200 pb-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 border-b border-gray-200 dark:border-gray-700 pb-8 mb-8">
           {/* 2. Liga Section (ohne eigene Border) */}
           <div>
             {zweiteLigaArtikel.length > 0 && (
@@ -53,10 +58,13 @@ export default function Home() {
           </div>
 
           {/* Meistgelesen Sidebar */}
-          <div className="lg:border-l lg:border-gray-200 lg:pl-8">
+          <div className="lg:border-l lg:border-gray-200 dark:lg:border-gray-700 lg:pl-8">
             <MostPopular articles={mostPopularArtikel} />
           </div>
         </div>
+
+        {/* Video Reels Section */}
+        <VideoReels />
 
         {/* 3. Liga Section */}
         {dritteLigaArtikel.length > 0 && (

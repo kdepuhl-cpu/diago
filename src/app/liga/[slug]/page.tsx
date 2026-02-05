@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Header from "@/components/navigation/Header";
 import Footer from "@/components/navigation/Footer";
+import LeagueResults from "@/components/LeagueResults";
+import VideoReels from "@/components/VideoReels";
 import {
   getLeagueBySlug,
   getStaffelBySlug,
@@ -13,6 +15,7 @@ import {
   League,
   Staffel,
 } from "@/lib/leagues";
+import { getVideosByLeague } from "@/lib/mock/videos";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -48,14 +51,6 @@ const placeholderTable = [
   { pos: 8, team: "SC Staaken", sp: 18, s: 5, u: 5, n: 8, tore: "20:28", diff: "-8", pkt: 20 },
 ];
 
-// Placeholder matches
-const placeholderMatches = [
-  { home: "Hertha BSC II", away: "BFC Dynamo", score: "2:1", date: "Sa, 15.02.", time: "14:00" },
-  { home: "VSG Altglienicke", away: "Tennis Borussia", score: "1:1", date: "Sa, 15.02.", time: "14:00" },
-  { home: "Berliner AK 07", away: "Viktoria 89", score: "3:0", date: "So, 16.02.", time: "13:00" },
-  { home: "FC Viktoria 1889", away: "SC Staaken", score: "-:-", date: "So, 16.02.", time: "14:00" },
-];
-
 export default async function LigaPage({ params }: PageProps) {
   const { slug } = await params;
 
@@ -83,6 +78,9 @@ export default async function LigaPage({ params }: PageProps) {
   const pageTitle = isStaffelPage && staffel
     ? `${league.name} - ${staffel.name}`
     : league.name;
+
+  // Get videos for this league
+  const leagueVideos = getVideosByLeague(league.id);
 
   return (
     <div className="min-h-screen bg-off-white dark:bg-gray-900">
@@ -223,52 +221,22 @@ export default async function LigaPage({ params }: PageProps) {
                 </p>
               </div>
             </div>
+
+            {/* Video Highlights for this league */}
+            {leagueVideos.length > 0 && (
+              <div className="mt-8">
+                <VideoReels videos={leagueVideos} title={`${league.shortName} Video-Highlights`} />
+              </div>
+            )}
           </div>
 
-          {/* Sidebar - Matches */}
-          <div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                <h2 className="font-headline text-xl text-off-black dark:text-white">Spielplan</h2>
-              </div>
-
-              <div className="divide-y divide-gray-100 dark:divide-gray-700">
-                {placeholderMatches.map((match, idx) => (
-                  <div key={idx} className="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">
-                      {match.date} • {match.time}
-                    </div>
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-sm font-medium text-off-black dark:text-white truncate flex-1">
-                        {match.home}
-                      </span>
-                      <span className={`px-2 py-1 text-sm font-bold rounded ${
-                        match.score === "-:-"
-                          ? "bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
-                          : "bg-forest-green/10 text-forest-green"
-                      }`}>
-                        {match.score}
-                      </span>
-                      <span className="text-sm font-medium text-off-black dark:text-white truncate flex-1 text-right">
-                        {match.away}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="px-6 py-3 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
-                <Link
-                  href="#"
-                  className="text-sm text-forest-green font-medium hover:underline"
-                >
-                  Alle Spiele anzeigen →
-                </Link>
-              </div>
-            </div>
+          {/* Sidebar */}
+          <div className="space-y-6">
+            {/* League Results with Matchday Navigation */}
+            <LeagueResults leagueId={league.id} />
 
             {/* News Placeholder */}
-            <div className="mt-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
               <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
                 <h2 className="font-headline text-xl text-off-black dark:text-white">News</h2>
               </div>
