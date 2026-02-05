@@ -8,6 +8,7 @@ import {
   getProgressToNextLevel,
   getNextLevel,
 } from "@/lib/gamification";
+import Confetti from "@/components/ui/Confetti";
 
 interface MarkAsReadButtonProps {
   articleId: string;
@@ -25,6 +26,7 @@ const LEVEL_CONFIG: Record<string, { emoji: string; color: string; bg: string }>
 export default function MarkAsReadButton({ articleId }: MarkAsReadButtonProps) {
   const [isRead, setIsRead] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
   const [popupData, setPopupData] = useState<{
     points: number;
     level: string;
@@ -57,6 +59,12 @@ export default function MarkAsReadButton({ articleId }: MarkAsReadButtonProps) {
       pointsToNext,
     });
     setShowPopup(true);
+
+    // Trigger confetti on level up
+    if (result.levelUp) {
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 3000);
+    }
   };
 
   const closePopup = () => {
@@ -67,6 +75,9 @@ export default function MarkAsReadButton({ articleId }: MarkAsReadButtonProps) {
 
   return (
     <>
+      {/* Confetti Animation on Level Up */}
+      <Confetti active={showConfetti} />
+
       <button
         onClick={handleMarkAsRead}
         disabled={isRead}

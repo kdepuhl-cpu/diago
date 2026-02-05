@@ -1,6 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Artikel } from "@/lib/types";
+import { useReadArticles } from "@/hooks/useReadArticles";
+import NewBadge from "@/components/ui/NewBadge";
 
 interface HeroSectionProps {
   hero: Artikel;
@@ -28,20 +32,36 @@ function CommentIcon() {
   );
 }
 
+// Read indicator - checkmark in circle
+function ReadBadge({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <span className={`inline-flex items-center justify-center rounded-full bg-forest-green text-white flex-shrink-0 ${className}`}>
+      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+      </svg>
+    </span>
+  );
+}
+
 export default function HeroSection({ hero, sidebar, sectionTitle, isLast = false }: HeroSectionProps) {
+  const { isRead } = useReadArticles();
+  const heroIsRead = isRead(hero.slug);
+
   return (
     <section className={`${!isLast ? "border-b border-gray-200 pb-8 mb-8" : "pb-8"}`}>
-      {/* Section Title */}
+      {/* Section Title - Sticky */}
       {sectionTitle && (
-        <h2 className="font-headline text-2xl text-off-black mb-6">{sectionTitle}</h2>
+        <h2 className="font-headline text-2xl text-off-black dark:text-white mb-6 sticky top-12 bg-off-white dark:bg-gray-900 py-3 -mx-4 px-4 z-10 border-b border-transparent">
+          {sectionTitle}
+        </h2>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
         {/* Hero Article */}
-        <article>
-          <Link href={`/artikel/${hero.slug}`} className="group block">
-            {/* Image - 16:9 aspect ratio */}
-            <div className="aspect-[16/9] relative overflow-hidden rounded-lg mb-4 bg-gray-200">
+        <article className="group">
+          <Link href={`/artikel/${hero.slug}`} className="block">
+            {/* Image - 16:9 aspect ratio with shadow lift on hover */}
+            <div className="aspect-[16/9] relative overflow-hidden rounded-lg mb-4 bg-gray-200 shadow-sm group-hover:shadow-xl transition-shadow duration-300">
               {hero.bild && (
                 <Image
                   src={hero.bild.url}
@@ -53,8 +73,14 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
             </div>
 
             {/* Headline */}
-            <h3 className="font-headline text-2xl lg:text-3xl text-off-black group-hover:text-forest-green transition-colors">
-              {hero.titel}
+            <div className="flex items-center gap-2 mb-1">
+              <NewBadge date={hero.datum} />
+            </div>
+            <h3 className={`font-headline text-2xl lg:text-3xl group-hover:text-forest-green transition-colors flex items-center gap-2 ${
+              heroIsRead ? "text-gray-400" : "text-off-black"
+            }`}>
+              <span>{hero.titel}</span>
+              {heroIsRead && <ReadBadge className="w-6 h-6 flex-shrink-0" />}
             </h3>
 
             {/* Teaser */}
@@ -72,40 +98,49 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
 
         {/* Sidebar Articles - With Thumbnails, equal height */}
         <div className="lg:border-l lg:border-gray-200 lg:pl-6 flex flex-col justify-between h-full">
-          {sidebar.map((artikel, index) => (
-            <article
-              key={artikel.slug}
-              className={index !== sidebar.length - 1 ? "border-b border-gray-200 pb-4" : ""}
-            >
-              <Link href={`/artikel/${artikel.slug}`} className="group flex gap-4">
-                {/* Thumbnail - 3:2 aspect ratio */}
-                <div className="w-[150px] aspect-[3/2] relative flex-shrink-0 overflow-hidden rounded bg-gray-200">
-                  {artikel.bild && (
-                    <Image
-                      src={artikel.bild.url}
-                      alt={artikel.bild.alt}
-                      fill
-                      className="object-cover"
-                    />
-                  )}
-                </div>
+          {sidebar.map((artikel, index) => {
+            const artikelIsRead = isRead(artikel.slug);
 
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  {/* Headline */}
-                  <h4 className="text-base font-semibold text-off-black leading-snug line-clamp-3 group-hover:text-forest-green transition-colors">
-                    {artikel.titel}
-                  </h4>
-
-                  {/* Meta */}
-                  <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">
-                    {artikel.autor && <span>{artikel.autor.name}</span>}
-                    <CommentIcon />
+            return (
+              <article
+                key={artikel.slug}
+                className={index !== sidebar.length - 1 ? "border-b border-gray-200 pb-4" : ""}
+              >
+                <Link href={`/artikel/${artikel.slug}`} className="group flex gap-4">
+                  {/* Thumbnail - 3:2 aspect ratio with hover effects */}
+                  <div className="w-[150px] aspect-[3/2] relative flex-shrink-0 overflow-hidden rounded bg-gray-200 shadow-sm group-hover:shadow-lg transition-shadow duration-300">
+                    {artikel.bild && (
+                      <Image
+                        src={artikel.bild.url}
+                        alt={artikel.bild.alt}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    )}
                   </div>
-                </div>
-              </Link>
-            </article>
-          ))}
+
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    {/* New Badge */}
+                    <NewBadge date={artikel.datum} className="mb-1" />
+                    {/* Headline */}
+                    <h4 className={`text-base font-semibold leading-snug group-hover:text-forest-green transition-colors flex items-center gap-1.5 ${
+                      artikelIsRead ? "text-gray-400" : "text-off-black"
+                    }`}>
+                      <span className="line-clamp-3">{artikel.titel}</span>
+                      {artikelIsRead && <ReadBadge className="w-4 h-4 flex-shrink-0" />}
+                    </h4>
+
+                    {/* Meta */}
+                    <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">
+                      {artikel.autor && <span>{artikel.autor.name}</span>}
+                      <CommentIcon />
+                    </div>
+                  </div>
+                </Link>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

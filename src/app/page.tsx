@@ -1,6 +1,7 @@
 import Header from "@/components/navigation/Header";
 import Footer from "@/components/navigation/Footer";
 import HeroSection from "@/components/artikel/HeroSection";
+import MostPopular from "@/components/artikel/MostPopular";
 import { artikel } from "@/lib/data";
 
 export default function Home() {
@@ -11,6 +12,15 @@ export default function Home() {
   const regionalArtikel = artikel.filter((a) => a.ligaId === "regionalliga-nordost");
   const oberligaArtikel = artikel.filter((a) => a.ligaId === "oberliga-nofv-nord");
   const berlinLigaArtikel = artikel.filter((a) => a.ligaId === "berlin-liga");
+
+  // Top 5 Artikel für "Meistgelesen" (hier: erste 5 Artikel als Platzhalter)
+  const mostPopularArtikel = [
+    bundesligaArtikel[0],
+    zweiteLigaArtikel[0],
+    regionalArtikel[0],
+    berlinLigaArtikel[0],
+    dritteLigaArtikel[0],
+  ].filter(Boolean);
 
   return (
     <div className="min-h-screen bg-off-white">
@@ -28,14 +38,25 @@ export default function Home() {
           />
         )}
 
-        {/* 2. Liga Section */}
-        {zweiteLigaArtikel.length > 0 && (
-          <HeroSection
-            sectionTitle="2. Bundesliga"
-            hero={zweiteLigaArtikel[0]}
-            sidebar={zweiteLigaArtikel.slice(1, 5)}
-          />
-        )}
+        {/* 2. Liga + Meistgelesen Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 border-b border-gray-200 pb-8 mb-8">
+          {/* 2. Liga Section (ohne eigene Border) */}
+          <div>
+            {zweiteLigaArtikel.length > 0 && (
+              <HeroSection
+                sectionTitle="2. Bundesliga"
+                hero={zweiteLigaArtikel[0]}
+                sidebar={zweiteLigaArtikel.slice(1, 5)}
+                isLast={true}
+              />
+            )}
+          </div>
+
+          {/* Meistgelesen Sidebar */}
+          <div className="lg:border-l lg:border-gray-200 lg:pl-8">
+            <MostPopular articles={mostPopularArtikel} />
+          </div>
+        </div>
 
         {/* 3. Liga Section */}
         {dritteLigaArtikel.length > 0 && (

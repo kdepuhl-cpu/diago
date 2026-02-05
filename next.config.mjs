@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
+  // output: "export" only needed for Netlify build
   images: {
     unoptimized: true,
     remotePatterns: [

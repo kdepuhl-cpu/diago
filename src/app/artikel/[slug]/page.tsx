@@ -5,30 +5,17 @@ import Header from "@/components/navigation/Header";
 import Footer from "@/components/navigation/Footer";
 import ReadingProgressBar from "@/components/artikel/ReadingProgressBar";
 import MarkAsReadButton from "@/components/artikel/MarkAsReadButton";
+import MarkAsReadOnView from "@/components/artikel/MarkAsReadOnView";
+import ShareButton from "@/components/ui/ShareButton";
+import BookmarkButton from "@/components/ui/BookmarkButton";
 import { artikel, getArtikelBySlug, formatDate } from "@/lib/data";
 import { KATEGORIE_LABELS } from "@/lib/types";
 
 // Icons
-function ShareIcon() {
-  return (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-    </svg>
-  );
-}
-
 function CommentIcon() {
   return (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-    </svg>
-  );
-}
-
-function SaveIcon() {
-  return (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
     </svg>
   );
 }
@@ -68,6 +55,9 @@ export default async function ArtikelPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-off-white">
+      {/* Mark article as read when viewed */}
+      <MarkAsReadOnView slug={slug} />
+
       <div className="sticky top-0 z-50">
         <Header />
       </div>
@@ -138,16 +128,19 @@ export default async function ArtikelPage({ params }: PageProps) {
 
         {/* Action Buttons */}
         <div className="flex items-center justify-center gap-3 mt-6 pb-8 border-b border-gray-200">
-          <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">
-            <ShareIcon />
-            <span>Artikel teilen</span>
-          </button>
+          <ShareButton
+            title={article.titel}
+            text={article.teaser}
+            url={typeof window !== "undefined" ? window.location.href : `/artikel/${slug}`}
+            className="px-4 py-2 border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors text-off-black"
+          />
           <button className="p-2 border border-gray-300 rounded-full hover:bg-gray-100 transition-colors">
             <CommentIcon />
           </button>
-          <button className="p-2 border border-gray-300 rounded-full hover:bg-gray-100 transition-colors">
-            <SaveIcon />
-          </button>
+          <BookmarkButton
+            slug={article.slug}
+            className="p-2 border border-gray-300 rounded-full hover:bg-gray-100 transition-colors"
+          />
         </div>
 
         {/* Article Body */}
@@ -269,7 +262,7 @@ export default async function ArtikelPage({ params }: PageProps) {
               {tags.map((tag) => (
                 <Link
                   key={tag}
-                  href="#"
+                  href={`/tag/${tag.toLowerCase().replace(/\s+/g, "-").replace(/\./g, "")}`}
                   className="px-3 py-1.5 bg-gray-100 hover:bg-mint text-sm font-medium text-off-black rounded-full border border-gray-200 hover:border-forest-green transition-colors"
                 >
                   {tag}
