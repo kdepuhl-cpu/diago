@@ -157,12 +157,12 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="deine@email.de"
-                  className="w-full px-4 py-2.5 bg-white/10 border border-gray-700 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-forest-green focus:ring-1 focus:ring-forest-green transition-colors"
+                  className="w-full px-4 py-3 min-h-[44px] bg-white/10 border border-gray-700 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:border-forest-green focus:ring-1 focus:ring-forest-green transition-colors"
                   required
                 />
                 <button
                   type="submit"
-                  className="w-full px-4 py-2.5 bg-forest-green text-white rounded-lg text-sm font-semibold hover:bg-forest-green/90 transition-colors"
+                  className="w-full px-4 py-3 min-h-[44px] bg-forest-green text-white rounded-lg text-sm font-semibold hover:bg-forest-green/90 transition-colors"
                 >
                   Anmelden
                 </button>

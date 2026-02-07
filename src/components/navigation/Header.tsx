@@ -38,8 +38,16 @@ export default function Header() {
   const [mobileExpandedLeague, setMobileExpandedLeague] = useState<string | null>(null);
   const { theme, toggleTheme, mounted } = useTheme();
   const { user, loading: authLoading, signOut } = useUser();
+  const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Detect scroll for header shadow
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Keyboard shortcut for search (Cmd+K)
   useEffect(() => {
@@ -162,7 +170,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="bg-off-black dark:bg-gray-950 text-white border-b border-gray-800">
+      <header className={`bg-off-black dark:bg-gray-950 text-white border-b border-gray-800 transition-shadow duration-200 ${scrolled ? "header-scrolled" : ""}`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center h-12">
             {/* Burger Menu */}

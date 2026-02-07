@@ -136,9 +136,9 @@ export default function OnboardingPage() {
               <button
                 key={b}
                 onClick={() => setBezirk(bezirk === b ? null : b)}
-                className={`px-3 py-3 rounded-lg text-sm font-medium transition-all border ${
+                className={`px-3 py-3.5 rounded-lg text-sm font-medium transition-all border min-h-[44px] ${
                   bezirk === b
-                    ? "bg-forest-green text-white border-forest-green"
+                    ? "bg-forest-green text-white border-forest-green shadow-sm"
                     : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:border-forest-green"
                 }`}
               >
@@ -150,13 +150,13 @@ export default function OnboardingPage() {
           <div className="flex gap-3 mt-8">
             <button
               onClick={() => setStep(1)}
-              className="flex-1 py-3 text-gray-500 dark:text-gray-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="flex-1 py-3 min-h-[44px] text-gray-500 dark:text-gray-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
               Überspringen
             </button>
             <button
               onClick={() => setStep(1)}
-              className="flex-1 py-3 bg-forest-green text-white font-semibold rounded-lg hover:bg-forest-green/90 transition-colors"
+              className="flex-1 py-3 min-h-[44px] bg-forest-green text-white font-semibold rounded-lg hover:bg-forest-green/90 transition-colors"
             >
               Weiter
             </button>
@@ -179,7 +179,7 @@ export default function OnboardingPage() {
             value={clubSearch}
             onChange={(e) => setClubSearch(e.target.value)}
             placeholder="Verein suchen..."
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-off-black dark:text-white mb-4 focus:ring-2 focus:ring-forest-green focus:border-transparent outline-none"
+            className="w-full px-4 py-3 min-h-[44px] rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-off-black dark:text-white mb-4 focus:ring-2 focus:ring-forest-green focus:border-transparent outline-none"
           />
 
           <div className="max-h-[350px] overflow-y-auto space-y-2">
@@ -190,7 +190,7 @@ export default function OnboardingPage() {
                   key={club.id}
                   onClick={() => toggleClub(club.id)}
                   disabled={!selected && favoriteClubs.length >= 5}
-                  className={`w-full flex items-center justify-between px-4 py-3 rounded-lg border transition-all ${
+                  className={`w-full flex items-center justify-between px-4 py-3 min-h-[44px] rounded-lg border transition-all ${
                     selected
                       ? "bg-forest-green/10 border-forest-green text-forest-green dark:text-green-400"
                       : favoriteClubs.length >= 5
@@ -220,13 +220,13 @@ export default function OnboardingPage() {
           <div className="flex gap-3 mt-8">
             <button
               onClick={() => setStep(0)}
-              className="flex-1 py-3 text-gray-500 dark:text-gray-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="flex-1 py-3 min-h-[44px] text-gray-500 dark:text-gray-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
               Zurück
             </button>
             <button
               onClick={() => setStep(2)}
-              className="flex-1 py-3 bg-forest-green text-white font-semibold rounded-lg hover:bg-forest-green/90 transition-colors"
+              className="flex-1 py-3 min-h-[44px] bg-forest-green text-white font-semibold rounded-lg hover:bg-forest-green/90 transition-colors"
             >
               Weiter
             </button>
@@ -261,7 +261,7 @@ export default function OnboardingPage() {
                       <button
                         key={league.id}
                         onClick={() => toggleLeague(league.id)}
-                        className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-all ${
+                        className={`w-full flex items-center justify-between px-3 py-2.5 min-h-[44px] rounded-lg text-sm transition-all ${
                           selected
                             ? "bg-forest-green/10 text-forest-green dark:text-green-400 font-medium"
                             : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -284,14 +284,14 @@ export default function OnboardingPage() {
           <div className="flex gap-3 mt-8">
             <button
               onClick={() => setStep(1)}
-              className="flex-1 py-3 text-gray-500 dark:text-gray-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="flex-1 py-3 min-h-[44px] text-gray-500 dark:text-gray-400 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
               Zurück
             </button>
             <button
               onClick={handleFinish}
               disabled={saving}
-              className="flex-1 py-3 bg-forest-green text-white font-semibold rounded-lg hover:bg-forest-green/90 transition-colors disabled:opacity-50"
+              className="flex-1 py-3 min-h-[44px] bg-forest-green text-white font-semibold rounded-lg hover:bg-forest-green/90 transition-colors disabled:opacity-50"
             >
               {saving ? "Wird gespeichert..." : "Fertig"}
             </button>

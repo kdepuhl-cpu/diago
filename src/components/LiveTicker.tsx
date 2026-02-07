@@ -54,7 +54,7 @@ function MatchCard({ match }: { match: Match }) {
   return (
     <Link
       href={`/spiel/${match.id}`}
-      className={`flex-shrink-0 w-[200px] bg-white dark:bg-gray-800 rounded-xl border transition-all hover:shadow-lg hover:-translate-y-0.5 ${
+      className={`flex-shrink-0 w-[200px] snap-start bg-white dark:bg-gray-800 rounded-xl border transition-all hover:shadow-lg hover:-translate-y-0.5 ${
         isLive
           ? "border-red-300 dark:border-red-500/50 shadow-red-100 dark:shadow-red-500/10"
           : "border-gray-200 dark:border-gray-700"
@@ -86,7 +86,7 @@ function MatchCard({ match }: { match: Match }) {
             <span className="flex-1 text-sm font-medium text-off-black dark:text-white truncate">
               {match.homeTeam.shortName}
             </span>
-            <span className={`text-lg font-bold ${
+            <span className={`text-lg font-bold tabular-nums ${
               isLive ? "text-red-500" : "text-off-black dark:text-white"
             }`}>
               {match.homeScore ?? "-"}
@@ -103,7 +103,7 @@ function MatchCard({ match }: { match: Match }) {
             <span className="flex-1 text-sm font-medium text-off-black dark:text-white truncate">
               {match.awayTeam.shortName}
             </span>
-            <span className={`text-lg font-bold ${
+            <span className={`text-lg font-bold tabular-nums ${
               isLive ? "text-red-500" : "text-off-black dark:text-white"
             }`}>
               {match.awayScore ?? "-"}
@@ -179,7 +179,7 @@ export default function LiveTicker({ matches = ALL_MATCHES, title = "Ergebnisse"
         {/* Scrollable Cards */}
         <div
           ref={scrollRef}
-          className="flex gap-3 overflow-x-auto hide-scrollbar pb-2 -mx-4 px-4"
+          className="flex gap-3 overflow-x-auto hide-scrollbar pb-2 -mx-4 px-4 snap-x snap-mandatory"
         >
           {sortedMatches.map((match) => (
             <MatchCard key={match.id} match={match} />

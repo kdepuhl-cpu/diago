@@ -10,7 +10,6 @@ import FavoritesSection from "@/components/user/FavoritesSection";
 import { artikel } from "@/lib/data";
 
 export default function Home() {
-  // Gruppiere Artikel nach Liga
   const bundesligaArtikel = artikel.filter((a) => a.ligaId === "bundesliga-1");
   const zweiteLigaArtikel = artikel.filter((a) => a.ligaId === "bundesliga-2");
   const dritteLigaArtikel = artikel.filter((a) => a.ligaId === "liga-3");
@@ -18,7 +17,6 @@ export default function Home() {
   const oberligaArtikel = artikel.filter((a) => a.ligaId === "oberliga-nofv-nord");
   const berlinLigaArtikel = artikel.filter((a) => a.ligaId === "berlin-liga");
 
-  // Top 5 Artikel für "Meistgelesen" (hier: erste 5 Artikel als Platzhalter)
   const mostPopularArtikel = [
     bundesligaArtikel[0],
     zweiteLigaArtikel[0],
@@ -33,14 +31,13 @@ export default function Home() {
         <Header />
       </div>
 
-      {/* Live Ticker */}
       <LiveTicker />
 
-      <main className="max-w-7xl mx-auto px-4 pt-8 pb-12">
-        {/* Personalisierte Sektion für eingeloggte User */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-16">
+        {/* Personalisierte Sektion */}
         <FavoritesSection artikel={artikel} />
 
-        {/* Bundesliga Section */}
+        {/* Bundesliga */}
         {bundesligaArtikel.length > 0 && (
           <HeroSection
             sectionTitle="Bundesliga"
@@ -49,9 +46,8 @@ export default function Home() {
           />
         )}
 
-        {/* 2. Liga + Meistgelesen Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 border-b border-gray-200 dark:border-gray-700 pb-8 mb-8">
-          {/* 2. Liga Section (ohne eigene Border) */}
+        {/* 2. Liga + Meistgelesen */}
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 border-b border-gray-200 dark:border-gray-700 pb-10 mb-10">
           <div>
             {zweiteLigaArtikel.length > 0 && (
               <HeroSection
@@ -62,17 +58,14 @@ export default function Home() {
               />
             )}
           </div>
-
-          {/* Meistgelesen Sidebar */}
           <div className="lg:border-l lg:border-gray-200 dark:lg:border-gray-700 lg:pl-8">
             <MostPopular articles={mostPopularArtikel} />
           </div>
         </div>
 
-        {/* Video Reels Section */}
         <VideoReels />
 
-        {/* 3. Liga Section */}
+        {/* 3. Liga */}
         {dritteLigaArtikel.length > 0 && (
           <HeroSection
             sectionTitle="3. Liga"
@@ -81,7 +74,7 @@ export default function Home() {
           />
         )}
 
-        {/* Regionalliga Section */}
+        {/* Regionalliga */}
         {regionalArtikel.length > 0 && (
           <HeroSection
             sectionTitle="Regionalliga Nordost"
@@ -90,7 +83,7 @@ export default function Home() {
           />
         )}
 
-        {/* Oberliga Section */}
+        {/* Oberliga */}
         {oberligaArtikel.length > 0 && (
           <HeroSection
             sectionTitle="Oberliga NOFV Nord"
@@ -99,7 +92,7 @@ export default function Home() {
           />
         )}
 
-        {/* Berlin-Liga Section */}
+        {/* Berlin-Liga */}
         {berlinLigaArtikel.length > 0 && (
           <HeroSection
             sectionTitle="Berlin-Liga"

@@ -49,7 +49,7 @@ function VideoCard({ video, onClick }: { video: Video; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="flex-shrink-0 w-[180px] sm:w-[200px] group relative rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700 aspect-[9/16] focus:outline-none focus:ring-2 focus:ring-forest-green focus:ring-offset-2"
+      className="flex-shrink-0 w-[180px] sm:w-[200px] snap-start group relative rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-700 aspect-[9/16] focus:outline-none focus:ring-2 focus:ring-forest-green focus:ring-offset-2"
     >
       {/* Thumbnail */}
       <Image
@@ -174,7 +174,7 @@ export default function VideoReels({ videos, title = "Video-Highlights" }: Video
           {/* Scrollable Cards */}
           <div
             ref={scrollRef}
-            className="flex gap-4 overflow-x-auto hide-scrollbar pb-2 -mx-4 px-4"
+            className="flex gap-4 overflow-x-auto hide-scrollbar pb-2 -mx-4 px-4 snap-x snap-mandatory"
           >
             {displayVideos.map((video) => (
               <VideoCard

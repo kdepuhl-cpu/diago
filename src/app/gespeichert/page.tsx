@@ -81,7 +81,7 @@ export default function GespeichertPage() {
                     <Link href={`/artikel/${article.slug}`} className="group flex-1 flex gap-6">
                       {/* Thumbnail */}
                       {article.bild && (
-                        <div className="w-40 h-28 relative flex-shrink-0 overflow-hidden rounded-lg bg-gray-200">
+                        <div className="w-24 h-20 sm:w-40 sm:h-28 relative flex-shrink-0 overflow-hidden rounded-md sm:rounded-lg bg-gray-200 dark:bg-gray-800">
                           <Image
                             src={article.bild.url}
                             alt={article.bild.alt}

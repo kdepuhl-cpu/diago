@@ -133,7 +133,7 @@ export default async function LigaPage({ params }: PageProps) {
           {/* Staffel Tabs */}
           {leagueHasStaffeln && league.staffeln && (
             <div className="mt-6 border-b border-gray-200 dark:border-gray-700">
-              <nav className="flex gap-1 -mb-px overflow-x-auto hide-scrollbar">
+              <nav className="flex gap-1 -mb-px overflow-x-auto hide-scrollbar snap-x">
                 <Link
                   href={`/liga/${league.slug}`}
                   className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
@@ -172,7 +172,7 @@ export default async function LigaPage({ params }: PageProps) {
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full text-sm">
+                <table className="w-full text-sm tabular-nums">
                   <thead className="bg-gray-50 dark:bg-gray-900">
                     <tr className="text-left text-gray-500 dark:text-gray-400">
                       <th className="px-4 py-3 font-medium">#</th>

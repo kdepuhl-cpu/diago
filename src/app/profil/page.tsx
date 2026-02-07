@@ -99,7 +99,7 @@ export default function ProfilPage() {
             <select
               value={editBezirk ?? ""}
               onChange={(e) => handleBezirkChange(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-off-black dark:text-white text-sm"
+              className="w-full px-4 py-2.5 min-h-[44px] rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-off-black dark:text-white text-sm focus:ring-2 focus:ring-forest-green focus:border-transparent outline-none transition"
             >
               <option value="">Kein Bezirk</option>
               {BEZIRKE.map((b) => (
@@ -125,7 +125,7 @@ export default function ProfilPage() {
                   <button
                     onClick={() => handleRemoveClub(clubId)}
                     disabled={saving}
-                    className="text-gray-400 hover:text-red-500 transition-colors"
+                    className="text-gray-400 hover:text-red-500 transition-colors p-0.5"
                   >
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -153,7 +153,7 @@ export default function ProfilPage() {
                   <button
                     onClick={() => handleRemoveLeague(leagueId)}
                     disabled={saving}
-                    className="text-gray-400 hover:text-red-500 transition-colors"
+                    className="text-gray-400 hover:text-red-500 transition-colors p-0.5"
                   >
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -175,13 +175,13 @@ export default function ProfilPage() {
             <div className="flex gap-3">
               <button
                 onClick={handleDeleteAccount}
-                className="px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition-colors"
+                className="px-4 py-2.5 min-h-[44px] bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 transition-colors"
               >
                 Endgültig löschen
               </button>
               <button
                 onClick={() => setShowDeleteConfirm(false)}
-                className="px-4 py-2 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                className="px-4 py-2.5 min-h-[44px] text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               >
                 Abbrechen
               </button>
@@ -189,7 +189,7 @@ export default function ProfilPage() {
           ) : (
             <button
               onClick={() => setShowDeleteConfirm(true)}
-              className="px-4 py-2 border border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 text-sm font-medium rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+              className="px-4 py-2.5 min-h-[44px] border border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 text-sm font-medium rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
             >
               Account löschen...
             </button>

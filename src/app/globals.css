@@ -23,8 +23,16 @@ body {
   color: var(--off-black);
   background: var(--off-white);
   font-family: "Manrope", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+.dark body {
+  color: #e5e7eb;
+  background: #111827;
+}
+
+/* Scrollbar hiding */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -32,4 +40,61 @@ body {
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Sticky header scroll shadow */
+.header-scrolled {
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+}
+
+/* Article prose styling */
+.prose p {
+  color: #374151;
+  line-height: 1.8;
+  font-size: 1.125rem;
+}
+
+.dark .prose p {
+  color: #d1d5db;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--forest-green);
+  padding-left: 1.25rem;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.dark .prose blockquote {
+  color: #9ca3af;
+}
+
+/* Touch-friendly minimum sizes */
+@media (pointer: coarse) {
+  button, a, select, input[type="checkbox"], input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  select {
+    min-height: 44px;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+  }
+}
+
+/* Smooth page transitions */
+main {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--mint);
+  color: var(--off-black);
 }
