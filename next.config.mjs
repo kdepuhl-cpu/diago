@@ -14,11 +14,6 @@ const nextConfig = {
       },
     ],
   },
-  webpack: (config) => {
-    // pdf.js needs canvas alias for SSR builds
-    config.resolve.alias.canvas = false;
-    return config;
-  },
 };
 
 export default nextConfig;

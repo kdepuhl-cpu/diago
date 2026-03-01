@@ -31,15 +31,20 @@ function generatePages(count: number, color: string): string[] {
   );
 }
 
+function staticPages(folder: string, count: number): string[] {
+  return Array.from({ length: count }, (_, i) =>
+    `/epaper/${folder}/page-${String(i + 1).padStart(2, "0")}.jpg`
+  );
+}
+
 export const currentIssues: EPaperIssue[] = [
   {
     id: "ausgabe-42",
     title: "Ausgabe 42",
     date: "2026-03-01",
     coverImage: "/epaper/ausgabe-42-cover.jpg",
-    pages: generatePages(32, "044110"),
+    pages: staticPages("ausgabe-42", 32),
     pageCount: 32,
-    pdfUrl: "/epaper/Ausgabe_42.pdf",
   },
   {
     id: "ausgabe-12-2026",
