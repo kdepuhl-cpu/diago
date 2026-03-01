@@ -5,7 +5,7 @@ import PWAInstallPrompt from "@/components/ui/PWAInstallPrompt";
 import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
-  title: "DIAGO - Berliner Amateurfußball News",
+  title: "Fußball-Woche - Berliner Amateurfußball News",
   description: "Deine News-App für Berliner Amateurfußball und mehr",
 };
 
@@ -25,7 +25,7 @@ export default function RootLayout({
         />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#044110" />
-        <link rel="apple-touch-icon" href="/icons/diago_logo_rgb_forest-green_icon.svg" />
+        <link rel="apple-touch-icon" href="/icons/fuwo.svg" />
       </head>
       <body className="antialiased">
         <Providers>

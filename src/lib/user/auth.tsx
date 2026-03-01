@@ -101,16 +101,16 @@ export function UserAuthProvider({ children }: { children: ReactNode }) {
 
     const supabaseSlugs = new Set(profile.articles_read ?? []);
 
-    // Collect slugs from localStorage (diago-read-articles)
+    // Collect slugs from localStorage (fuwo-read-articles)
     let localSlugs: string[] = [];
     try {
-      const stored = localStorage.getItem("diago-read-articles");
+      const stored = localStorage.getItem("fuwo-read-articles");
       if (stored) localSlugs = JSON.parse(stored);
     } catch { /* ignore */ }
 
     // Collect article IDs from gamification localStorage, map to slugs
     try {
-      const gamification = localStorage.getItem("diago_user_progress");
+      const gamification = localStorage.getItem("fuwo_user_progress");
       if (gamification) {
         const { readArticles = [] } = JSON.parse(gamification);
         // These are article IDs - we import artikel data dynamically to map them

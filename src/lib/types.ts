@@ -66,3 +66,52 @@ export const KATEGORIE_LABELS: Record<Kategorie, string> = {
   news: "News",
   interview: "Interview",
 };
+
+// === Vereinsprofile ===
+
+export interface Sportstaette {
+  name: string;
+  adresse: string;
+  plz: string;
+  bezirk: string;
+  mapsUrl?: string;
+  kapazitaet?: number;
+  kunstrasen?: boolean;
+  flutlicht?: boolean;
+}
+
+export interface Ansprechpartner {
+  name: string;
+  rolle: string;
+  telefon?: string;
+  email?: string;
+}
+
+export interface Trainingszeit {
+  mannschaft: string;
+  tag: string;
+  zeit: string;
+  ort?: string;
+}
+
+export interface VereinProfil extends Verein {
+  kurzname: string;
+  beschreibung: string;
+  bezirk: string;
+  gruendungsjahr: number;
+  sportstaette: Sportstaette;
+  kontakt: {
+    telefon?: string;
+    email?: string;
+    website?: string;
+  };
+  socialMedia?: {
+    instagram?: string;
+    facebook?: string;
+  };
+  ansprechpartner: Ansprechpartner[];
+  trainingszeiten: Trainingszeit[];
+  wappen?: string;
+  mitglieder?: number;
+  mannschaften?: number;
+}

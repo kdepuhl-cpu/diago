@@ -8,6 +8,7 @@ import LiveTicker from "@/components/LiveTicker";
 import VideoReels from "@/components/VideoReels";
 import FavoritesSection from "@/components/user/FavoritesSection";
 import JobHighlights from "@/components/jobs/JobHighlights";
+import ArchivTeaser from "@/components/epaper/ArchivTeaser";
 import { artikel } from "@/lib/data";
 
 export default function Home() {
@@ -95,6 +96,9 @@ export default function Home() {
             sidebar={oberligaArtikel.slice(1, 5)}
           />
         )}
+
+        {/* Archiv Teaser */}
+        <ArchivTeaser />
 
         {/* Berlin-Liga */}
         {berlinLigaArtikel.length > 0 && (

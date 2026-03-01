@@ -1,6 +1,6 @@
 {
-  "name": "DIAGO - Berliner Amateurfußball",
-  "short_name": "DIAGO",
+  "name": "Fußball-Woche - Berliner Amateurfußball",
+  "short_name": "FUWO",
   "description": "Deine News-App für Berliner Amateurfußball und mehr",
   "start_url": "/",
   "display": "standalone",
@@ -9,7 +9,7 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/icons/diago_logo_rgb_forest-green_icon.svg",
+      "src": "/icons/fuwo.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"

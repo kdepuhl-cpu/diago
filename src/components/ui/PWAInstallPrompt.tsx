@@ -14,7 +14,7 @@ export default function PWAInstallPrompt() {
 
   useEffect(() => {
     // Check if already dismissed
-    const wasDismissed = localStorage.getItem("diago-pwa-dismissed");
+    const wasDismissed = localStorage.getItem("fuwo-pwa-dismissed");
     if (wasDismissed) {
       setDismissed(true);
       return;
@@ -49,7 +49,7 @@ export default function PWAInstallPrompt() {
   const handleDismiss = () => {
     setShowPrompt(false);
     setDismissed(true);
-    localStorage.setItem("diago-pwa-dismissed", "true");
+    localStorage.setItem("fuwo-pwa-dismissed", "true");
   };
 
   if (!showPrompt || dismissed || !deferredPrompt) return null;
@@ -68,10 +68,10 @@ export default function PWAInstallPrompt() {
           {/* Content */}
           <div className="flex-1 min-w-0">
             <h3 className="font-semibold text-off-black dark:text-white">
-              DIAGO installieren
+              Fußball-Woche installieren
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-              Füge DIAGO zu deinem Homescreen hinzu für schnellen Zugriff.
+              Füge die Fußball-Woche zu deinem Homescreen hinzu für schnellen Zugriff.
             </p>
           </div>
 

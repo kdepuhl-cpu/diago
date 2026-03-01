@@ -2,8 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { Match, ALL_MATCHES, getCurrentMatchday } from "@/lib/mock/matches";
+import { Match, ALL_MATCHES } from "@/lib/mock/matches";
 import { getLeagueById } from "@/lib/leagues";
 import VoteButtons from "@/components/tippspiel/VoteButtons";
 
@@ -98,7 +97,7 @@ function MatchCard({ match }: { match: Match }) {
   );
 }
 
-export default function LiveTicker({ matches = ALL_MATCHES, title = "DIAGO Topspiele" }: LiveTickerProps) {
+export default function LiveTicker({ matches = ALL_MATCHES, title = "Topspiele" }: LiveTickerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: "left" | "right") => {
@@ -117,28 +116,15 @@ export default function LiveTicker({ matches = ALL_MATCHES, title = "DIAGO Topsp
     return order[a.status] - order[b.status];
   });
 
-  // Dynamic Spieltag from Berlin-Liga
-  const currentMatchday = getCurrentMatchday("berlin-liga");
-
   return (
     <section className="relative z-0 py-4 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2.5">
-            <Image
-              src="/icons/diago_logo_rgb_forest-green_icon.svg"
-              alt=""
-              width={20}
-              height={20}
-              className="w-5 h-5 dark:brightness-150"
-            />
             <h2 className="font-headline text-lg text-off-black dark:text-white">
               {title}
             </h2>
-            <span className="text-xs font-medium text-gray-400 dark:text-gray-500">
-              Spieltag {currentMatchday}
-            </span>
           </div>
 
           {/* Navigation Arrows */}

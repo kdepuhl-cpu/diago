@@ -93,6 +93,24 @@ main {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Archiv sepia effect */
+.archiv-sepia {
+  filter: sepia(0.3) contrast(1.05);
+  transition: filter 300ms;
+}
+.archiv-sepia:hover {
+  filter: sepia(0) contrast(1);
+}
+
+/* E-Paper reader controls */
+.reader-controls {
+  transition: opacity 300ms;
+}
+.reader-controls-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* Selection color */
 ::selection {
   background-color: var(--mint);

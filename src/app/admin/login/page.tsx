@@ -43,7 +43,7 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-sm">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
           <h1 className="text-2xl font-bold text-gray-900 text-center mb-1">
-            DIAGO Admin
+            Fußball-Woche Admin
           </h1>
           <p className="text-sm text-gray-500 text-center mb-6">
             Melde dich an, um fortzufahren
@@ -61,7 +61,7 @@ export default function AdminLoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-forest-green focus:border-transparent"
-                placeholder="admin@diago.de"
+                placeholder="admin@fuwo.berlin"
               />
             </div>
 

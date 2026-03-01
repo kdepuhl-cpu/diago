@@ -41,7 +41,7 @@ export function getProgressToNextLevel(points: number, currentLevel: Level): num
   return Math.min((pointsInLevel / levelRange) * 100, 100);
 }
 
-const STORAGE_KEY = "diago_user_progress";
+const STORAGE_KEY = "fuwo_user_progress";
 
 export function getUserProgress(): UserProgress {
   if (typeof window === "undefined") {

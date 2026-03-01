@@ -36,9 +36,9 @@ export default function Footer() {
           <div>
             <Link href="/" className="inline-block mb-4">
               <Image
-                src="/icons/diago_logo_rgb_white.svg"
-                alt="DIAGO"
-                width={100}
+                src="/icons/fussball-woche_white.svg"
+                alt="Fußball-Woche"
+                width={200}
                 height={28}
                 className="h-8 w-auto"
               />
@@ -69,10 +69,38 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Column 3: Jobs + Social Links */}
+          {/* Column 3: Lesen + Vereine + Jobs + Social Links */}
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
-              Jobs &amp; Community
+              Lesen
+            </h4>
+            <nav className="space-y-2 mb-6">
+              <Link
+                href="/epaper"
+                className="block text-sm hover:text-white transition-colors"
+              >
+                E-Paper
+              </Link>
+              <Link
+                href="/archiv"
+                className="block text-sm hover:text-white transition-colors"
+              >
+                FUWO Archiv
+              </Link>
+            </nav>
+            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+              Vereine
+            </h4>
+            <nav className="space-y-2 mb-6">
+              <Link
+                href="/vereine"
+                className="block text-sm hover:text-white transition-colors"
+              >
+                Alle Vereine
+              </Link>
+            </nav>
+            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+              Jobs
             </h4>
             <nav className="space-y-2 mb-6">
               <Link
@@ -105,7 +133,7 @@ export default function Footer() {
             </h4>
             <div className="space-y-3">
               <a
-                href="https://instagram.com/diago"
+                href="https://instagram.com/fussballwoche"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-sm hover:text-white transition-colors group"
@@ -118,7 +146,7 @@ export default function Footer() {
                 Instagram
               </a>
               <a
-                href="https://facebook.com/diago"
+                href="https://facebook.com/fussballwoche"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-sm hover:text-white transition-colors group"
@@ -177,7 +205,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
             <p className="text-gray-500">
-              © {currentYear} DIAGO. Alle Rechte vorbehalten.
+              © {currentYear} Fußball-Woche. Alle Rechte vorbehalten.
             </p>
             <nav className="flex items-center gap-6">
               <Link href="/impressum" className="hover:text-white transition-colors">

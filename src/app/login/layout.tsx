@@ -9,16 +9,16 @@ export default function LoginLayout({ children }: { children: React.ReactNode })
       <div className="py-6 flex justify-center">
         <Link href="/">
           <Image
-            src="/icons/diago_logo_rgb_forest-green.svg"
-            alt="DIAGO"
-            width={120}
+            src="/icons/fussball-woche.svg"
+            alt="Fußball-Woche"
+            width={200}
             height={34}
             className="h-8 w-auto dark:hidden"
           />
           <Image
-            src="/icons/diago_logo_rgb_white.svg"
-            alt="DIAGO"
-            width={120}
+            src="/icons/fussball-woche_white.svg"
+            alt="Fußball-Woche"
+            width={200}
             height={34}
             className="h-8 w-auto hidden dark:block"
           />

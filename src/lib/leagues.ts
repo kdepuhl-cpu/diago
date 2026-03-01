@@ -1,4 +1,4 @@
-// Liga-Datenstruktur für DIAGO
+// Liga-Datenstruktur für Fußball-Woche
 
 export type LeagueCategory = "herren" | "frauen" | "pokal" | "jugend";
 

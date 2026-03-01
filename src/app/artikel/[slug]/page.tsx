@@ -99,7 +99,11 @@ export default async function ArtikelPage({ params }: PageProps) {
 
         {/* Author */}
         <div className="flex flex-col items-center mt-8">
-          <div className="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-700 mb-3" />
+          {article.autor?.bild ? (
+            <Image src={article.autor.bild} alt={article.autor.name} width={40} height={40} className="w-10 h-10 rounded-full mb-3 object-cover" />
+          ) : (
+            <div className="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-700 mb-3" />
+          )}
           <div className="text-center">
             <p className="text-sm">
               <span className="text-gray-500 dark:text-gray-400">Von </span>
@@ -109,7 +113,7 @@ export default async function ArtikelPage({ params }: PageProps) {
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               {formatDate(article.datum)}
-              <span> · {calculateReadingTime(ARTICLE_TEXT)} Min. Lesezeit</span>
+              <span> · {article.lesedauer || calculateReadingTime(article.inhalt || ARTICLE_TEXT)} Min. Lesezeit</span>
             </p>
           </div>
         </div>
@@ -132,112 +136,126 @@ export default async function ArtikelPage({ params }: PageProps) {
         </div>
 
         {/* Article Body */}
-        <article className="prose prose-lg max-w-none mt-10 space-y-6">
-          <p>
-            Der Sieg war mehr als verdient. Von Beginn an zeigte die Mannschaft, dass sie
-            es ernst meinte mit dem Angriff auf die Tabellenspitze. Bereits in der fünften
-            Minute setzte der Mittelfeldspieler das erste Ausrufezeichen, als sein Schuss
-            nur knapp am Pfosten vorbeiging. Die Fans auf den Rängen spürten sofort: Heute
-            würde etwas Besonderes passieren.
-          </p>
+        {article.inhalt ? (
+          <article className="prose prose-lg max-w-none mt-10 space-y-6">
+            {article.inhalt.split("\n\n").map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </article>
+        ) : (
+          <>
+            <article className="prose prose-lg max-w-none mt-10 space-y-6">
+              <p>
+                Der Sieg war mehr als verdient. Von Beginn an zeigte die Mannschaft, dass sie
+                es ernst meinte mit dem Angriff auf die Tabellenspitze. Bereits in der fünften
+                Minute setzte der Mittelfeldspieler das erste Ausrufezeichen, als sein Schuss
+                nur knapp am Pfosten vorbeiging. Die Fans auf den Rängen spürten sofort: Heute
+                würde etwas Besonderes passieren.
+              </p>
 
-          <p>
-            Die Defensive stand sicher, das Mittelfeld kontrollierte das Spiel mit
-            beeindruckender Souveränität. &ldquo;Wir haben genau das umgesetzt, was wir uns
-            vorgenommen hatten&rdquo;, erklärte der Trainer nach dem Spiel. &ldquo;Die Jungs haben
-            von der ersten bis zur letzten Minute gezeigt, dass sie bereit sind für die
-            großen Aufgaben.&rdquo; Seine Worte hallten durch die Mixed Zone, während draußen
-            die Fans noch immer feierten.
-          </p>
+              <p>
+                Die Defensive stand sicher, das Mittelfeld kontrollierte das Spiel mit
+                beeindruckender Souveränität. &ldquo;Wir haben genau das umgesetzt, was wir uns
+                vorgenommen hatten&rdquo;, erklärte der Trainer nach dem Spiel. &ldquo;Die Jungs haben
+                von der ersten bis zur letzten Minute gezeigt, dass sie bereit sind für die
+                großen Aufgaben.&rdquo; Seine Worte hallten durch die Mixed Zone, während draußen
+                die Fans noch immer feierten.
+              </p>
 
-          <p>
-            Das 1:0 fiel dann in der 34. Minute – ein sehenswert herausgespielter Treffer
-            über mehrere Stationen. Der Stürmer vollendete nach einer butterweichen Flanke
-            von der rechten Seite per Kopf. Es war sein achter Saisontreffer und unterstrich
-            einmal mehr seine Klasse. Die gegnerische Abwehr stand wie angewurzelt, konnte
-            dem perfekt getimten Laufweg nichts entgegensetzen.
-          </p>
+              <p>
+                Das 1:0 fiel dann in der 34. Minute – ein sehenswert herausgespielter Treffer
+                über mehrere Stationen. Der Stürmer vollendete nach einer butterweichen Flanke
+                von der rechten Seite per Kopf. Es war sein achter Saisontreffer und unterstrich
+                einmal mehr seine Klasse. Die gegnerische Abwehr stand wie angewurzelt, konnte
+                dem perfekt getimten Laufweg nichts entgegensetzen.
+              </p>
 
-          <p>
-            Zur Halbzeit führte das Heimteam verdient. In der Kabine schwor der Kapitän
-            seine Mitspieler ein: &ldquo;45 Minuten noch, dann haben wir es geschafft.&rdquo; Die
-            Ansprache zeigte Wirkung. Nach dem Seitenwechsel drückten die Gäste zwar auf
-            den Ausgleich, doch die Abwehrreihe hielt stand. Jeder Zweikampf wurde
-            angenommen, jeder Ball mit letztem Einsatz verteidigt.
-          </p>
+              <p>
+                Zur Halbzeit führte das Heimteam verdient. In der Kabine schwor der Kapitän
+                seine Mitspieler ein: &ldquo;45 Minuten noch, dann haben wir es geschafft.&rdquo; Die
+                Ansprache zeigte Wirkung. Nach dem Seitenwechsel drückten die Gäste zwar auf
+                den Ausgleich, doch die Abwehrreihe hielt stand. Jeder Zweikampf wurde
+                angenommen, jeder Ball mit letztem Einsatz verteidigt.
+              </p>
 
-          <p>
-            Die taktische Umstellung des Trainers erwies sich als Geniestreich. Mit einer
-            Fünferkette und zwei schnellen Außenbahnspieler wurden die Räume eng gemacht.
-            Der gegnerische Spielaufbau lief ins Leere, immer wieder prallten die Angriffe
-            an der kompakten Formation ab. &ldquo;Wir haben heute gezeigt, dass wir auch defensiv
-            auf höchstem Niveau agieren können&rdquo;, lobte der Co-Trainer später.
-          </p>
-        </article>
+              <p>
+                Die taktische Umstellung des Trainers erwies sich als Geniestreich. Mit einer
+                Fünferkette und zwei schnellen Außenbahnspieler wurden die Räume eng gemacht.
+                Der gegnerische Spielaufbau lief ins Leere, immer wieder prallten die Angriffe
+                an der kompakten Formation ab. &ldquo;Wir haben heute gezeigt, dass wir auch defensiv
+                auf höchstem Niveau agieren können&rdquo;, lobte der Co-Trainer später.
+              </p>
+            </article>
 
-        {/* Inline Image */}
-        <div className="-mx-4 sm:-mx-6 md:-mx-16 lg:-mx-32 my-10">
-          {article.bild && (
-            <div className="relative aspect-[21/9] bg-gray-200 dark:bg-gray-800">
-              <Image
-                src={article.bild.url}
-                alt="Spielszene"
-                fill
-                className="object-cover"
-              />
+            {/* Inline Image */}
+            <div className="-mx-4 sm:-mx-6 md:-mx-16 lg:-mx-32 my-10">
+              {article.bild && (
+                <div className="relative aspect-[21/9] bg-gray-200 dark:bg-gray-800">
+                  <Image
+                    src={article.bild.url}
+                    alt="Spielszene"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
+              <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-3 px-4">
+                Spielszene aus der zweiten Halbzeit
+                <span className="italic text-gray-400 dark:text-gray-500"> — Foto: Redaktion</span>
+              </p>
             </div>
-          )}
-          <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-3 px-4">
-            Spielszene aus der zweiten Halbzeit
-            <span className="italic text-gray-400 dark:text-gray-500"> — Foto: Redaktion</span>
-          </p>
-        </div>
 
-        {/* More Content */}
-        <article className="prose prose-lg max-w-none space-y-6">
-          <p>
-            In der 78. Minute dann die Entscheidung: Ein Konter wie aus dem Lehrbuch,
-            abgeschlossen vom eingewechselten Youngster, der damit sein erstes Profitor
-            erzielte. Die Fans feierten ihn frenetisch. Mit gerade einmal 18 Jahren steht
-            er nun in den Geschichtsbüchern des Vereins. &ldquo;Das ist ein Traum&rdquo;, sagte er
-            mit Tränen in den Augen nach dem Abpfiff.
-          </p>
+            {/* More Content */}
+            <article className="prose prose-lg max-w-none space-y-6">
+              <p>
+                In der 78. Minute dann die Entscheidung: Ein Konter wie aus dem Lehrbuch,
+                abgeschlossen vom eingewechselten Youngster, der damit sein erstes Profitor
+                erzielte. Die Fans feierten ihn frenetisch. Mit gerade einmal 18 Jahren steht
+                er nun in den Geschichtsbüchern des Vereins. &ldquo;Das ist ein Traum&rdquo;, sagte er
+                mit Tränen in den Augen nach dem Abpfiff.
+              </p>
 
-          <p>
-            Die Schlussphase wurde dann noch einmal hitzig. Zwei Gelbe Karten auf jeder
-            Seite zeugten von der Intensität dieser Partie. Doch das Heimteam ließ sich
-            nicht aus der Ruhe bringen. Mit kluger Spielverzögerung und sicherem Passspiel
-            wurde die Zeit heruntergewürfelt. Als der Schiedsrichter schließlich abpfiff,
-            kannte der Jubel keine Grenzen.
-          </p>
+              <p>
+                Die Schlussphase wurde dann noch einmal hitzig. Zwei Gelbe Karten auf jeder
+                Seite zeugten von der Intensität dieser Partie. Doch das Heimteam ließ sich
+                nicht aus der Ruhe bringen. Mit kluger Spielverzögerung und sicherem Passspiel
+                wurde die Zeit heruntergewürfelt. Als der Schiedsrichter schließlich abpfiff,
+                kannte der Jubel keine Grenzen.
+              </p>
 
-          <p>
-            Mit diesem Sieg schiebt sich das Team auf Platz drei der Tabelle vor. Nur noch
-            zwei Punkte trennen sie vom Tabellenführer. &ldquo;Wir schauen von Spiel zu Spiel&rdquo;,
-            betont der Kapitän bescheiden, doch die Ambitionen sind unverkennbar. Die
-            Mannschaft hat Blut geleckt und will jetzt den ganz großen Wurf.
-          </p>
+              <p>
+                Mit diesem Sieg schiebt sich das Team auf Platz drei der Tabelle vor. Nur noch
+                zwei Punkte trennen sie vom Tabellenführer. &ldquo;Wir schauen von Spiel zu Spiel&rdquo;,
+                betont der Kapitän bescheiden, doch die Ambitionen sind unverkennbar. Die
+                Mannschaft hat Blut geleckt und will jetzt den ganz großen Wurf.
+              </p>
 
-          <p>
-            Am kommenden Samstag wartet bereits die nächste Bewährungsprobe. Im Auswärtsspiel
-            beim direkten Konkurrenten wird sich zeigen, ob die Mannschaft auch auswärts so
-            souverän auftreten kann. Die Fans jedenfalls sind optimistisch – der Gästeblock
-            ist bereits ausverkauft. Über 2.000 Anhänger werden die Reise antreten und ihr
-            Team lautstark unterstützen. Die Saison könnte noch sehr lang und sehr erfolgreich
-            werden.
-          </p>
-        </article>
+              <p>
+                Am kommenden Samstag wartet bereits die nächste Bewährungsprobe. Im Auswärtsspiel
+                beim direkten Konkurrenten wird sich zeigen, ob die Mannschaft auch auswärts so
+                souverän auftreten kann. Die Fans jedenfalls sind optimistisch – der Gästeblock
+                ist bereits ausverkauft. Über 2.000 Anhänger werden die Reise antreten und ihr
+                Team lautstark unterstützen. Die Saison könnte noch sehr lang und sehr erfolgreich
+                werden.
+              </p>
+            </article>
+          </>
+        )}
 
         {/* Author Box */}
         <div className="border-t border-gray-200 dark:border-gray-700 pt-6 mt-12">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full bg-gray-300 dark:bg-gray-700 flex-shrink-0" />
+            {article.autor?.bild ? (
+              <Image src={article.autor.bild} alt={article.autor?.name || "Autor"} width={48} height={48} className="w-12 h-12 rounded-full flex-shrink-0 object-cover" />
+            ) : (
+              <div className="w-12 h-12 rounded-full bg-gray-300 dark:bg-gray-700 flex-shrink-0" />
+            )}
             <div>
               <p className="font-semibold text-off-black dark:text-white">
                 {article.autor?.name || "Redaktion"}
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                DIAGO Reporter
+                Fußball-Woche
               </p>
             </div>
           </div>

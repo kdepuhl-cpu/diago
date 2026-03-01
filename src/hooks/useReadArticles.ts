@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-const STORAGE_KEY = "diago-read-articles";
+const STORAGE_KEY = "fuwo-read-articles";
 
 export function useReadArticles() {
   const [readArticles, setReadArticles] = useState<string[]>([]);

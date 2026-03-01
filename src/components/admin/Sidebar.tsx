@@ -47,7 +47,7 @@ export default function Sidebar() {
     <>
       <div className="p-4 border-b border-gray-700">
         <Link href="/admin" className="text-xl font-bold text-white tracking-wide">
-          DIAGO Admin
+          FUWO Admin
         </Link>
       </div>
 

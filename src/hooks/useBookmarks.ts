@@ -9,7 +9,7 @@ import {
   syncLocalBookmarks,
 } from "@/lib/api/profile";
 
-const STORAGE_KEY = "diago-bookmarks";
+const STORAGE_KEY = "fuwo-bookmarks";
 
 function getLocalBookmarks(): string[] {
   try {

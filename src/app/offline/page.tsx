@@ -49,7 +49,7 @@ export default function OfflinePage() {
 
         {/* Hint */}
         <p className="text-sm text-gray-400 mt-8">
-          Tipp: Installiere DIAGO als App für bessere Offline-Unterstützung.
+          Tipp: Installiere die Fußball-Woche als App für bessere Offline-Unterstützung.
         </p>
       </div>
     </div>
