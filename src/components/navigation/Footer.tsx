@@ -131,7 +131,7 @@ export default function Footer() {
             </h4>
             <div className="space-y-3">
               <a
-                href="https://instagram.com/fussballwoche"
+                href="https://www.instagram.com/fussball_woche/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 text-sm hover:text-white transition-colors group"
