@@ -4,3 +4,15 @@
 
 [build.environment]
   GIT_SUBMODULE_FETCH_DEPTH = "0"
+
+# Production (main branch)
+[context.production.environment]
+  NEXT_PUBLIC_ENV = "production"
+
+# Staging (develop branch)
+[context.develop.environment]
+  NEXT_PUBLIC_ENV = "staging"
+
+# Deploy Previews (Pull Requests)
+[context.deploy-preview.environment]
+  NEXT_PUBLIC_ENV = "preview"
