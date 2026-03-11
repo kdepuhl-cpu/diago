@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import PWAInstallPrompt from "@/components/ui/PWAInstallPrompt";
@@ -17,6 +18,12 @@ export default function RootLayout({
   return (
     <html lang="de">
       <head>
+        <Script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID ?? ""}
+          strategy="afterInteractive"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
