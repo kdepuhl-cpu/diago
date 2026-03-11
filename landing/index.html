@@ -467,6 +467,49 @@
       color: var(--text-muted);
     }
 
+    /* ===== CUSTOM FEEDBACK ===== */
+    .custom-feedback {
+      margin-top: 1.5rem;
+    }
+
+    .custom-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .custom-textarea {
+      width: 100%;
+      padding: 0.85rem 1.1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .custom-textarea:focus {
+      border-color: var(--forest-light);
+    }
+
+    .custom-textarea::placeholder {
+      color: #555;
+    }
+
+    .custom-charcount {
+      text-align: right;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
     /* ===== FOOTER ===== */
     footer {
       text-align: center;
@@ -647,6 +690,12 @@
       </div>
     </div>
 
+    <div class="custom-feedback">
+      <label for="customInput" class="custom-label">Sonstiges — was liegt dir auf dem Herzen?</label>
+      <textarea id="customInput" class="custom-textarea" placeholder="Du hast eine Idee, einen Wunsch oder willst uns etwas sagen? Raus damit&hellip;" rows="3" maxlength="500"></textarea>
+      <div class="custom-charcount" id="charCount">0 / 500</div>
+    </div>
+
     <div class="features-submit">
       <button class="btn-primary" id="featuresBtn" disabled>Aufstellen</button>
       <span class="selected-count" id="selectedCount">W&auml;hle mindestens 1 Feature</span>
@@ -737,12 +786,30 @@
         card.classList.add('selected');
       }
 
-      const count = selectedFeatures.size;
-      featuresBtn.disabled = count === 0;
-      selectedCount.textContent = count === 0
-        ? 'W\u00e4hle mindestens 1 Feature'
-        : count + (count === 1 ? ' Feature gew\u00e4hlt' : ' Features gew\u00e4hlt');
+      updateFeaturesBtn();
     });
+
+    // Custom feedback character count
+    const customInput = document.getElementById('customInput');
+    const charCount = document.getElementById('charCount');
+
+    customInput.addEventListener('input', () => {
+      charCount.textContent = customInput.value.length + ' / 500';
+      updateFeaturesBtn();
+    });
+
+    function updateFeaturesBtn() {
+      const count = selectedFeatures.size;
+      const hasCustom = customInput.value.trim().length > 0;
+      featuresBtn.disabled = count === 0 && !hasCustom;
+      if (count === 0 && !hasCustom) {
+        selectedCount.textContent = 'W\u00e4hle mindestens 1 Feature';
+      } else if (count === 0 && hasCustom) {
+        selectedCount.textContent = 'Freitext eingetragen';
+      } else {
+        selectedCount.textContent = count + (count === 1 ? ' Feature gew\u00e4hlt' : ' Features gew\u00e4hlt');
+      }
+    }
   </script>
 
   <!-- Supabase (form submissions) -->
@@ -812,6 +879,10 @@
     // Features Submit
     featuresBtn.addEventListener('click', async () => {
       const features = Array.from(selectedFeatures);
+      const custom = customInput.value.trim();
+      if (custom) {
+        features.push('sonstiges:' + custom);
+      }
 
       if (signupEmail) {
         featuresBtn.disabled = true;
@@ -826,6 +897,7 @@
           }
           featuresBtn.textContent = 'Aufgestellt!';
           selectedCount.textContent = 'Deine Aufstellung steht!';
+          customInput.disabled = true;
         } catch {
           featuresBtn.textContent = 'Aufstellen';
           featuresBtn.disabled = false;
