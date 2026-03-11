@@ -21,7 +21,7 @@ export default function RootLayout({
         <Script
           defer
           src="https://cloud.umami.is/script.js"
-          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID ?? ""}
+          data-website-id="c9a343b9-3884-49d1-8d1f-ba8954cb3afc"
           strategy="afterInteractive"
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
