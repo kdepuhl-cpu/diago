@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Legacy font — keep until fully migrated */
 @font-face {
   font-family: "Manuka";
   src: url("/fonts/manuka-bold.woff2") format("woff2"),
@@ -12,17 +13,17 @@
 }
 
 :root {
-  --forest-green: #044110;
-  --orange: #FC401D;
-  --mint: #D0FDDA;
+  --neon-green: #28D200;
+  --forest-green: #144B23;
   --off-white: #FAFAFA;
   --off-black: #1F1F1F;
+  --mint: #D0FDDA;
 }
 
 body {
   color: var(--off-black);
   background: var(--off-white);
-  font-family: "Manrope", system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -59,7 +60,7 @@ body {
 }
 
 .prose blockquote {
-  border-left: 3px solid var(--forest-green);
+  border-left: 3px solid var(--neon-green);
   padding-left: 1.25rem;
   font-style: italic;
   color: #6b7280;
@@ -123,6 +124,6 @@ main {
 
 /* Selection color */
 ::selection {
-  background-color: var(--mint);
+  background-color: var(--neon-green);
   color: var(--off-black);
 }

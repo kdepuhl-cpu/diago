@@ -2,193 +2,125 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import NewsletterSignup from "@/components/newsletter/NewsletterSignup";
 
-const ligenLinks = [
-  { name: "Bundesliga", href: "/liga/bundesliga" },
-  { name: "2. Bundesliga", href: "/liga/2-bundesliga" },
-  { name: "3. Liga", href: "/liga/3-liga" },
-  { name: "Regionalliga", href: "/liga/regionalliga" },
-  { name: "Oberliga", href: "/liga/oberliga" },
-  { name: "Berlin-Liga", href: "/liga/berlin-liga" },
-  { name: "DFB-Pokal", href: "/liga/dfb-pokal" },
+const mainLinks = [
+  { name: "Abo", href: "/abo" },
+  { name: "Abokündigen", href: "/abo" },
+  { name: "Shop", href: "/shop" },
+  { name: "Heft-Archiv", href: "/archiv" },
+  { name: "Spenden", href: "/unterstuetzen" },
+  { name: "Jobs", href: "/jobs" },
+];
+
+const legalLinks = [
+  { name: "Impressum", href: "/impressum" },
+  { name: "Datenschutz", href: "/datenschutz" },
+  { name: "Barrierefreiheit", href: "/barrierefreiheit" },
+  { name: "Nutzungsbedingungen", href: "/nutzungsbedingungen" },
+  { name: "Cookies und Tracking", href: "/cookies" },
+  { name: "Kontakt", href: "/kontakt" },
 ];
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="bg-off-black text-gray-400 mt-12">
-      {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {/* Column 1: Logo & Slogan */}
-          <div>
-            <Link href="/" className="inline-block mb-4">
+    <footer className="bg-forest-green text-white mt-12">
+      {/* Desktop Footer */}
+      <div className="hidden md:block">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          {/* Logo Row */}
+          <div className="flex items-center justify-between mb-6">
+            <Link href="/">
               <Image
-                src="/icons/fussball-woche_white.svg"
-                alt="Fußball-Woche"
-                width={200}
-                height={28}
-                className="h-8 w-auto"
+                src="/icons/fuwo_white.svg"
+                alt="FuWo"
+                width={120}
+                height={40}
+                className="h-10 w-auto"
               />
             </Link>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              Deine News-App für Berliner Amateurfußball und mehr. Von der Bundesliga bis zur Kreisliga.
-            </p>
-            <p className="text-xs text-gray-600 mt-4">
-              Made with ⚽ in Berlin
-            </p>
+            <Image
+              src="/icons/fussball-woche_white.svg"
+              alt="Fußball-Woche"
+              width={180}
+              height={30}
+              className="h-7 w-auto opacity-80"
+            />
           </div>
 
-          {/* Column 2: Ligen Links */}
-          <div>
-            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
-              Ligen
-            </h4>
-            <nav className="space-y-2">
-              {ligenLinks.map((link) => (
+          {/* Links Row */}
+          <div className="flex items-center justify-between border-t border-white/20 pt-5">
+            <nav className="flex items-center gap-5">
+              {mainLinks.map((link) => (
                 <Link
-                  key={link.href}
+                  key={link.href + link.name}
                   href={link.href}
-                  className="block text-sm hover:text-white transition-colors"
+                  className="text-sm font-mono text-neon-green hover:text-white transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </nav>
+            <nav className="flex items-center gap-5">
+              {legalLinks.map((link) => (
+                <Link
+                  key={link.href + link.name}
+                  href={link.href}
+                  className="text-xs text-white/60 hover:text-white transition-colors"
                 >
                   {link.name}
                 </Link>
               ))}
             </nav>
           </div>
-
-          {/* Column 3: Lesen + Vereine + Jobs + Social Links */}
-          <div>
-            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
-              Lesen
-            </h4>
-            <nav className="space-y-2 mb-6">
-              <Link
-                href="/epaper"
-                className="block text-sm hover:text-white transition-colors"
-              >
-                E-Paper
-              </Link>
-              <Link
-                href="/archiv"
-                className="block text-sm hover:text-white transition-colors"
-              >
-                FUWO Archiv
-              </Link>
-              <a
-                href="https://fuwothek.de"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-sm hover:text-white transition-colors"
-              >
-                FuWothek &mdash; 100 Jahre Archiv
-              </a>
-            </nav>
-            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
-              Vereine
-            </h4>
-            <nav className="space-y-2 mb-6">
-              <Link
-                href="/vereine"
-                className="block text-sm hover:text-white transition-colors"
-              >
-                Alle Vereine
-              </Link>
-            </nav>
-            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
-              Jobs
-            </h4>
-            <nav className="space-y-2 mb-6">
-              <Link
-                href="/jobs"
-                className="block text-sm hover:text-white transition-colors"
-              >
-                Alle Jobs
-              </Link>
-              <Link
-                href="/jobs/kategorie/trainer"
-                className="block text-sm hover:text-white transition-colors"
-              >
-                Trainerstellen
-              </Link>
-              <Link
-                href="/jobs/kategorie/spieler"
-                className="block text-sm hover:text-white transition-colors"
-              >
-                Spieler gesucht
-              </Link>
-              <Link
-                href="/jobs/kategorie/ehrenamt"
-                className="block text-sm hover:text-white transition-colors"
-              >
-                Ehrenamt
-              </Link>
-            </nav>
-            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
-              Folge uns
-            </h4>
-            <div className="space-y-3">
-              <a
-                href="https://www.instagram.com/fussball_woche/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 text-sm hover:text-white transition-colors group"
-              >
-                <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                  </svg>
-                </span>
-                Instagram
-              </a>
-              <a
-                href="https://facebook.com/fussballwoche"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 text-sm hover:text-white transition-colors group"
-              >
-                <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                  </svg>
-                </span>
-                Facebook
-              </a>
-            </div>
-          </div>
-
-          {/* Column 4: Newsletter */}
-          <div>
-            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
-              Kurzpass
-            </h4>
-            <p className="text-sm text-gray-500 mb-4">
-              Unser Newsletter &ndash; die wichtigsten News direkt in dein Postfach.
-            </p>
-            <NewsletterSignup variant="footer" />
-          </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
-            <p className="text-gray-500">
-              © {currentYear} Fußball-Woche. Alle Rechte vorbehalten.
-            </p>
-            <nav className="flex items-center gap-6">
-              <Link href="/impressum" className="hover:text-white transition-colors">
-                Impressum
-              </Link>
-              <Link href="/datenschutz" className="hover:text-white transition-colors">
-                Datenschutz
-              </Link>
-              <Link href="/kontakt" className="hover:text-white transition-colors">
-                Kontakt
-              </Link>
+      {/* Mobile Footer */}
+      <div className="md:hidden">
+        <div className="px-4 py-8">
+          {/* Logo Row */}
+          <div className="flex items-start justify-between mb-6">
+            <Link href="/">
+              <Image
+                src="/icons/fuwo_white.svg"
+                alt="FuWo"
+                width={80}
+                height={30}
+                className="h-8 w-auto"
+              />
+            </Link>
+            <Image
+              src="/icons/fussball-woche_white.svg"
+              alt="Fußball-Woche"
+              width={120}
+              height={20}
+              className="h-5 w-auto opacity-80"
+            />
+          </div>
+
+          {/* Links — Two Columns */}
+          <div className="grid grid-cols-2 gap-x-8 gap-y-2 border-t border-white/20 pt-5">
+            <nav className="space-y-2">
+              {mainLinks.map((link) => (
+                <Link
+                  key={link.href + link.name}
+                  href={link.href}
+                  className="block text-sm font-mono text-neon-green hover:text-white transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </nav>
+            <nav className="space-y-2">
+              {legalLinks.map((link) => (
+                <Link
+                  key={link.href + link.name}
+                  href={link.href}
+                  className="block text-xs text-white/60 hover:text-white transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
             </nav>
           </div>
         </div>

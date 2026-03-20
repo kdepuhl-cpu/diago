@@ -103,7 +103,7 @@ export default async function JobDetailPage({ params }: PageProps) {
 
           {/* Meta Badges */}
           <div className="flex flex-wrap gap-2 mt-4">
-            <span className="px-3 py-1.5 bg-mint dark:bg-green-900/30 text-forest-green dark:text-green-400 text-sm font-medium rounded-full">
+            <span className="px-3 py-1.5 bg-mint dark:bg-green-900/30 text-forest-green dark:text-neon-green text-sm font-medium rounded-full">
               {JOB_TYP_LABELS[job.typ]}
             </span>
             {job.liga && (
@@ -144,7 +144,7 @@ export default async function JobDetailPage({ params }: PageProps) {
                 className="flex items-start gap-3 text-gray-700 dark:text-gray-300"
               >
                 <svg
-                  className="w-5 h-5 text-forest-green dark:text-green-400 flex-shrink-0 mt-0.5"
+                  className="w-5 h-5 text-forest-green dark:text-neon-green flex-shrink-0 mt-0.5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -232,7 +232,7 @@ export default async function JobDetailPage({ params }: PageProps) {
               </svg>
               <a
                 href={`mailto:${job.kontakt.email}`}
-                className="text-forest-green dark:text-green-400 hover:underline"
+                className="text-forest-green dark:text-neon-green hover:underline"
               >
                 {job.kontakt.email}
               </a>
@@ -314,7 +314,7 @@ export default async function JobDetailPage({ params }: PageProps) {
         <div className="mt-8">
           <Link
             href="/jobs"
-            className="inline-flex items-center gap-2 text-sm font-medium text-forest-green dark:text-green-400 hover:underline"
+            className="inline-flex items-center gap-2 text-sm font-medium text-forest-green dark:text-neon-green hover:underline"
           >
             <svg
               className="w-4 h-4"

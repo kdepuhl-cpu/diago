@@ -192,7 +192,7 @@ export default function OnboardingPage() {
                   disabled={!selected && favoriteClubs.length >= 5}
                   className={`w-full flex items-center justify-between px-4 py-3 min-h-[44px] rounded-lg border transition-all ${
                     selected
-                      ? "bg-forest-green/10 border-forest-green text-forest-green dark:text-green-400"
+                      ? "bg-forest-green/10 border-forest-green text-forest-green dark:text-neon-green"
                       : favoriteClubs.length >= 5
                       ? "bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-400 cursor-not-allowed"
                       : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-forest-green"
@@ -263,7 +263,7 @@ export default function OnboardingPage() {
                         onClick={() => toggleLeague(league.id)}
                         className={`w-full flex items-center justify-between px-3 py-2.5 min-h-[44px] rounded-lg text-sm transition-all ${
                           selected
-                            ? "bg-forest-green/10 text-forest-green dark:text-green-400 font-medium"
+                            ? "bg-forest-green/10 text-forest-green dark:text-neon-green font-medium"
                             : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                         }`}
                       >

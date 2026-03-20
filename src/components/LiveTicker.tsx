@@ -43,7 +43,7 @@ function MatchCard({ match }: { match: Match }) {
             {league?.shortName ?? match.leagueId}
           </span>
           {isUpcoming ? (
-            <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+            <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-neon-green">
               {match.time}
             </span>
           ) : (

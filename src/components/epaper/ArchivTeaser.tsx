@@ -15,7 +15,7 @@ export default function ArchivTeaser() {
         </h2>
         <Link
           href="/archiv"
-          className="text-sm font-semibold text-forest-green dark:text-green-400 hover:underline"
+          className="text-sm font-semibold text-forest-green dark:text-neon-green hover:underline"
         >
           Zum Archiv →
         </Link>

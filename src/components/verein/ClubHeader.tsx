@@ -38,7 +38,7 @@ export default function ClubHeader({ club }: ClubHeaderProps) {
                 {club.bezirk}
               </span>
               {liga && (
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-forest-green/10 dark:bg-green-900/30 text-forest-green dark:text-green-400">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-forest-green/10 dark:bg-green-900/30 text-forest-green dark:text-neon-green">
                   {liga.name}
                 </span>
               )}

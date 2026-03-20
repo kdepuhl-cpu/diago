@@ -168,7 +168,7 @@ export default function NewsletterSignup({
       >
         {status === "success" ? (
           <div className="text-center py-2">
-            <p className="text-forest-green dark:text-green-400 text-sm font-semibold">
+            <p className="text-forest-green dark:text-neon-green text-sm font-semibold">
               Willkommen an Bord! Check dein Postfach.
             </p>
           </div>
@@ -176,7 +176,7 @@ export default function NewsletterSignup({
           <>
             <div className="flex items-center gap-2 mb-3">
               <svg
-                className="w-4 h-4 text-forest-green dark:text-green-400"
+                className="w-4 h-4 text-forest-green dark:text-neon-green"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

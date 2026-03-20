@@ -11,7 +11,7 @@ interface PaywallGateProps {
 function LockIcon() {
   return (
     <svg
-      className="w-10 h-10 text-forest-green dark:text-green-400"
+      className="w-10 h-10 text-forest-green dark:text-neon-green"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"

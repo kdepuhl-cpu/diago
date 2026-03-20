@@ -111,7 +111,7 @@ export default function ArtikelContent({ slug }: { slug: string }) {
       {/* Content */}
       <main className="max-w-2xl mx-auto px-4 sm:px-6">
         {/* Category */}
-        <p className="uppercase text-sm tracking-wide text-center mt-8 text-forest-green dark:text-green-400 font-semibold">
+        <p className="uppercase text-sm tracking-wide text-center mt-8 text-forest-green dark:text-neon-green font-semibold">
           {KATEGORIE_LABELS[article.kategorie]}
         </p>
 

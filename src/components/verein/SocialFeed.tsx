@@ -100,7 +100,7 @@ export default function SocialFeed({ instagramUrl, facebookUrl, clubName }: Soci
             href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-forest-green/10 dark:bg-green-900/20 text-forest-green dark:text-green-400 text-sm font-semibold hover:bg-forest-green/20 dark:hover:bg-green-900/30 transition-colors"
+            className="mt-5 flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-forest-green/10 dark:bg-green-900/20 text-forest-green dark:text-neon-green text-sm font-semibold hover:bg-forest-green/20 dark:hover:bg-green-900/30 transition-colors"
           >
             <InstagramIcon className="w-4 h-4" />
             Folge {clubName} auf Instagram
@@ -147,7 +147,7 @@ export default function SocialFeed({ instagramUrl, facebookUrl, clubName }: Soci
             href={facebookUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-forest-green/10 dark:bg-green-900/20 text-forest-green dark:text-green-400 text-sm font-semibold hover:bg-forest-green/20 dark:hover:bg-green-900/30 transition-colors"
+            className="mt-5 flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-forest-green/10 dark:bg-green-900/20 text-forest-green dark:text-neon-green text-sm font-semibold hover:bg-forest-green/20 dark:hover:bg-green-900/30 transition-colors"
           >
             <FacebookIcon className="w-4 h-4" />
             Folge {clubName} auf Facebook

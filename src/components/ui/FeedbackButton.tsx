@@ -115,7 +115,7 @@ export default function FeedbackButton({ pageUrl, context }: FeedbackButtonProps
         aria-label="Hilfreich"
         className={`p-1.5 rounded transition-colors ${
           vote === "up"
-            ? "text-forest-green dark:text-green-400"
+            ? "text-forest-green dark:text-neon-green"
             : "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
         } ${disabled ? "cursor-default" : "cursor-pointer"}`}
       >
@@ -127,7 +127,7 @@ export default function FeedbackButton({ pageUrl, context }: FeedbackButtonProps
         aria-label="Nicht hilfreich"
         className={`p-1.5 rounded transition-colors ${
           vote === "down"
-            ? "text-forest-green dark:text-green-400"
+            ? "text-forest-green dark:text-neon-green"
             : "text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
         } ${disabled ? "cursor-default" : "cursor-pointer"}`}
       >

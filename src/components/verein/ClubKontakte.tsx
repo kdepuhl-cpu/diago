@@ -34,7 +34,7 @@ export default function ClubKontakte({ ansprechpartner }: ClubKontakteProps) {
               {person.email && (
                 <a
                   href={`mailto:${person.email}`}
-                  className="text-xs text-forest-green dark:text-green-400 hover:underline block mt-1"
+                  className="text-xs text-forest-green dark:text-neon-green hover:underline block mt-1"
                 >
                   {person.email}
                 </a>

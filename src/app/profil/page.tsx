@@ -244,7 +244,7 @@ export default function ProfilPage() {
               {/* Bezirk Badge */}
               <div className="flex items-center gap-2 mb-3">
                 {profile.bezirk && (
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-forest-green/10 text-forest-green dark:text-green-400">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-forest-green/10 text-forest-green dark:text-neon-green">
                     {profile.bezirk}
                   </span>
                 )}
@@ -335,7 +335,7 @@ export default function ProfilPage() {
               {profile.favorite_club_ids.map((clubId) => (
                 <span
                   key={clubId}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-forest-green/10 text-sm font-medium text-forest-green dark:text-green-400"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-forest-green/10 text-sm font-medium text-forest-green dark:text-neon-green"
                 >
                   <span className="w-5 h-5 rounded-full bg-forest-green/20 flex items-center justify-center text-[10px] font-bold">
                     {getClubName(clubId)[0]}
@@ -381,7 +381,7 @@ export default function ProfilPage() {
                       disabled={disabled || saving}
                       className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-all ${
                         selected
-                          ? "bg-forest-green/10 text-forest-green dark:text-green-400 font-medium"
+                          ? "bg-forest-green/10 text-forest-green dark:text-neon-green font-medium"
                           : disabled
                           ? "text-gray-300 dark:text-gray-600 cursor-not-allowed"
                           : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
@@ -613,7 +613,7 @@ export default function ProfilPage() {
                       </div>
                       <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                         isCorrect
-                          ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
+                          ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-neon-green"
                           : isWrong
                           ? "bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400"
                           : "bg-gray-100 dark:bg-gray-700 text-gray-400"

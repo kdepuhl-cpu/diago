@@ -48,7 +48,7 @@ export default function EPaperPage() {
           </Link>
 
           <div className="flex flex-col justify-center">
-            <p className="text-sm text-forest-green dark:text-green-400 font-semibold uppercase tracking-wide mb-2">
+            <p className="text-sm text-forest-green dark:text-neon-green font-semibold uppercase tracking-wide mb-2">
               Aktuelle Ausgabe
             </p>
             <h2 className="font-headline text-2xl sm:text-3xl text-off-black dark:text-white mb-4">
@@ -118,7 +118,7 @@ export default function EPaperPage() {
             </h2>
             <Link
               href="/archiv"
-              className="text-sm font-semibold text-forest-green dark:text-green-400 hover:underline"
+              className="text-sm font-semibold text-forest-green dark:text-neon-green hover:underline"
             >
               Zum Archiv →
             </Link>

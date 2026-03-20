@@ -31,7 +31,7 @@ export default function JobHighlights() {
             className="flex-shrink-0 w-[280px] md:w-auto snap-start bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md hover:-translate-y-0.5 transition-all"
           >
             <div className="flex items-center gap-2 mb-2">
-              <span className="inline-block px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider bg-forest-green/10 text-forest-green dark:bg-forest-green/20 dark:text-green-400 rounded">
+              <span className="inline-block px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider bg-forest-green/10 text-forest-green dark:bg-forest-green/20 dark:text-neon-green rounded">
                 {JOB_TYP_LABELS[job.typ]}
               </span>
             </div>

@@ -14,7 +14,7 @@ export default function JobCategoryGrid() {
           >
             <div className="w-10 h-10 mx-auto mb-2 bg-mint dark:bg-green-900/30 rounded-lg flex items-center justify-center group-hover:bg-forest-green transition-colors">
               <svg
-                className="w-5 h-5 text-forest-green dark:text-green-400 group-hover:text-white transition-colors"
+                className="w-5 h-5 text-forest-green dark:text-neon-green group-hover:text-white transition-colors"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

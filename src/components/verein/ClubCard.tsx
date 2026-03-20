@@ -40,7 +40,7 @@ export default function ClubCard({ club }: ClubCardProps) {
                 {club.bezirk}
               </span>
               {liga && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-forest-green/10 dark:bg-green-900/30 text-forest-green dark:text-green-400">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-forest-green/10 dark:bg-green-900/30 text-forest-green dark:text-neon-green">
                   {liga.name}
                 </span>
               )}

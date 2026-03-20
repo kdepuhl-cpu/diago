@@ -54,7 +54,7 @@ export default function StandingsExcerpt({ standings, leagueName, accentColor }:
                     {row.played}
                   </td>
                   <td className={`py-2 text-center tabular-nums ${
-                    row.goalDiff.startsWith("+") ? "text-green-600 dark:text-green-400" : row.goalDiff.startsWith("-") ? "text-red-500" : "text-gray-500 dark:text-gray-400"
+                    row.goalDiff.startsWith("+") ? "text-green-600 dark:text-neon-green" : row.goalDiff.startsWith("-") ? "text-red-500" : "text-gray-500 dark:text-gray-400"
                   }`}>
                     {row.goalDiff}
                   </td>

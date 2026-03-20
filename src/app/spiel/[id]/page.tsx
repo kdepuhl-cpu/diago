@@ -36,7 +36,7 @@ function StatusBadge({ match }: { match: Match }) {
   }
 
   return (
-    <span className="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+    <span className="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-neon-green">
       {match.time} Uhr
     </span>
   );

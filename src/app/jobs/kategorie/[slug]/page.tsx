@@ -50,7 +50,7 @@ export default async function JobKategoriePage({ params }: PageProps) {
         <div className="mb-8 flex items-start gap-4">
           <div className="w-14 h-14 bg-mint dark:bg-green-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
             <svg
-              className="w-7 h-7 text-forest-green dark:text-green-400"
+              className="w-7 h-7 text-forest-green dark:text-neon-green"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -106,7 +106,7 @@ export default async function JobKategoriePage({ params }: PageProps) {
         <div className="mt-8">
           <Link
             href="/jobs"
-            className="inline-flex items-center gap-2 text-sm font-medium text-forest-green dark:text-green-400 hover:underline"
+            className="inline-flex items-center gap-2 text-sm font-medium text-forest-green dark:text-neon-green hover:underline"
           >
             <svg
               className="w-4 h-4"

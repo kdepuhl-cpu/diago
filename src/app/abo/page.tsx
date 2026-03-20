@@ -8,7 +8,7 @@ import Footer from "@/components/navigation/Footer";
 // Checkmark icon
 function CheckIcon() {
   return (
-    <svg className="w-5 h-5 text-forest-green dark:text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-5 h-5 text-forest-green dark:text-neon-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
     </svg>
   );
@@ -183,7 +183,7 @@ export default function AboPage() {
                   </span>
                 </div>
                 {dauerkarteSaving && (
-                  <p className="text-xs text-forest-green dark:text-green-400 font-semibold mt-1">
+                  <p className="text-xs text-forest-green dark:text-neon-green font-semibold mt-1">
                     {dauerkarteSaving}
                   </p>
                 )}
@@ -295,7 +295,7 @@ export default function AboPage() {
             </p>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 mt-4 text-forest-green dark:text-green-400 font-semibold text-sm hover:underline"
+              className="inline-flex items-center gap-2 mt-4 text-forest-green dark:text-neon-green font-semibold text-sm hover:underline"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
