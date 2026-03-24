@@ -4,6 +4,7 @@ import Header from "@/components/navigation/Header";
 import Footer from "@/components/navigation/Footer";
 import LeagueTable from "@/components/liga/LeagueTable";
 import LeagueMatches from "@/components/liga/LeagueMatches";
+import PokalMatches from "@/components/liga/PokalMatches";
 import LeagueResults from "@/components/LeagueResults";
 import VideoReels from "@/components/VideoReels";
 import {
@@ -37,6 +38,7 @@ function getRegionBadgeColor(region: League["region"]): string {
     national: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
     nordost: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
     berlin: "bg-forest-green/20 text-forest-green dark:bg-forest-green/30",
+    brandenburg: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
   };
   return colors[region];
 }
@@ -74,6 +76,8 @@ export default async function LigaPage({ params }: PageProps) {
 
   // Get videos for this league
   const leagueVideos = getVideosByLeague(league.id);
+
+  const isPokal = league.category === "pokal";
 
   return (
     <div className="min-h-screen bg-off-white dark:bg-gray-900">
@@ -152,42 +156,37 @@ export default async function LigaPage({ params }: PageProps) {
           )}
         </div>
 
-        {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content - Table */}
-          <div className="lg:col-span-2">
-            <LeagueTable leagueId={tableLeagueId} />
+        {/* Content Grid — Pokal vs. Liga Layout */}
+        {isPokal ? (
+          /* Pokal: Runden-Ansicht als Hauptinhalt */
+          <div className="space-y-8">
+            <PokalMatches leagueId={tableLeagueId} />
 
-            {/* Video Highlights for this league */}
             {leagueVideos.length > 0 && (
-              <div className="mt-8">
-                <VideoReels videos={leagueVideos} title={`${league.shortName} Video-Highlights`} />
-              </div>
+              <VideoReels videos={leagueVideos} title={`${league.shortName} Video-Highlights`} />
             )}
           </div>
+        ) : (
+          /* Liga: Tabelle + Sidebar */
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Main Content - Tabelle */}
+            <div className="lg:col-span-2">
+              <LeagueTable leagueId={tableLeagueId} />
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Real matches from Supabase */}
-            <LeagueMatches leagueId={tableLeagueId} />
+              {leagueVideos.length > 0 && (
+                <div className="mt-8">
+                  <VideoReels videos={leagueVideos} title={`${league.shortName} Video-Highlights`} />
+                </div>
+              )}
+            </div>
 
-            {/* Mock league results (Tippspiel) */}
-            <LeagueResults leagueId={league.id} />
-
-            {/* News Placeholder */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                <h2 className="font-headline text-xl text-off-black dark:text-white">News</h2>
-              </div>
-              <div className="p-6 text-center text-gray-500 dark:text-gray-400">
-                <svg className="w-12 h-12 mx-auto mb-3 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                </svg>
-                <p className="text-sm">Noch keine News für diese Liga</p>
-              </div>
+            {/* Sidebar */}
+            <div className="space-y-6">
+              <LeagueMatches leagueId={tableLeagueId} />
+              <LeagueResults leagueId={league.id} />
             </div>
           </div>
-        </div>
+        )}
       </main>
 
       <Footer />

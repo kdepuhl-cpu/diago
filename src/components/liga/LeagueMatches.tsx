@@ -8,21 +8,21 @@ interface LeagueMatchesProps {
 }
 
 export default function LeagueMatches({ leagueId }: LeagueMatchesProps) {
-  const [tab, setTab] = useState<"upcoming" | "results">("upcoming");
+  const [tab, setTab] = useState<"results" | "upcoming">("results");
   const [upcoming, setUpcoming] = useState<LeagueMatch[]>([]);
   const [results, setResults] = useState<LeagueMatch[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     Promise.all([
-      getUpcomingMatches(leagueId, 8),
-      getRecentResults(leagueId, 8),
+      getUpcomingMatches(leagueId, 10),
+      getRecentResults(leagueId, 10),
     ])
       .then(([up, res]) => {
         setUpcoming(up);
         setResults(res);
-        // Default to results if no upcoming
-        if (up.length === 0 && res.length > 0) setTab("results");
+        // Default: Ergebnisse wenn vorhanden, sonst Kommende
+        if (res.length === 0 && up.length > 0) setTab("upcoming");
       })
       .catch(() => {})
       .finally(() => setLoading(false));
@@ -32,7 +32,7 @@ export default function LeagueMatches({ leagueId }: LeagueMatchesProps) {
 
   if (!loading && !hasData) return null;
 
-  const matches = tab === "upcoming" ? upcoming : results;
+  const matches = tab === "results" ? results : upcoming;
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
@@ -40,19 +40,9 @@ export default function LeagueMatches({ leagueId }: LeagueMatchesProps) {
         <h2 className="font-headline text-xl text-off-black dark:text-white">Spiele</h2>
       </div>
 
-      {/* Tabs */}
+      {/* Tabs — Ergebnisse zuerst */}
       {hasData && (
         <div className="flex border-b border-gray-200 dark:border-gray-700">
-          <button
-            onClick={() => setTab("upcoming")}
-            className={`flex-1 py-2.5 text-xs font-semibold transition-colors ${
-              tab === "upcoming"
-                ? "text-forest-green border-b-2 border-forest-green"
-                : "text-gray-500 dark:text-gray-400"
-            }`}
-          >
-            Kommende ({upcoming.length})
-          </button>
           <button
             onClick={() => setTab("results")}
             className={`flex-1 py-2.5 text-xs font-semibold transition-colors ${
@@ -62,6 +52,16 @@ export default function LeagueMatches({ leagueId }: LeagueMatchesProps) {
             }`}
           >
             Ergebnisse ({results.length})
+          </button>
+          <button
+            onClick={() => setTab("upcoming")}
+            className={`flex-1 py-2.5 text-xs font-semibold transition-colors ${
+              tab === "upcoming"
+                ? "text-forest-green border-b-2 border-forest-green"
+                : "text-gray-500 dark:text-gray-400"
+            }`}
+          >
+            Kommende ({upcoming.length})
           </button>
         </div>
       )}
@@ -78,23 +78,25 @@ export default function LeagueMatches({ leagueId }: LeagueMatchesProps) {
         </div>
       ) : matches.length === 0 ? (
         <div className="p-6 text-center text-sm text-gray-400 dark:text-gray-500">
-          Keine Spiele vorhanden
+          {tab === "results" ? "Noch keine Ergebnisse" : "Keine kommenden Spiele"}
         </div>
       ) : (
         <div className="divide-y divide-gray-100 dark:divide-gray-700">
           {matches.map((match) => (
             <div key={match.id} className="px-4 py-3">
-              {/* Date */}
-              {match.date && (
+              {/* Spieltag + Datum */}
+              {(match.matchday || match.date) && (
                 <p className="text-[10px] text-gray-400 dark:text-gray-500 mb-1">
-                  {match.matchday ? `${match.matchday}. Spieltag • ` : ""}
-                  {new Date(match.date).toLocaleDateString("de-DE", {
-                    weekday: "short",
-                    day: "numeric",
-                    month: "short",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
+                  {match.matchday ? `${match.matchday}. Spieltag` : ""}
+                  {match.matchday && match.date ? " • " : ""}
+                  {match.date &&
+                    new Date(match.date).toLocaleDateString("de-DE", {
+                      weekday: "short",
+                      day: "numeric",
+                      month: "short",
+                      ...(match.status !== "finished" ? { hour: "2-digit", minute: "2-digit" } : {}),
+                    })
+                  }
                 </p>
               )}
               {/* Teams + Score */}
@@ -102,11 +104,11 @@ export default function LeagueMatches({ leagueId }: LeagueMatchesProps) {
                 <span className="text-sm font-medium text-off-black dark:text-white truncate flex-1">
                   {match.homeTeam}
                 </span>
-                <span className={`text-sm font-bold px-2 py-0.5 rounded ${
+                <span className={`text-sm font-bold px-2 py-0.5 rounded min-w-[44px] text-center ${
                   match.status === "finished"
                     ? "bg-gray-100 dark:bg-gray-700 text-off-black dark:text-white"
                     : match.status === "live"
-                    ? "bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400"
+                    ? "bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 animate-pulse"
                     : "text-gray-400 dark:text-gray-500"
                 }`}>
                   {match.status === "finished" || match.status === "live"

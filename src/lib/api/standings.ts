@@ -1,7 +1,18 @@
 import { supabase, isSupabaseConfigured } from "../supabase";
+import {
+  isOpenLigaLeague,
+  getOpenLigaMapping,
+  getOpenLigaTable,
+  getOpenLigaMatches,
+  olTableToStandings,
+  getUpcomingFromMatches,
+  getRecentFromMatches,
+  olMatchToLeagueMatch,
+} from "./openligadb";
 
 // ============================================
-// Standings (Tabelle) aus Supabase
+// Standings (Tabelle)
+// Priorität: OpenLigaDB → Supabase → leer
 // ============================================
 
 export interface StandingRow {
@@ -53,6 +64,21 @@ function standingRowToStanding(row: StandingRow): Standing {
 }
 
 export async function getStandings(leagueId: string, season: string = "2526"): Promise<Standing[]> {
+  // 1. OpenLigaDB (Bundesliga, 2.BL, 3.Liga, DFB-Pokal, RL Nordost)
+  const olMapping = getOpenLigaMapping(leagueId);
+  if (olMapping) {
+    try {
+      const table = await getOpenLigaTable(olMapping.shortcut, olMapping.season);
+      // Mindestens 4 Teams für eine sinnvolle Tabelle (RL NO hat z.B. kaum Daten)
+      if (table.length >= 4) {
+        return olTableToStandings(table);
+      }
+    } catch (err) {
+      console.warn(`OpenLigaDB Tabelle fehlgeschlagen für ${leagueId}:`, err);
+    }
+  }
+
+  // 2. Supabase Fallback (Oberliga, Berlin-Liga etc.)
   if (!isSupabaseConfigured()) return [];
 
   const { data, error } = await supabase
@@ -68,7 +94,8 @@ export async function getStandings(leagueId: string, season: string = "2526"): P
 }
 
 // ============================================
-// Matches (Spiele) aus Supabase
+// Matches (Spiele)
+// Priorität: OpenLigaDB → Supabase → leer
 // ============================================
 
 export interface MatchRow {
@@ -117,6 +144,35 @@ export async function getMatches(
   season: string = "2526",
   options?: { matchday?: number; status?: string; limit?: number }
 ): Promise<LeagueMatch[]> {
+  // OpenLigaDB
+  const olMapping = getOpenLigaMapping(leagueId);
+  if (olMapping) {
+    try {
+      let matches;
+      if (options?.matchday) {
+        const { getOpenLigaMatchday } = await import("./openligadb");
+        matches = await getOpenLigaMatchday(olMapping.shortcut, olMapping.season, options.matchday);
+      } else {
+        matches = await getOpenLigaMatches(olMapping.shortcut, olMapping.season);
+      }
+
+      // Mindestens 3 Spiele für sinnvolle Daten
+      if (matches.length >= 3) {
+        let result = matches.map(olMatchToLeagueMatch);
+        if (options?.status) {
+          result = result.filter((m) => m.status === options.status);
+        }
+        if (options?.limit) {
+          result = result.slice(0, options.limit);
+        }
+        return result;
+      }
+    } catch (err) {
+      console.warn(`OpenLigaDB Spiele fehlgeschlagen für ${leagueId}:`, err);
+    }
+  }
+
+  // Supabase Fallback
   if (!isSupabaseConfigured()) return [];
 
   let query = supabase
@@ -149,6 +205,20 @@ export async function getUpcomingMatches(
   leagueId: string,
   limit: number = 10
 ): Promise<LeagueMatch[]> {
+  // OpenLigaDB
+  const olMapping = getOpenLigaMapping(leagueId);
+  if (olMapping) {
+    try {
+      const allMatches = await getOpenLigaMatches(olMapping.shortcut, olMapping.season);
+      if (allMatches.length >= 3) {
+        return getUpcomingFromMatches(allMatches, limit);
+      }
+    } catch (err) {
+      console.warn(`OpenLigaDB upcoming fehlgeschlagen für ${leagueId}:`, err);
+    }
+  }
+
+  // Supabase Fallback
   if (!isSupabaseConfigured()) return [];
 
   const { data, error } = await supabase
@@ -169,6 +239,20 @@ export async function getRecentResults(
   leagueId: string,
   limit: number = 10
 ): Promise<LeagueMatch[]> {
+  // OpenLigaDB
+  const olMapping = getOpenLigaMapping(leagueId);
+  if (olMapping) {
+    try {
+      const allMatches = await getOpenLigaMatches(olMapping.shortcut, olMapping.season);
+      if (allMatches.length >= 3) {
+        return getRecentFromMatches(allMatches, limit);
+      }
+    } catch (err) {
+      console.warn(`OpenLigaDB results fehlgeschlagen für ${leagueId}:`, err);
+    }
+  }
+
+  // Supabase Fallback
   if (!isSupabaseConfigured()) return [];
 
   const { data, error } = await supabase

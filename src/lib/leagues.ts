@@ -15,9 +15,10 @@ export interface League {
   slug: string;
   category: LeagueCategory;
   tier: number; // 1 = höchste Liga, aufsteigend
-  region: "national" | "nordost" | "berlin";
+  region: "national" | "nordost" | "berlin" | "brandenburg";
   staffeln?: Staffel[];
   parentId?: string; // für Unterligen
+  hidden?: boolean; // aus Navigation verstecken, Seiten bleiben erreichbar
 }
 
 // Alle Ligen
@@ -139,6 +140,7 @@ export const ALL_LEAGUES: League[] = [
     category: "herren",
     tier: 10,
     region: "berlin",
+    hidden: true,
     staffeln: [
       { id: "kreisliga-b-1", name: "Staffel 1", slug: "kreisliga-b-staffel-1" },
       { id: "kreisliga-b-2", name: "Staffel 2", slug: "kreisliga-b-staffel-2" },
@@ -158,6 +160,7 @@ export const ALL_LEAGUES: League[] = [
     category: "herren",
     tier: 11,
     region: "berlin",
+    hidden: true,
     staffeln: [
       { id: "kreisliga-c-1", name: "Staffel 1", slug: "kreisliga-c-staffel-1" },
       { id: "kreisliga-c-2", name: "Staffel 2", slug: "kreisliga-c-staffel-2" },
@@ -170,6 +173,28 @@ export const ALL_LEAGUES: League[] = [
       { id: "kreisliga-c-9", name: "Staffel 9", slug: "kreisliga-c-staffel-9" },
       { id: "kreisliga-c-10", name: "Staffel 10", slug: "kreisliga-c-staffel-10" },
     ],
+  },
+
+  // === BRANDENBURG ===
+  {
+    id: "brandenburgliga",
+    name: "Brandenburgliga",
+    shortName: "Brandenburgliga",
+    slug: "brandenburgliga",
+    category: "herren",
+    tier: 6,
+    region: "brandenburg",
+  },
+
+  // === SENIOREN ===
+  {
+    id: "senioren-verbandsliga",
+    name: "Senioren-Verbandsliga",
+    shortName: "Senioren-VL",
+    slug: "senioren-verbandsliga",
+    category: "herren",
+    tier: 12,
+    region: "berlin",
   },
 
   // === FRAUEN ===
@@ -348,10 +373,10 @@ export const ALL_LEAGUES: League[] = [
 /**
  * Get all leagues by category
  */
-export function getLeaguesByCategory(category: LeagueCategory): League[] {
-  return ALL_LEAGUES.filter((league) => league.category === category).sort(
-    (a, b) => a.tier - b.tier
-  );
+export function getLeaguesByCategory(category: LeagueCategory, includeHidden = false): League[] {
+  return ALL_LEAGUES
+    .filter((league) => league.category === category && (includeHidden || !league.hidden))
+    .sort((a, b) => a.tier - b.tier);
 }
 
 /**
@@ -429,6 +454,7 @@ export function getRegionLabel(region: League["region"]): string {
     national: "National",
     nordost: "Nordost",
     berlin: "Berlin",
+    brandenburg: "Brandenburg",
   };
   return labels[region];
 }
