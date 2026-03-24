@@ -79,7 +79,7 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
 
       if (userRole === "user") {
         await supabase.auth.signOut();
-        return { error: "Kein Zugang zum Admin-Bereich fuer dieses Konto." };
+        return { error: "Kein Zugang zum Admin-Bereich für dieses Konto." };
       }
 
       setRole(userRole);
