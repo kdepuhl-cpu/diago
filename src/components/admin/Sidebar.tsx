@@ -63,7 +63,7 @@ export default function Sidebar() {
 
   const navContent = (
     <>
-      <div className="p-4 border-b border-gray-700">
+      <div className="p-4 border-b border-white/10">
         <Link href="/admin" className="text-xl font-bold text-white tracking-wide">
           FUWO Admin
         </Link>
@@ -77,8 +77,8 @@ export default function Sidebar() {
             onClick={() => setMobileOpen(false)}
             className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
               isActive(item.href)
-                ? "bg-gray-700 text-white"
-                : "text-gray-300 hover:bg-gray-700/50 hover:text-white"
+                ? "bg-white/15 text-white"
+                : "text-gray-300 hover:bg-white/10 hover:text-white"
             }`}
           >
             <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -89,7 +89,7 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-gray-700">
+      <div className="p-4 border-t border-white/10">
         <div className="flex items-center gap-2 mb-2">
           <span className={`px-1.5 py-0.5 text-[10px] font-bold uppercase rounded ${
             role === "admin" ? "bg-electric-orange/20 text-electric-orange" : "bg-forest-green/20 text-forest-green"
@@ -100,7 +100,7 @@ export default function Sidebar() {
         <p className="text-xs text-gray-400 truncate mb-2">{user?.email}</p>
         <button
           onClick={() => signOut()}
-          className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-300 hover:bg-gray-700/50 hover:text-white rounded-lg transition-colors"
+          className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-300 hover:bg-white/10 hover:text-white rounded-lg transition-colors"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -116,7 +116,7 @@ export default function Sidebar() {
       {/* Mobile hamburger */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-gray-800 text-white rounded-lg shadow-lg"
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-[#044110] text-white rounded-lg shadow-lg"
         aria-label="Menu"
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -128,7 +128,7 @@ export default function Sidebar() {
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-50">
           <div className="absolute inset-0 bg-black/50" onClick={() => setMobileOpen(false)} />
-          <aside className="relative w-64 h-full bg-gray-800 flex flex-col">
+          <aside className="relative w-64 h-full bg-[#044110] flex flex-col">
             <button
               onClick={() => setMobileOpen(false)}
               className="absolute top-4 right-4 text-gray-400 hover:text-white"
@@ -144,7 +144,7 @@ export default function Sidebar() {
       )}
 
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 bg-gray-800">
+      <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 bg-[#044110]">
         {navContent}
       </aside>
     </>
