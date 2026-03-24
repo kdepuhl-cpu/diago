@@ -86,16 +86,8 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
       const userRole = await fetchRole(data.user.id);
 
       if (userRole === "user") {
-        // Debug: direct check to find the issue
-        const debugCheck = await supabase
-          .from("profiles")
-          .select("role")
-          .eq("id", data.user.id)
-          .single();
         await supabase.auth.signOut();
-        return {
-          error: `Kein Zugang. Debug: uid=${data.user.id.slice(0,8)}, role=${debugCheck.data?.role ?? "null"}, err=${debugCheck.error?.message ?? "none"}`,
-        };
+        return { error: "Kein Zugang zum Admin-Bereich für dieses Konto." };
       }
 
       setRole(userRole);
