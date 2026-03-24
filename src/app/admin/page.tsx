@@ -13,8 +13,14 @@ interface DashboardStats {
   clubs: number;
   users: number;
   newsletterSubscribers: number;
-  teamMembers: number;
   brevoContacts: number | null;
+}
+
+interface NewsletterStats {
+  subscribers: number;
+  brevoContacts: number | null;
+  openRate: number | null;
+  clickRate: number | null;
 }
 
 interface TopAuthor {
@@ -48,45 +54,82 @@ export default function AdminDashboardPage() {
 function DashboardContent() {
   const { user } = useAdminAuth();
   const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [newsletterStats, setNewsletterStats] = useState<NewsletterStats | null>(null);
   const [topAuthors, setTopAuthors] = useState<TopAuthor[]>([]);
   const [recentArticles, setRecentArticles] = useState<RecentArticle[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function load() {
-      const [articles, jobs, clubs, users, newsletter, team, recent] = await Promise.all([
+      const [articles, jobs, clubs, users, newsletter, recent] = await Promise.all([
         supabase.from("articles").select("id", { count: "exact", head: true }),
         supabase.from("jobs").select("id", { count: "exact", head: true }),
         supabase.from("clubs").select("id", { count: "exact", head: true }),
         supabase.from("profiles").select("id", { count: "exact", head: true }),
         supabase.from("newsletter_subscribers").select("id", { count: "exact", head: true }),
-        supabase.from("profiles").select("id", { count: "exact", head: true }).in("role", ["admin", "redakteur"]),
         supabase.from("articles").select("id, title, author_name, published_at, category").order("published_at", { ascending: false }).limit(5),
       ]);
 
-      // Brevo Kontakte abrufen (direkt client-seitig)
+      // Brevo Stats abrufen
       let brevoContacts: number | null = null;
+      let openRate: number | null = null;
+      let clickRate: number | null = null;
       try {
         const brevoKey = process.env.NEXT_PUBLIC_BREVO_API_KEY;
         if (brevoKey) {
-          const res = await fetch("https://api.brevo.com/v3/contacts?limit=1&offset=0", {
-            headers: { "api-key": brevoKey, "accept": "application/json" },
-          });
-          if (res.ok) {
-            const data = await res.json();
+          const [contactsRes, campaignsRes] = await Promise.all([
+            fetch("https://api.brevo.com/v3/contacts?limit=1&offset=0", {
+              headers: { "api-key": brevoKey, "accept": "application/json" },
+            }),
+            fetch("https://api.brevo.com/v3/emailCampaigns?status=sent&limit=10&offset=0&sort=desc", {
+              headers: { "api-key": brevoKey, "accept": "application/json" },
+            }),
+          ]);
+          if (contactsRes.ok) {
+            const data = await contactsRes.json();
             brevoContacts = data.count ?? null;
+          }
+          if (campaignsRes.ok) {
+            const data = await campaignsRes.json();
+            const campaigns = data.campaigns ?? [];
+            if (campaigns.length > 0) {
+              const totals = campaigns.reduce(
+                (acc: { opens: number; clicks: number; sent: number }, c: any) => {
+                  const s = c.statistics?.globalStats;
+                  if (s) {
+                    acc.opens += s.uniqueOpens ?? 0;
+                    acc.clicks += s.uniqueClicks ?? 0;
+                    acc.sent += s.sent ?? 0;
+                  }
+                  return acc;
+                },
+                { opens: 0, clicks: 0, sent: 0 }
+              );
+              if (totals.sent > 0) {
+                openRate = Math.round((totals.opens / totals.sent) * 100);
+                clickRate = Math.round((totals.clicks / totals.sent) * 100);
+              }
+            }
           }
         }
       } catch { /* Brevo nicht erreichbar */ }
+
+      const newsletterSubs = newsletter.count ?? 0;
 
       setStats({
         articles: articles.count ?? 0,
         jobs: jobs.count ?? 0,
         clubs: clubs.count ?? 0,
         users: users.count ?? 0,
-        newsletterSubscribers: newsletter.count ?? 0,
-        teamMembers: team.count ?? 0,
+        newsletterSubscribers: newsletterSubs,
         brevoContacts,
+      });
+
+      setNewsletterStats({
+        subscribers: newsletterSubs,
+        brevoContacts,
+        openRate,
+        clickRate,
       });
 
       setRecentArticles((recent.data ?? []) as RecentArticle[]);
@@ -133,13 +176,11 @@ function DashboardContent() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
         <StatCard label="Artikel" value={stats?.articles ?? 0} color="forest-green" icon="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
         <StatCard label="Jobs" value={stats?.jobs ?? 0} color="forest-green" icon="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         <StatCard label="Vereine" value={stats?.clubs ?? 0} color="forest-green" icon="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
         <StatCard label="User" value={stats?.users ?? 0} color="blue" icon="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-        <StatCard label="Newsletter" value={stats?.brevoContacts ?? stats?.newsletterSubscribers ?? 0} color="orange" icon="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        <StatCard label="Team" value={stats?.teamMembers ?? 0} color="purple" icon="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -193,6 +234,36 @@ function DashboardContent() {
           ) : (
             <p className="text-sm text-gray-400">Noch keine Artikel. Starte mit dem ersten!</p>
           )}
+        </div>
+      </div>
+
+      {/* Newsletter */}
+      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-8">
+        <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <svg className="w-5 h-5 text-electric-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Newsletter
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <div>
+            <p className="text-2xl font-bold text-gray-900">
+              {newsletterStats?.brevoContacts ?? newsletterStats?.subscribers ?? 0}
+            </p>
+            <p className="text-xs text-gray-500">Abonnenten</p>
+          </div>
+          <div>
+            <p className="text-2xl font-bold text-gray-900">
+              {newsletterStats?.openRate != null ? `${newsletterStats.openRate}%` : "–"}
+            </p>
+            <p className="text-xs text-gray-500">Öffnungsrate</p>
+          </div>
+          <div>
+            <p className="text-2xl font-bold text-gray-900">
+              {newsletterStats?.clickRate != null ? `${newsletterStats.clickRate}%` : "–"}
+            </p>
+            <p className="text-xs text-gray-500">Klickrate</p>
+          </div>
         </div>
       </div>
 
