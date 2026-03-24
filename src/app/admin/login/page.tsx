@@ -10,16 +10,52 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [resetMode, setResetMode] = useState(false);
+  const [updatePasswordMode, setUpdatePasswordMode] = useState(false);
 
   useEffect(() => {
-    if (!loading && user && isAdmin) {
+    if (!loading && user && isAdmin && !updatePasswordMode) {
       router.replace("/admin");
     }
-  }, [user, isAdmin, loading, router]);
+  }, [user, isAdmin, loading, router, updatePasswordMode]);
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "PASSWORD_RECOVERY") {
+        setUpdatePasswordMode(true);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  async function handleUpdatePassword(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+    setSubmitting(true);
+
+    if (newPassword.length < 6) {
+      setError("Passwort muss mindestens 6 Zeichen lang sein.");
+      setSubmitting(false);
+      return;
+    }
+
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) {
+      setError(error.message);
+    } else {
+      setSuccess("Passwort erfolgreich geändert! Du wirst weitergeleitet...");
+      setTimeout(() => {
+        setUpdatePasswordMode(false);
+        router.replace("/admin");
+      }, 2000);
+    }
+    setSubmitting(false);
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -70,13 +106,46 @@ export default function AdminLoginPage() {
         <div className="w-full max-w-sm">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
             <h1 className="text-2xl font-bold text-gray-900 text-center mb-1">
-              {resetMode ? "Passwort zurücksetzen" : "Fußball-Woche Admin"}
+              {updatePasswordMode ? "Neues Passwort setzen" : resetMode ? "Passwort zurücksetzen" : "Fußball-Woche Admin"}
             </h1>
             <p className="text-sm text-gray-500 text-center mb-6">
-              {resetMode ? "Gib deine E-Mail ein, um einen Reset-Link zu erhalten" : "Melde dich an, um fortzufahren"}
+              {updatePasswordMode ? "Wähle ein neues Passwort für deinen Account" : resetMode ? "Gib deine E-Mail ein, um einen Reset-Link zu erhalten" : "Melde dich an, um fortzufahren"}
             </p>
 
-            {resetMode ? (
+            {updatePasswordMode ? (
+              <form onSubmit={handleUpdatePassword} className="space-y-4">
+                <div>
+                  <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                    Neues Passwort
+                  </label>
+                  <input
+                    id="newPassword"
+                    type="password"
+                    required
+                    minLength={6}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-forest-green focus:border-transparent"
+                    placeholder="Mindestens 6 Zeichen"
+                  />
+                </div>
+
+                {error && (
+                  <p className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">{error}</p>
+                )}
+                {success && (
+                  <p className="text-sm text-forest-green bg-green-50 px-3 py-2 rounded-lg">{success}</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full py-2.5 bg-forest-green text-white text-sm font-medium rounded-lg hover:bg-forest-green/90 disabled:opacity-50 transition-colors"
+                >
+                  {submitting ? "Speichern..." : "Passwort speichern"}
+                </button>
+              </form>
+            ) : resetMode ? (
               <form onSubmit={handleReset} className="space-y-4">
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
