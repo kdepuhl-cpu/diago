@@ -5,6 +5,22 @@ import { useRouter } from "next/navigation";
 import { useAdminAuth } from "@/lib/admin/auth";
 import { supabase } from "@/lib/supabase";
 
+function translateError(msg: string): string {
+  if (msg.toLowerCase().includes("rate limit")) {
+    return "Zu viele Versuche. Bitte warte 30 Minuten und versuche es dann erneut.";
+  }
+  if (msg.toLowerCase().includes("invalid login")) {
+    return "E-Mail oder Passwort ist falsch.";
+  }
+  if (msg.toLowerCase().includes("email not confirmed")) {
+    return "E-Mail-Adresse noch nicht bestätigt. Prüfe dein Postfach.";
+  }
+  if (msg.toLowerCase().includes("user not found")) {
+    return "Kein Account mit dieser E-Mail gefunden.";
+  }
+  return msg;
+}
+
 export default function AdminLoginPage() {
   const { user, isAdmin, loading, signIn } = useAdminAuth();
   const router = useRouter();
@@ -46,7 +62,7 @@ export default function AdminLoginPage() {
 
     const { error } = await supabase.auth.updateUser({ password: newPassword });
     if (error) {
-      setError(error.message);
+      setError(translateError(error.message));
     } else {
       setSuccess("Passwort erfolgreich geändert! Du wirst weitergeleitet...");
       setTimeout(() => {
@@ -64,7 +80,7 @@ export default function AdminLoginPage() {
 
     const result = await signIn(email, password);
     if (result.error) {
-      setError(result.error);
+      setError(translateError(result.error));
       setSubmitting(false);
     }
   }
@@ -80,7 +96,7 @@ export default function AdminLoginPage() {
     });
 
     if (error) {
-      setError(error.message);
+      setError(translateError(error.message));
     } else {
       setSuccess("Link zum Zurücksetzen wurde gesendet. Prüfe dein Postfach.");
     }
