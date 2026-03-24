@@ -64,8 +64,9 @@ export default function Sidebar() {
   const navContent = (
     <>
       <div className="p-4 border-b border-white/10">
-        <Link href="/admin" className="text-xl font-bold text-white tracking-wide">
-          FUWO Admin
+        <Link href="/admin" className="flex items-center gap-2">
+          <img src="/icons/fuwo-cutout-white.png" alt="FuWo" className="h-8 w-auto opacity-90" />
+          <span className="text-xs font-semibold text-white/60 uppercase tracking-widest">Admin</span>
         </Link>
       </div>
 

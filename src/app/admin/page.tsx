@@ -14,6 +14,7 @@ interface DashboardStats {
   users: number;
   newsletterSubscribers: number;
   teamMembers: number;
+  brevoContacts: number | null;
 }
 
 interface TopAuthor {
@@ -63,6 +64,21 @@ function DashboardContent() {
         supabase.from("articles").select("id, title, author_name, published_at, category").order("published_at", { ascending: false }).limit(5),
       ]);
 
+      // Brevo Kontakte abrufen (direkt client-seitig)
+      let brevoContacts: number | null = null;
+      try {
+        const brevoKey = process.env.NEXT_PUBLIC_BREVO_API_KEY;
+        if (brevoKey) {
+          const res = await fetch("https://api.brevo.com/v3/contacts?limit=1&offset=0", {
+            headers: { "api-key": brevoKey, "accept": "application/json" },
+          });
+          if (res.ok) {
+            const data = await res.json();
+            brevoContacts = data.count ?? null;
+          }
+        }
+      } catch { /* Brevo nicht erreichbar */ }
+
       setStats({
         articles: articles.count ?? 0,
         jobs: jobs.count ?? 0,
@@ -70,6 +86,7 @@ function DashboardContent() {
         users: users.count ?? 0,
         newsletterSubscribers: newsletter.count ?? 0,
         teamMembers: team.count ?? 0,
+        brevoContacts,
       });
 
       setRecentArticles((recent.data ?? []) as RecentArticle[]);
@@ -121,7 +138,7 @@ function DashboardContent() {
         <StatCard label="Jobs" value={stats?.jobs ?? 0} color="forest-green" icon="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         <StatCard label="Vereine" value={stats?.clubs ?? 0} color="forest-green" icon="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
         <StatCard label="User" value={stats?.users ?? 0} color="blue" icon="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-        <StatCard label="Newsletter" value={stats?.newsletterSubscribers ?? 0} color="orange" icon="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        <StatCard label="Newsletter" value={stats?.brevoContacts ?? stats?.newsletterSubscribers ?? 0} color="orange" icon="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         <StatCard label="Team" value={stats?.teamMembers ?? 0} color="purple" icon="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
       </div>
 
