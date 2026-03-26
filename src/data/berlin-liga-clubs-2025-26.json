@@ -1,0 +1,430 @@
+[
+  {
+    "id": "reinickendorfer-fuechse",
+    "fullName": "Berliner Turn- und Sportverein von 1891 Reinickendorfer Fuechse e. V. (Fuechse Berlin Reinickendorf)",
+    "shortName": "Reinickendorfer Fuechse",
+    "foundingYear": 1891,
+    "bezirk": "Reinickendorf",
+    "colors": {
+      "primary": "#006B3F",
+      "primaryName": "Gruen",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss"
+    },
+    "stadium": {
+      "name": "Sportplatz Kienhorststrasse",
+      "address": "Kienhorststrasse 170",
+      "plz": "13403",
+      "city": "Berlin",
+      "capacity": 5000
+    },
+    "website": "https://www.fuechse-berlin-reinickendorf.de/",
+    "websiteFootball": "http://www.fuechse-fussball.de/",
+    "socialMedia": {
+      "instagram": "fuechseberlin"
+    }
+  },
+  {
+    "id": "berlin-tuerkspor",
+    "fullName": "Berlin Tuerkspor e. V.",
+    "shortName": "Berlin Tuerkspor",
+    "foundingYear": 1965,
+    "bezirk": "Charlottenburg-Wilmersdorf",
+    "colors": {
+      "primary": "#C8102E",
+      "primaryName": "Rot",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss"
+    },
+    "stadium": {
+      "name": "Sportplatz Heckerdamm",
+      "address": "Heckerdamm 204",
+      "plz": "13627",
+      "city": "Berlin",
+      "capacity": 1000
+    },
+    "website": null,
+    "websiteFootball": null,
+    "socialMedia": {
+      "instagram": "berlin_tuerkspor_1965"
+    }
+  },
+  {
+    "id": "fc-wilmersdorf",
+    "fullName": "1. FC Wilmersdorf 1911 e. V.",
+    "shortName": "1. FC Wilmersdorf",
+    "foundingYear": 1989,
+    "bezirk": "Charlottenburg-Wilmersdorf",
+    "colors": {
+      "primary": "#C8102E",
+      "primaryName": "Rot",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss"
+    },
+    "stadium": {
+      "name": "Sportanlage Blissestrasse",
+      "address": "Strasse am Schoelerpark 39",
+      "plz": "10715",
+      "city": "Berlin",
+      "capacity": 1000
+    },
+    "website": "https://fcwilmersdorf.de/",
+    "websiteFootball": null,
+    "socialMedia": {
+      "instagram": "1.fcwilmersdorf"
+    }
+  },
+  {
+    "id": "sc-charlottenburg",
+    "fullName": "Sport-Club Charlottenburg e. V.",
+    "shortName": "SC Charlottenburg",
+    "foundingYear": 1902,
+    "bezirk": "Charlottenburg-Wilmersdorf",
+    "colors": {
+      "primary": "#000000",
+      "primaryName": "Schwarz",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss"
+    },
+    "stadium": {
+      "name": "Mommsenstadion",
+      "address": "Waldschulallee 34",
+      "plz": "14055",
+      "city": "Berlin",
+      "capacity": 11500
+    },
+    "website": "https://www.scc-berlin.de/",
+    "websiteFootball": "https://www.scc-berlin-fussball.de/",
+    "socialMedia": {
+      "instagram": "sccharlottenburg.fussball"
+    }
+  },
+  {
+    "id": "sc-staaken",
+    "fullName": "Sport-Club Staaken 1919 e. V.",
+    "shortName": "SC Staaken",
+    "foundingYear": 1919,
+    "bezirk": "Spandau",
+    "colors": {
+      "primary": "#003DA5",
+      "primaryName": "Blau",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss"
+    },
+    "stadium": {
+      "name": "Sportpark Staaken",
+      "address": "Eichholzbahn 116",
+      "plz": "13591",
+      "city": "Berlin",
+      "capacity": 1500
+    },
+    "website": "https://sc-staaken.de/",
+    "websiteFootball": null,
+    "socialMedia": {
+      "instagram": "scstaaken1919"
+    }
+  },
+  {
+    "id": "sfc-stern-1900",
+    "fullName": "Steglitzer Fussball-Club Stern 1900 e. V.",
+    "shortName": "SFC Stern 1900",
+    "foundingYear": 1900,
+    "bezirk": "Steglitz-Zehlendorf",
+    "colors": {
+      "primary": "#FFD700",
+      "primaryName": "Gelb",
+      "secondary": "#003DA5",
+      "secondaryName": "Blau"
+    },
+    "stadium": {
+      "name": "Sportplatz Schildhornstrasse",
+      "address": "Kreuznacher Strasse 29-45",
+      "plz": "14197",
+      "city": "Berlin",
+      "capacity": 1000
+    },
+    "website": "https://stern1900.de/",
+    "websiteFootball": null,
+    "socialMedia": {
+      "instagram": "sfcstern.1900"
+    }
+  },
+  {
+    "id": "tsv-mariendorf",
+    "fullName": "Tempelhofer Sportverein Mariendorf 1897 Berlin e. V.",
+    "shortName": "TSV Mariendorf 1897",
+    "foundingYear": 1897,
+    "bezirk": "Tempelhof-Schoeneberg",
+    "colors": {
+      "primary": "#C8102E",
+      "primaryName": "Rot",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss"
+    },
+    "stadium": {
+      "name": "Volksparkstadion Mariendorf",
+      "address": "Pruehssstrasse 90",
+      "plz": "12109",
+      "city": "Berlin",
+      "capacity": 10000
+    },
+    "website": "https://www.tsvmariendorf97.de/",
+    "websiteFootball": null,
+    "socialMedia": {
+      "instagram": "tsvmariendorf1897"
+    }
+  },
+  {
+    "id": "bw90-berlin",
+    "fullName": "Sportliche Vereinigung Blau-Weiss 1890 Berlin e. V.",
+    "shortName": "Blau-Weiss 90 Berlin",
+    "foundingYear": 1992,
+    "bezirk": "Tempelhof-Schoeneberg",
+    "colors": {
+      "primary": "#003DA5",
+      "primaryName": "Blau",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss"
+    },
+    "stadium": {
+      "name": "Sportplatz an der Rathausstrasse",
+      "address": "Rathausstrasse 10a",
+      "plz": "12105",
+      "city": "Berlin",
+      "capacity": 3000
+    },
+    "website": "https://www.blauweiss90berlin.de/",
+    "websiteFootball": null,
+    "socialMedia": {
+      "instagram": "blauweissberlin.official"
+    }
+  },
+  {
+    "id": "spandauer-kickers",
+    "fullName": "FSV Spandauer Kickers 1975 e. V.",
+    "shortName": "Spandauer Kickers",
+    "foundingYear": 1975,
+    "bezirk": "Spandau",
+    "colors": {
+      "primary": "#FF6600",
+      "primaryName": "Orange",
+      "secondary": "#003DA5",
+      "secondaryName": "Blau"
+    },
+    "stadium": {
+      "name": "Sportanlage Staaken-West",
+      "address": "Brunsbuetteler Damm 441",
+      "plz": "13591",
+      "city": "Berlin",
+      "capacity": 2500
+    },
+    "website": "https://www.spaki-berlin.de/",
+    "websiteFootball": null,
+    "socialMedia": {
+      "instagram": "spandauerkickers"
+    }
+  },
+  {
+    "id": "berliner-sc",
+    "fullName": "Berliner Sport-Club e. V.",
+    "shortName": "Berliner SC",
+    "foundingYear": 1895,
+    "bezirk": "Charlottenburg-Wilmersdorf",
+    "colors": {
+      "primary": "#000000",
+      "primaryName": "Schwarz",
+      "secondary": "#FFD700",
+      "secondaryName": "Gelb"
+    },
+    "stadium": {
+      "name": "Hubertussportplatz",
+      "address": "Hubertusallee 50",
+      "plz": "14193",
+      "city": "Berlin",
+      "capacity": 2500
+    },
+    "website": "https://www.berlinersportclub.de/",
+    "websiteFootball": "https://www.berlinersc-fussball.de/",
+    "socialMedia": {
+      "instagram": "berlinersc_fussball"
+    }
+  },
+  {
+    "id": "frohnauer-sc",
+    "fullName": "Frohnauer Sport Club 1946 e. V.",
+    "shortName": "Frohnauer SC",
+    "foundingYear": 1946,
+    "bezirk": "Reinickendorf",
+    "colors": {
+      "primary": "#000000",
+      "primaryName": "Schwarz",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss"
+    },
+    "stadium": {
+      "name": "Poloplatz",
+      "address": "Schoenfliesser Strasse 12A",
+      "plz": "13465",
+      "city": "Berlin",
+      "capacity": 1500
+    },
+    "website": "https://frohnauersc.de/",
+    "websiteFootball": null,
+    "socialMedia": {
+      "instagram": "frohnauersc"
+    }
+  },
+  {
+    "id": "bw-hohen-neuendorf",
+    "fullName": "Sportverein Blau-Weiss Hohen Neuendorf e. V.",
+    "shortName": "BW Hohen Neuendorf",
+    "foundingYear": 1921,
+    "bezirk": null,
+    "bezirkNote": "Hohen Neuendorf, Landkreis Oberhavel, Brandenburg (spielt in der Berlin-Liga)",
+    "colors": {
+      "primary": "#003DA5",
+      "primaryName": "Blau",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss"
+    },
+    "stadium": {
+      "name": "Sportanlage Niederheide",
+      "address": "Friedrich-Engels-Strasse 21a",
+      "plz": "16540",
+      "city": "Hohen Neuendorf",
+      "capacity": 1000
+    },
+    "website": "https://bwhnd.de/",
+    "websiteFootball": null,
+    "socialMedia": {
+      "instagram": "bwhnd_club"
+    }
+  },
+  {
+    "id": "tsv-rudow",
+    "fullName": "Turn- und Sportverein Rudow 1888 e. V.",
+    "shortName": "TSV Rudow 1888",
+    "foundingYear": 1888,
+    "bezirk": "Neukoelln",
+    "colors": {
+      "primary": "#006B3F",
+      "primaryName": "Gruen",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss",
+      "tertiary": "#C8102E",
+      "tertiaryName": "Rot"
+    },
+    "stadium": {
+      "name": "Sportplatz Stubenrauchstrasse",
+      "address": "Neukoellner Strasse 277",
+      "plz": "12357",
+      "city": "Berlin",
+      "capacity": 500
+    },
+    "website": "https://www.tsv-rudow.de/",
+    "websiteFootball": "https://tsvrudow.berlin/",
+    "socialMedia": {
+      "instagram": "tsvrudow1888"
+    }
+  },
+  {
+    "id": "sv-empor-berlin",
+    "fullName": "Sportverein Empor Berlin e. V.",
+    "shortName": "SV Empor Berlin",
+    "foundingYear": 1949,
+    "bezirk": "Pankow",
+    "colors": {
+      "primary": "#003DA5",
+      "primaryName": "Blau",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss"
+    },
+    "stadium": {
+      "name": "Kleines Stadion im Friedrich-Ludwig-Jahn-Sportpark",
+      "address": "Cantianstrasse 24",
+      "plz": "10437",
+      "city": "Berlin",
+      "capacity": 2000
+    },
+    "website": "https://www.sv-empor-berlin.de/",
+    "websiteFootball": "https://www.empor-berlin.de/",
+    "socialMedia": {
+      "instagram": "sv_empor_berlin"
+    }
+  },
+  {
+    "id": "fortuna-biesdorf",
+    "fullName": "VfB Fortuna Biesdorf 1905 e. V.",
+    "shortName": "Fortuna Biesdorf",
+    "foundingYear": 1905,
+    "bezirk": "Marzahn-Hellersdorf",
+    "colors": {
+      "primary": "#006B3F",
+      "primaryName": "Gruen",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss"
+    },
+    "stadium": {
+      "name": "Sportplatz Am Grabensprung (Grabensprungarena)",
+      "address": "Grabensprung 56",
+      "plz": "12683",
+      "city": "Berlin",
+      "capacity": 1000
+    },
+    "website": "https://www.fortuna-biesdorf.de/",
+    "websiteFootball": null,
+    "socialMedia": {
+      "instagram": "fortunabiesdorf"
+    }
+  },
+  {
+    "id": "polar-pinguin",
+    "fullName": "Polar Pinguin Berlin e. V.",
+    "shortName": "Polar Pinguin",
+    "foundingYear": 1990,
+    "bezirk": "Tempelhof-Schoeneberg",
+    "colors": {
+      "primary": "#000000",
+      "primaryName": "Schwarz",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss"
+    },
+    "stadium": {
+      "name": "Sportanlage Markgrafenstrasse (PolArena)",
+      "address": "Markgrafenstrasse 19-24",
+      "plz": "12105",
+      "city": "Berlin",
+      "capacity": 500
+    },
+    "website": "https://www.polar-pinguin.berlin/",
+    "websiteFootball": null,
+    "socialMedia": {
+      "instagram": "polar_pinguin"
+    }
+  },
+  {
+    "id": "ssc-suedwest",
+    "fullName": "Steglitzer Sport Club Suedwest 1947 e. V.",
+    "shortName": "SSC Suedwest",
+    "foundingYear": 1947,
+    "bezirk": "Steglitz-Zehlendorf",
+    "colors": {
+      "primary": "#C8102E",
+      "primaryName": "Rot",
+      "secondary": "#FFFFFF",
+      "secondaryName": "Weiss"
+    },
+    "stadium": {
+      "name": "Sochos-Sportanlage",
+      "address": "Lessingstrasse 5-8",
+      "plz": "12169",
+      "city": "Berlin",
+      "capacity": 1000
+    },
+    "website": "https://cms.ssc-suedwest.de/",
+    "websiteFootball": "https://sscsuedwest.de/",
+    "socialMedia": {
+      "instagram": "official.ssc_suedwest"
+    }
+  }
+]
