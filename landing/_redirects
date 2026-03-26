@@ -1,0 +1,2 @@
+/admin/* https://fuwo-app.pages.dev/admin/:splat 302
+/admin https://fuwo-app.pages.dev/admin 302

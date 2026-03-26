@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="light">
+<script>if(localStorage.getItem('fuwo-theme')==='dark')document.documentElement.classList.remove('light')</script>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,11 +20,11 @@
       --orange-hover: #e5391a;
       --mint: #D0FDDA;
       --bg: #0A0A0A;
-      --bg-card: #151515;
-      --bg-card-hover: #1a1a1a;
+      --bg-card: #1C1C1C;
+      --bg-card-hover: #252525;
       --text: #F5F5F5;
-      --text-muted: #888;
-      --border: #222;
+      --text-muted: #A0A0A0;
+      --border: #383838;
       --glow-color: rgba(4, 65, 16, 0.4);
       --glow-strong: rgba(4, 65, 16, 0.6);
       --logo-fill: #ffffff;
@@ -405,7 +406,7 @@
 
     .feature-card:hover {
       background: var(--bg-card-hover);
-      border-color: #333;
+      border-color: #4a4a4a;
     }
 
     .feature-card.selected {
@@ -500,7 +501,7 @@
     }
 
     .custom-textarea::placeholder {
-      color: #555;
+      color: #777;
     }
 
     .custom-charcount {
@@ -720,12 +721,8 @@
     // Theme Toggle
     (function() {
       const toggle = document.getElementById('themeToggle');
-      const stored = localStorage.getItem('fuwo-theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const isDark = stored ? stored === 'dark' : prefersDark;
-
-      if (!isDark) document.documentElement.classList.add('light');
-      toggle.innerHTML = isDark ? '&#9790;' : '&#9728;';
+      const isLight = document.documentElement.classList.contains('light');
+      toggle.innerHTML = isLight ? '&#9728;' : '&#9790;';
 
       toggle.addEventListener('click', () => {
         const isLight = document.documentElement.classList.toggle('light');
