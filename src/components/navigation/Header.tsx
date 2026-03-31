@@ -146,7 +146,7 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center mr-6">
               <Image
-                src="/icons/fuwo_white.svg"
+                src="/icons/fuwo_neongreen.svg"
                 alt="FuWo"
                 width={70}
                 height={24}
@@ -272,7 +272,7 @@ export default function Header() {
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMenuOpen(false)} />
           <div className={`absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-forest-green shadow-2xl transform transition-transform duration-300 ease-out ${menuOpen ? "translate-x-0" : "translate-x-full"}`}>
             <div className="flex items-center justify-between p-4 border-b border-white/10">
-              <Image src="/icons/fuwo_white.svg" alt="FuWo" width={70} height={24} className="h-6 w-auto" />
+              <Image src="/icons/fuwo_neongreen.svg" alt="FuWo" width={70} height={24} className="h-6 w-auto" />
               <button onClick={() => setMenuOpen(false)} className="p-2 hover:bg-white/10 rounded-full transition-colors" aria-label="Menu schließen">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

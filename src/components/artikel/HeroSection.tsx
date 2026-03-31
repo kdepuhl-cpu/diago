@@ -8,6 +8,17 @@ import NewBadge from "@/components/ui/NewBadge";
 import FavoritesBadge from "@/components/user/FavoritesBadge";
 import { KATEGORIE_LABELS } from "@/lib/types";
 import { calculateReadingTime } from "@/lib/utils";
+import LeagueSnapshot from "@/components/liga/LeagueSnapshot";
+
+// Map section titles to league IDs for snapshot
+const LEAGUE_ID_MAP: Record<string, string> = {
+  "Regionalliga Nordost": "regionalliga-nordost",
+  "Oberliga NOFV Nord": "oberliga-nofv-nord",
+  "Berlin-Liga": "berlin-liga",
+  "Bundesliga": "bundesliga-1",
+  "2. Bundesliga": "bundesliga-2",
+  "3. Liga": "liga-3",
+};
 
 interface HeroSectionProps {
   hero: Artikel;
@@ -42,7 +53,7 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
     <section className={`${!isLast ? "border-b border-gray-200 dark:border-gray-700 pb-10 mb-10" : "pb-8"}`}>
       {/* Section Title */}
       {sectionTitle && (
-        <h2 className="font-headline text-2xl text-off-black dark:text-white mb-6 sticky top-12 bg-off-white dark:bg-gray-900 py-3 -mx-4 px-4 z-10">
+        <h2 className="font-mono text-2xl font-semibold text-off-black dark:text-white mb-[10px] sticky top-12 bg-off-white dark:bg-gray-900 py-2 -mx-4 px-4 z-10">
           {sectionTitle}
         </h2>
       )}
@@ -52,7 +63,7 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
         <article className="group">
           <Link href={`/artikel/${hero.slug}`} className="block">
             {/* Image - 16:9 */}
-            <div className="aspect-[16/9] relative overflow-hidden rounded-lg mb-4 bg-gray-200 dark:bg-gray-800 group-hover:shadow-xl transition-shadow duration-300">
+            <div className="aspect-[16/9] relative overflow-hidden mb-[10px] bg-gray-200 dark:bg-gray-800 group-hover:shadow-xl transition-shadow duration-300">
               {hero.bild && (
                 <Image
                   src={hero.bild.url}
@@ -64,8 +75,8 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
             </div>
 
             {/* Badges */}
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-xs font-semibold uppercase tracking-wider text-orange">
+            <div className="flex items-center gap-2 mb-[10px]">
+              <span className="font-mono text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
                 {KATEGORIE_LABELS[hero.kategorie]}
               </span>
               <NewBadge date={hero.datum} />
@@ -73,7 +84,7 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
             </div>
 
             {/* Headline */}
-            <h3 className={`font-headline text-2xl lg:text-3xl leading-tight group-hover:text-forest-green dark:group-hover:text-green-400 transition-colors ${
+            <h3 className={`font-headline text-3xl lg:text-4xl font-bold leading-tight group-hover:text-forest-green dark:group-hover:text-green-400 transition-colors ${
               heroIsRead ? "text-gray-500 dark:text-gray-400" : "text-off-black dark:text-white"
             }`}>
               <span>{hero.titel}</span>
@@ -81,13 +92,13 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
             </h3>
 
             {/* Teaser */}
-            <p className="text-gray-600 dark:text-gray-400 mt-2 line-clamp-2 text-[15px] leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-400 mt-[10px] line-clamp-2 text-[15px] leading-relaxed">
               {hero.teaser}
             </p>
 
             {/* Meta */}
-            <div className="flex items-center gap-3 mt-3 text-sm text-gray-500 dark:text-gray-400">
-              {hero.autor && <span className="font-medium">{hero.autor.name}</span>}
+            <div className="flex items-center gap-3 mt-[10px] font-mono text-xs text-gray-400 dark:text-gray-500">
+              {hero.autor && <span className="text-gray-600 dark:text-gray-300">{hero.autor.name}</span>}
               <span>{hero.lesedauer ?? calculateReadingTime(hero.inhalt ?? hero.teaser)} Min.</span>
               <CommentIcon />
             </div>
@@ -95,18 +106,18 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
         </article>
 
         {/* Sidebar Articles */}
-        <div className="lg:border-l lg:border-gray-200 dark:lg:border-gray-700 lg:pl-6 flex flex-col gap-4">
-          {sidebar.map((artikel, index) => {
+        <div className="lg:border-l lg:border-gray-200 dark:lg:border-gray-700 lg:pl-6 flex flex-col gap-[10px]">
+          {sidebar.map((artikel) => {
             const artikelIsRead = isRead(artikel.slug);
 
             return (
               <article
                 key={artikel.slug}
-                className={`${index !== sidebar.length - 1 ? "border-b border-gray-100 dark:border-gray-800 pb-4" : ""}`}
+                className="bg-gray-100 dark:bg-gray-800 rounded-sm"
               >
-                <Link href={`/artikel/${artikel.slug}`} className="group flex gap-4">
+                <Link href={`/artikel/${artikel.slug}`} className="group flex gap-4 p-3">
                   {/* Thumbnail */}
-                  <div className="w-[120px] sm:w-[140px] aspect-[3/2] relative flex-shrink-0 overflow-hidden rounded-md bg-gray-200 dark:bg-gray-800 group-hover:shadow-md transition-shadow duration-300">
+                  <div className="w-[120px] sm:w-[140px] aspect-[3/2] relative flex-shrink-0 overflow-hidden bg-gray-200 dark:bg-gray-700 group-hover:shadow-md transition-shadow duration-300">
                     {artikel.bild && (
                       <Image
                         src={artikel.bild.url}
@@ -117,25 +128,26 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
                     )}
                   </div>
 
-                  {/* Content */}
-                  <div className="flex-1 min-w-0 flex flex-col justify-center">
-                    {/* Badges */}
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <NewBadge date={artikel.datum} />
-                      <FavoritesBadge ligaId={artikel.ligaId} />
+                  {/* Content — Autor oben, Headline unten (am Thumbnail-Bottom ausgerichtet) */}
+                  <div className="flex-1 min-w-0 flex flex-col justify-between">
+                    <div>
+                      {/* Badges */}
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <NewBadge date={artikel.datum} />
+                        <FavoritesBadge ligaId={artikel.ligaId} />
+                      </div>
+                      {/* Meta / Autor */}
+                      <div className="font-mono text-[11px] text-gray-400 dark:text-gray-500">
+                        {artikel.autor && <span className="text-gray-500 dark:text-gray-400">{artikel.autor.name}</span>}
+                      </div>
                     </div>
-                    {/* Headline */}
-                    <h4 className={`text-[15px] font-semibold leading-snug group-hover:text-forest-green dark:group-hover:text-green-400 transition-colors ${
+                    {/* Headline — Söhne Schmal Dreiviertelfett */}
+                    <h4 className={`font-sans text-[15px] leading-snug font-bold group-hover:text-forest-green dark:group-hover:text-green-400 transition-colors ${
                       artikelIsRead ? "text-gray-500 dark:text-gray-400" : "text-off-black dark:text-white"
                     }`}>
                       <span className="line-clamp-3">{artikel.titel}</span>
                       {artikelIsRead && <ReadBadge className="w-4 h-4 inline-block ml-1 align-middle" />}
                     </h4>
-
-                    {/* Meta */}
-                    <div className="flex items-center gap-2 mt-1.5 text-xs text-gray-500 dark:text-gray-400">
-                      {artikel.autor && <span>{artikel.autor.name}</span>}
-                    </div>
                   </div>
                 </Link>
               </article>
@@ -143,6 +155,14 @@ export default function HeroSection({ hero, sidebar, sectionTitle, isLast = fals
           })}
         </div>
       </div>
+
+      {/* Tabelle + Ergebnisse Snapshot */}
+      {sectionTitle && LEAGUE_ID_MAP[sectionTitle] && (
+        <LeagueSnapshot
+          leagueId={LEAGUE_ID_MAP[sectionTitle]}
+          leagueSlug={LEAGUE_ID_MAP[sectionTitle]}
+        />
+      )}
     </section>
   );
 }
