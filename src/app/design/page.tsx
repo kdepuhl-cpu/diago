@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 
-// Proxy fonts loaded via Google Fonts in the style block below:
-// Söhne → Inter
-// Söhne Mono → JetBrains Mono
-// Söhne Schmal → Barlow Condensed (Bold Italic for headlines)
+// Söhne font family (Klim Type Foundry)
+// Söhne → Body/UI
+// Söhne Mono → Data/Code
+// Söhne Schmal → Headlines
 
 const COLORS = {
   neonGreen: "#28D200",
@@ -65,10 +65,10 @@ function ColorSwatch({ color, name, hex }: { color: string; name: string; hex: s
         className="w-20 h-20 rounded-xl shadow-md border border-black/10"
         style={{ backgroundColor: color }}
       />
-      <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.7rem", color: COLORS.gray500 }}>
+      <span style={{ fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace", fontSize: "0.7rem", color: COLORS.gray500 }}>
         {hex}
       </span>
-      <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.8rem", fontWeight: 600 }}>
+      <span style={{ fontFamily: "'Soehne', 'Inter', sans-serif", fontSize: "0.8rem", fontWeight: 600 }}>
         {name}
       </span>
     </div>
@@ -80,7 +80,7 @@ function LigaTag({ label, variant = "light" }: { label: string; variant?: "light
   return (
     <span
       style={{
-        fontFamily: "'JetBrains Mono', monospace",
+        fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
         fontSize: "0.7rem",
         fontWeight: 600,
         letterSpacing: "0.02em",
@@ -98,7 +98,7 @@ function LigaTag({ label, variant = "light" }: { label: string; variant?: "light
 function ArticleCard({ article, variant = "light" }: { article: typeof MOCK_ARTICLES[0]; variant?: "light" | "dark" }) {
   const isLight = variant === "light";
   return (
-    <div style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ fontFamily: "'Soehne', 'Inter', sans-serif" }}>
       <div className="relative overflow-hidden rounded-sm mb-3" style={{ aspectRatio: "3/2" }}>
         <img
           src={article.image}
@@ -111,7 +111,7 @@ function ArticleCard({ article, variant = "light" }: { article: typeof MOCK_ARTI
       </div>
       <h3
         style={{
-          fontFamily: "'Barlow Condensed', sans-serif",
+          fontFamily: "'Soehne Schmal', 'Barlow Condensed', sans-serif",
           fontWeight: 700,
           fontStyle: "italic",
           fontSize: "1.4rem",
@@ -127,7 +127,7 @@ function ArticleCard({ article, variant = "light" }: { article: typeof MOCK_ARTI
       </p>
       <span
         style={{
-          fontFamily: "'JetBrains Mono', monospace",
+          fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
           fontSize: "0.7rem",
           color: isLight ? COLORS.gray500 : "rgba(255,255,255,0.4)",
         }}
@@ -163,7 +163,7 @@ function SonderausgabeCard({ article }: { article: typeof MOCK_ARTICLES[0] }) {
       <div className="absolute bottom-0 left-0 right-0 p-4">
         <span
           style={{
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
             fontSize: "0.65rem",
             color: COLORS.gray300,
             letterSpacing: "0.02em",
@@ -173,7 +173,7 @@ function SonderausgabeCard({ article }: { article: typeof MOCK_ARTICLES[0] }) {
         </span>
         <h3
           style={{
-            fontFamily: "'Barlow Condensed', sans-serif",
+            fontFamily: "'Soehne Schmal', 'Barlow Condensed', sans-serif",
             fontWeight: 700,
             fontStyle: "italic",
             fontSize: "1.6rem",
@@ -205,7 +205,7 @@ export default function DesignPreview() {
         rel="stylesheet"
       />
 
-      <div style={{ fontFamily: "'Inter', sans-serif", background: COLORS.offWhite, minHeight: "100vh" }}>
+      <div style={{ fontFamily: "'Soehne', 'Inter', sans-serif", background: COLORS.offWhite, minHeight: "100vh" }}>
         {/* Navigation bar */}
         <Link
           href="/"
@@ -214,7 +214,7 @@ export default function DesignPreview() {
             top: "1rem",
             right: "1rem",
             zIndex: 100,
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
             fontSize: "0.75rem",
             background: COLORS.gray900,
             color: COLORS.gray300,
@@ -261,7 +261,7 @@ export default function DesignPreview() {
             <span
               key={item}
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Soehne', 'Inter', sans-serif",
                 fontSize: "0.8rem",
                 fontWeight: 500,
                 color: "rgba(255,255,255,0.7)",
@@ -287,7 +287,7 @@ export default function DesignPreview() {
           <div style={{ marginBottom: "1rem" }}>
             <span
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
                 fontSize: "0.7rem",
                 fontWeight: 600,
                 textTransform: "uppercase",
@@ -300,7 +300,7 @@ export default function DesignPreview() {
           </div>
           <h1
             style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
+              fontFamily: "'Soehne Schmal', 'Barlow Condensed', sans-serif",
               fontWeight: 800,
               fontStyle: "italic",
               fontSize: "clamp(2.5rem, 6vw, 4rem)",
@@ -336,7 +336,7 @@ export default function DesignPreview() {
         <section style={{ maxWidth: 960, margin: "0 auto", padding: "2rem 1.5rem" }}>
           <h2
             style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
+              fontFamily: "'Soehne Schmal', 'Barlow Condensed', sans-serif",
               fontWeight: 700,
               fontStyle: "italic",
               fontSize: "1.8rem",
@@ -349,7 +349,7 @@ export default function DesignPreview() {
 
           <p
             style={{
-              fontFamily: "'JetBrains Mono', monospace",
+              fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
               fontSize: "0.7rem",
               fontWeight: 600,
               textTransform: "uppercase",
@@ -370,7 +370,7 @@ export default function DesignPreview() {
 
           <p
             style={{
-              fontFamily: "'JetBrains Mono', monospace",
+              fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
               fontSize: "0.7rem",
               fontWeight: 600,
               textTransform: "uppercase",
@@ -390,7 +390,7 @@ export default function DesignPreview() {
 
           <p
             style={{
-              fontFamily: "'JetBrains Mono', monospace",
+              fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
               fontSize: "0.7rem",
               fontWeight: 600,
               textTransform: "uppercase",
@@ -415,7 +415,7 @@ export default function DesignPreview() {
         <section style={{ maxWidth: 960, margin: "0 auto", padding: "2rem 1.5rem" }}>
           <h2
             style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
+              fontFamily: "'Soehne Schmal', 'Barlow Condensed', sans-serif",
               fontWeight: 700,
               fontStyle: "italic",
               fontSize: "1.8rem",
@@ -429,7 +429,7 @@ export default function DesignPreview() {
           <div className="mb-8">
             <p
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
                 fontSize: "0.7rem",
                 fontWeight: 600,
                 textTransform: "uppercase",
@@ -442,7 +442,7 @@ export default function DesignPreview() {
             </p>
             <p
               style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
+                fontFamily: "'Soehne Schmal', 'Barlow Condensed', sans-serif",
                 fontWeight: 800,
                 fontStyle: "italic",
                 fontSize: "3.5rem",
@@ -457,7 +457,7 @@ export default function DesignPreview() {
           <div className="mb-8">
             <p
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
                 fontSize: "0.7rem",
                 fontWeight: 600,
                 textTransform: "uppercase",
@@ -468,7 +468,7 @@ export default function DesignPreview() {
             >
               Söhne → Inter (Proxy)
             </p>
-            <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "1rem", lineHeight: 1.7, color: COLORS.gray700, maxWidth: 600 }}>
+            <p style={{ fontFamily: "'Soehne', 'Inter', sans-serif", fontSize: "1rem", lineHeight: 1.7, color: COLORS.gray700, maxWidth: 600 }}>
               Seit über 103 Jahren begleitet die Fussball-Woche den Berliner Amateurfußball.
               Kaum ein anderes Medium ist so eng mit der lokalen Fußballkultur verbunden.
               Generationen von Spielerinnen, Spielern, Trainern und Fans sind mit ihr aufgewachsen.
@@ -478,7 +478,7 @@ export default function DesignPreview() {
           <div className="mb-4">
             <p
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
                 fontSize: "0.7rem",
                 fontWeight: 600,
                 textTransform: "uppercase",
@@ -489,7 +489,7 @@ export default function DesignPreview() {
             >
               Söhne Mono → JetBrains Mono (Proxy)
             </p>
-            <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.85rem", color: COLORS.gray700 }}>
+            <p style={{ fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace", fontSize: "0.85rem", color: COLORS.gray700 }}>
               Montag, 13. Oktober 26 — 103. Jahrgang — Nr. 1 — 2,50 EUR
             </p>
           </div>
@@ -504,7 +504,7 @@ export default function DesignPreview() {
               <div style={{ width: 12, height: 12, borderRadius: "50%", background: COLORS.darkGreen }} />
               <h2
                 style={{
-                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontFamily: "'Soehne Schmal', 'Barlow Condensed', sans-serif",
                   fontWeight: 700,
                   fontStyle: "italic",
                   fontSize: "2rem",
@@ -513,7 +513,7 @@ export default function DesignPreview() {
               >
                 Light Mode
               </h2>
-              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.7rem", color: COLORS.gray500 }}>
+              <span style={{ fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace", fontSize: "0.7rem", color: COLORS.gray500 }}>
                 Primary: Dark Green #144B23 · Kein Neon
               </span>
             </div>
@@ -563,7 +563,7 @@ export default function DesignPreview() {
                 <div className="flex flex-wrap gap-3 items-center mb-6">
                   <button
                     style={{
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "'Soehne', 'Inter', sans-serif",
                       fontWeight: 700,
                       fontSize: "0.85rem",
                       background: COLORS.darkGreen,
@@ -578,7 +578,7 @@ export default function DesignPreview() {
                   </button>
                   <button
                     style={{
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "'Soehne', 'Inter', sans-serif",
                       fontWeight: 600,
                       fontSize: "0.85rem",
                       background: "transparent",
@@ -593,7 +593,7 @@ export default function DesignPreview() {
                   </button>
                   <button
                     style={{
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "'Soehne', 'Inter', sans-serif",
                       fontWeight: 600,
                       fontSize: "0.85rem",
                       background: COLORS.black,
@@ -635,7 +635,7 @@ export default function DesignPreview() {
               <div style={{ width: 12, height: 12, borderRadius: "50%", background: COLORS.neonGreen, boxShadow: `0 0 8px ${COLORS.neonGreen}` }} />
               <h2
                 style={{
-                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontFamily: "'Soehne Schmal', 'Barlow Condensed', sans-serif",
                   fontWeight: 700,
                   fontStyle: "italic",
                   fontSize: "2rem",
@@ -644,7 +644,7 @@ export default function DesignPreview() {
               >
                 Dark Mode
               </h2>
-              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.7rem", color: "rgba(255,255,255,0.4)" }}>
+              <span style={{ fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace", fontSize: "0.7rem", color: "rgba(255,255,255,0.4)" }}>
                 Accent: Neon Green #28D200
               </span>
             </div>
@@ -693,7 +693,7 @@ export default function DesignPreview() {
                 <div className="flex flex-wrap gap-3 items-center mb-6">
                   <button
                     style={{
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "'Soehne', 'Inter', sans-serif",
                       fontWeight: 700,
                       fontSize: "0.85rem",
                       background: COLORS.neonGreen,
@@ -708,7 +708,7 @@ export default function DesignPreview() {
                   </button>
                   <button
                     style={{
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "'Soehne', 'Inter', sans-serif",
                       fontWeight: 600,
                       fontSize: "0.85rem",
                       background: "transparent",
@@ -723,7 +723,7 @@ export default function DesignPreview() {
                   </button>
                   <button
                     style={{
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "'Soehne', 'Inter', sans-serif",
                       fontWeight: 600,
                       fontSize: "0.85rem",
                       background: "rgba(255,255,255,0.1)",
@@ -751,7 +751,7 @@ export default function DesignPreview() {
             <div style={{ marginBottom: "2rem" }}>
               <p
                 style={{
-                  fontFamily: "'JetBrains Mono', monospace",
+                  fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
                   fontSize: "0.7rem",
                   fontWeight: 600,
                   textTransform: "uppercase",
@@ -764,7 +764,7 @@ export default function DesignPreview() {
               </p>
               <p
                 style={{
-                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontFamily: "'Soehne Schmal', 'Barlow Condensed', sans-serif",
                   fontWeight: 800,
                   fontStyle: "italic",
                   fontSize: "3rem",
@@ -775,7 +775,7 @@ export default function DesignPreview() {
               >
                 Aufstieg! Empor Berlin<br />schreibt Geschichte
               </p>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: "1rem", lineHeight: 1.7, color: "rgba(255,255,255,0.6)", maxWidth: 560 }}>
+              <p style={{ fontFamily: "'Soehne', 'Inter', sans-serif", fontSize: "1rem", lineHeight: 1.7, color: "rgba(255,255,255,0.6)", maxWidth: 560 }}>
                 Mit einem emotionalen 2:1-Sieg gegen den Tabellenführer sichert sich Empor Berlin
                 den langersehnten Aufstieg in die Berlin-Liga. Die Fans stürmen den Platz.
               </p>
@@ -808,7 +808,7 @@ export default function DesignPreview() {
             />
             <p
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
                 fontSize: "0.7rem",
                 color: "rgba(255,255,255,0.3)",
                 marginTop: "2rem",
@@ -818,7 +818,7 @@ export default function DesignPreview() {
             </p>
             <p
               style={{
-                fontFamily: "'JetBrains Mono', monospace",
+                fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
                 fontSize: "0.6rem",
                 color: "rgba(255,255,255,0.15)",
                 marginTop: "1rem",
@@ -833,7 +833,7 @@ export default function DesignPreview() {
         <footer style={{ textAlign: "center", padding: "2rem 1.5rem", background: COLORS.offWhite }}>
           <p
             style={{
-              fontFamily: "'JetBrains Mono', monospace",
+              fontFamily: "'Soehne Mono', 'JetBrains Mono', monospace",
               fontSize: "0.75rem",
               color: COLORS.gray500,
             }}

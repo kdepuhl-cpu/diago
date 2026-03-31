@@ -36,7 +36,7 @@ export default function PasswordGate({ children }: { children: React.ReactNode }
       alignItems: "center",
       justifyContent: "center",
       background: "#111111",
-      fontFamily: "'Manrope', -apple-system, sans-serif",
+      fontFamily: "'Soehne', -apple-system, sans-serif",
     }}>
       <form onSubmit={handleSubmit} style={{
         display: "flex",

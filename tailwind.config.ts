@@ -25,12 +25,9 @@ const config: Config = {
         "union-iron": "#1D1D1B",
       },
       fontFamily: {
-        // Sohne Schmal → fallback: Inter Tight (condensed, similar feel)
-        headline: ['"Inter Tight"', "system-ui", "sans-serif"],
-        // Sohne → fallback: Inter
-        sans: ["Inter", "system-ui", "sans-serif"],
-        // Sohne Mono → fallback: JetBrains Mono
-        mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
+        headline: ['"Soehne Schmal"', '"Inter Tight"', "system-ui", "sans-serif"],
+        sans: ['"Soehne"', "Inter", "system-ui", "sans-serif"],
+        mono: ['"Soehne Mono"', '"JetBrains Mono"', "ui-monospace", "monospace"],
       },
     },
   },

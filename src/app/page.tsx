@@ -106,17 +106,18 @@ export default function Home() {
       </div>
 
       <CrowdfundingBanner />
-      <LiveTicker />
+      {/* LiveTicker: Topspiele + Tippspiel — reaktivieren wenn echte Daten da */}
+      {/* <LiveTicker /> */}
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-16">
-        {/* 1. Aufmacher — Thema / Spieler der Woche */}
-        <SpielerDerWoche />
-
         {/* Personalisierte Sektion (eingeloggte User mit Favoritenverein) */}
         <FavoritesSection artikel={artikel} />
 
         {/* === Liga-Sektionen (personalisierte Reihenfolge) === */}
         {chunk1.map(renderSection)}
+
+        {/* Aufmacher — Thema / Spieler der Woche */}
+        <SpielerDerWoche />
 
         {/* Partner Slider */}
         <div className="my-8">
